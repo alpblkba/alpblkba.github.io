@@ -1,0 +1,27 @@
+---
+import "../styles/global.css";
+
+const {
+  title = "alpblkba",
+  description = "Systems, embedded, computer architecture, and hardware-aware software.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <span>somewhere between the debugger and the datasheet</span>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Projects | Alp Bölükbaşı">
+  <h1>projects</h1>
+
+  <p>
+    A small collection of hardware-aware systems work: FPGA prototypes, computer architecture
+    experiments, embedded labs, and low-level software utilities.
+  </p>
+
+  <section>
+    <h2>hardware / fpga / architecture</h2>
+
+    <div class="card-grid">
+      <article class="card">
+        <h3>rv32i-mla</h3>
+        <p>
+          RV32I CPU and accelerator experiments on PYNQ, written in Verilog.
+          Focused on simple processor design, memory-mapped interfaces, and
+          hardware/software integration.
+        </p>
+        <a href="https://github.com/alpblkba/rv32i-mla">repository</a>
+      </article>
+
+      <article class="card">
+        <h3>hardware-security</h3>
+        <p>
+          FPGA-based hardware security tasks, PUF experiments, and low-level
+          security concepts, mostly written in Verilog.
+        </p>
+        <a href="https://github.com/alpblkba/hardware-security">repository</a>
+      </article>
+
+      <article class="card">
+        <h3>fpga-programming</h3>
+        <p>
+          FPGA programming experiments and digital design practice, focused on
+          Verilog, synthesis flow, board bring-up, and hardware debugging.
+        </p>
+        <a href="https://github.com/alpblkba/fpga-programming">repository</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>software / systems utilities</h2>
+
+    <div class="card-grid">
+      <article class="card">
+        <h3>iot-lab</h3>
+        <p>
+          Embedded systems lab work with STM32, C/C++, UART/GPIO bring-up,
+          device-level debugging, and practical board interaction.
+        </p>
+        <a href="https://github.com/alpblkba/iot-lab">repository</a>
+      </article>
+
+      <article class="card">
+        <h3>promon</h3>
+        <p>
+          Tiny low-level process monitor targeting Windows, Linux, and macOS,
+          written in C/C++ with a focus on system-level process inspection.
+        </p>
+        <a href="https://github.com/alpblkba/promon">repository</a>
+      </article>
+
+      <article class="card">
+        <h3>alppad</h3>
+        <p>
+          A simple, minimalistic text editor application built with C++17 and
+          the Qt framework.
+        </p>
+        <a href="https://github.com/alpblkba/alppad">repository</a>
+      </article>
+    </div>
+  </section>
+
+  <p>
+    <a href="/">← home</a>
+  </p>
+</BaseLayout>
