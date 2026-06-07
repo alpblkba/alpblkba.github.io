@@ -1,0 +1,470 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const assetBase = "/assets/notes/sram-weak-puf-readout";
+---
+
+<BaseLayout title="SRAM Weak PUF Readout on iCE40">
+  <main class="note-page">
+    <a class="back-link" href="/notes">← notes</a>
+
+    <article>
+      <header class="note-header">
+        <p class="note-date">2026-06-07</p>
+        <h1>SRAM Weak PUF Readout on iCE40</h1>
+      </header>
+
+      <p>
+        I signed up for a hardware security course expecting to think mostly
+        about security. The first task was an SRAM PUF readout on a Lattice
+        iCE40 board. The funny part is that the security idea was not where I
+        spent most of the time. Most of the time went into the less glamorous
+        part: making sure bytes actually left the FPGA and arrived on the PC
+        without the measurement pipeline lying to me.
+      </p>
+
+      <figure>
+        <img src={assetBase + "/lattice_iCE40HX8K.jpg"} alt="Lattice iCE40HX8K board used for the weak SRAM PUF task" />
+        <figcaption>the Lattice iCE40HX8K board used for the weak SRAM PUF readout.</figcaption>
+      </figure>
+
+      <p>
+        Physical unclonable functions, or PUFs, are a hardware security primitive
+        based on a simple idea: instead of storing a secret value in non-volatile
+        memory, derive a device-specific response from tiny manufacturing variations
+        that already exist inside the chip.
+      </p>
+
+      <p>
+        Two chips can be manufactured from the same design and still behave slightly
+        differently at the physical level. A PUF tries to turn that small physical
+        variation into a reproducible digital fingerprint.
+      </p>
+
+      <h2>what is a weak PUF?</h2>
+
+      <p>
+        A weak PUF usually exposes only one, or a very small number of,
+        challenge-response pairs. In practice, this makes it useful as a device
+        fingerprint: power up the device, read the response, and use that response to
+        identify or characterize the physical instance.
+      </p>
+
+      <p>
+        This is different from a strong PUF, where the goal is to support a large
+        challenge-response space. In this task, the objective was not to build an
+        authentication protocol. The objective was more basic: can we reliably read a
+        hardware-derived startup pattern and analyse whether it behaves like a useful
+        fingerprint?
+      </p>
+
+      <h2>why SRAM?</h2>
+
+      <p>
+        SRAM cells are built from cross-coupled inverters. Ideally, an uninitialized
+        cell could power up as either 0 or 1. In real silicon, tiny mismatches between
+        transistors make some cells slightly prefer one state over the other.
+      </p>
+
+      <p>
+        That preference is the interesting part. If a cell tends to power up to the
+        same value across repeated power cycles, it can contribute to a device-specific
+        response. If it changes randomly, it is less useful for identification but
+        still tells us something about the physical behavior of the memory.
+      </p>
+
+      <h2>SRAM, BRAM, and the FPGA detail</h2>
+
+      <p>
+        In a normal microcontroller or processor, SRAM usually refers to general
+        on-chip static memory. On an FPGA, the terminology can be slightly confusing
+        because we often interact with embedded block memories, or BRAMs, through the
+        FPGA fabric.
+      </p>
+
+      <p>
+        For this task, the important point is not the naming difference. The important
+        point is that the memory has a power-up state before the design intentionally
+        overwrites it. The readout circuit tries to capture that startup state and
+        stream it to a host machine before treating the data as a PUF response.
+      </p>
+
+      <h2>what this task does</h2>
+
+      <p>
+        The implementation reads the startup memory contents on a Lattice iCE40 FPGA,
+        sends the raw response to a PC over UART, and then analyses the collected data
+        across repeated power cycles.
+      </p>
+
+      <p>
+        The analysis looks at the usual first-order PUF metrics: uniformity,
+        bit-aliasing, uniqueness, and reliability. Before those metrics mean anything,
+        however, the readout path itself has to be trustworthy. A broken UART transfer
+        or an off-by-one address bug can look like a bad PUF even when the physical
+        source is not the real problem.
+      </p>
+
+      <p>
+        I wanted this note to stay close to the repository README, but not be a
+        second copy of it. The README is the clean artifact. This page is more
+        like the lab notebook version: what the task was, how the readout path
+        worked, where I got confused, and why the boring UART/FSM details ended
+        up mattering for a hardware security measurement.
+      </p>
+
+      <h2>setup</h2>
+
+      <p>
+        The task was to collect SRAM startup data from the FPGA and send the
+        readout to the host machine. The security idea is elegant (and conservative), but the
+        practical part quickly became a systems problem: state transitions,
+        counters, UART handshakes, and validation.
+      </p>
+
+      <h2>build workflow</h2>
+
+      <p>
+        Before getting any measurements, the first useful milestone was simply
+        making the design build, flash, and run in a repeatable way. At the
+        beginning, it is tempting to treat this as “just compile the Verilog and
+        flash the bitstream”. After doing the same Yosys, nextpnr, icepack, and
+        programmer commands repeatedly, I moved the flow into a small Makefile.
+        That was not a fancy tooling decision. It was mostly self-defense
+        against copy-paste mistakes while debugging.
+      </p>
+
+      <figure>
+        <img src={assetBase + "/build.jpg"} alt="FPGA build output for the PUF task" />
+        <figcaption>build output after synthesizing the PUF readout design.</figcaption>
+      </figure>
+
+      <figure>
+        <img src={assetBase + "/alp-makefile.jpg"} alt="Makefile workflow for the FPGA PUF task" />
+        <figcaption>a small Makefile workflow made the build and flashing loop less painful.</figcaption>
+      </figure>
+
+      <h2>what made it interesting</h2>
+
+      <p>
+        The surprising part was that the PUF concept itself was not the hardest
+        part of the first implementation. The harder part was turning the FPGA
+        into a measurement instrument that I could trust. Until the readout path
+        was correct, any PUF metric would have been suspicious.
+      </p>
+
+      <p>
+        Before analysing uniqueness, stability, entropy, or security properties,
+        the first question was simpler and more brutal: am I actually receiving
+        the bytes I think I am receiving?
+      </p>
+
+      <p>
+        That became the main theme of the task for me. I was not only writing a
+        PUF module. I was building a tiny data acquisition path: FPGA memory,
+        read address generation, byte selection, UART transmission, host-side
+        capture, and finally Python analysis.
+      </p>
+
+      <h2>readout pipeline</h2>
+
+      <p>
+        The design follows a small FSM. It waits for a command from the host,
+        decides whether this is a normal PUF readout or a diagnostic request,
+        reads memory words, selects the correct byte, hands that byte to the UART
+        transmitter, waits until the transmitter really finished, and then moves
+        to the next byte.
+      </p>
+
+      <p>
+        This is the part where the hardware/software boundary becomes very
+        visible. The PC only sees a serial byte stream. The FPGA, however, has to
+        maintain the current byte index, derive the RAM address, select the low
+        or high byte of a 16-bit word, and avoid sending the same byte twice.
+      </p>
+
+      <figure>
+        <img src={assetBase + "/registers.jpg"} alt="Registers used inside the PUF readout module" />
+        <figcaption>the internal registers made the readout state explicit and easier to reason about.</figcaption>
+      </figure>
+
+      <figure>
+        <img src={assetBase + "/byte_index_to_raddr.jpg"} alt="Byte index to SRAM read address mapping" />
+        <figcaption>mapping the byte index to the SRAM read address was one of the small but important pieces of the readout path.</figcaption>
+      </figure>
+
+      <h2>debugging the readout path</h2>
+
+      <p>
+        The most useful debugging trick was adding a diagnostic mode. This mode
+        did not depend on the actual RAM contents at all. It simply returned a
+        known pattern, so I could debug the transport path before blaming the PUF
+        data.
+      </p>
+
+      <p>
+        Normal PUF output is hard to debug at first because it is supposed to look
+        somewhat random. If the output is strange, it is not immediately obvious
+        whether the problem comes from the PUF source, the address mapping, the UART
+        transmitter, or the host-side capture script.
+      </p>
+
+      <p>
+        To separate these problems, I added a debug request path. Instead of
+        reading SRAM data, the FPGA could send a known byte pattern. This reduced
+        the problem to a much simpler question:
+      </p>
+
+      <pre><code>if I ask the FPGA to send known bytes, do I receive exactly those bytes?</code></pre>
+
+      <p>
+        The expected diagnostic marker was:
+      </p>
+
+      <pre><code>44 42</code></pre>
+
+      <p>
+        which is ASCII for:
+      </p>
+
+      <pre><code>D B</code></pre>
+
+      <p>
+        At one point, however, the PC was receiving:
+      </p>
+
+      <pre><code>44 44 42 42</code></pre>
+
+      <p>
+        This was one of the important moments in the task. Since these bytes were
+        constants generated by the debug case statement, the duplicated values could
+        not be blamed on the SRAM/BRAM contents. The bug had to be somewhere in the
+        transmit path.
+      </p>
+
+      <p>
+        In other words, the PUF was not the problem yet. The measurement path was.
+        This was a useful reminder: when the output of a physical source looks
+        wrong, first prove that the infrastructure around the measurement is not
+        creating the artifact.
+      </p>
+
+      <p>
+        The UART module exposes a small ready/enable style interface. The PUF
+        controller presents one byte on <code>uart_data_to_tx</code>, then asserts
+        <code>uart_tx_enable</code> for one clock cycle when the transmitter is ready.
+      </p>
+
+      <p>
+        That sounds simple, but there is a small trap: seeing
+        <code>uart_tx_ready</code> high does not necessarily mean that the byte you
+        just requested has already been transmitted. It may still be high from before
+        the transmission started.
+      </p>
+
+      <p>
+        During bring-up, the FSM treated this immediately-high ready signal as if the
+        transfer had already completed. The result was that the same byte could be
+        accepted twice, which showed up as paired bytes in the debug stream.
+      </p>
+
+      <p>
+        The fix was to make the transmit pulse registered and explicit, and then wait
+        for the UART transmitter to actually become busy before accepting completion.
+        The final sequence became:
+      </p>
+
+      <ol>
+        <li>wait until <code>uart_tx_ready</code> is high;</li>
+        <li>place the next byte on <code>uart_data_to_tx</code>;</li>
+        <li>assert <code>uart_tx_enable</code> for exactly one clock;</li>
+        <li>enter a wait state;</li>
+        <li>observe <code>uart_tx_ready</code> going low;</li>
+        <li>only then wait for <code>uart_tx_ready</code> to return high;</li>
+        <li>increment the byte index and continue.</li>
+      </ol>
+
+      <p>
+        This is why the <code>uart_seen_busy</code> register exists. It prevents the
+        FSM from confusing “the transmitter was already ready” with “the byte has
+        finished transmitting.”
+      </p>
+
+      <figure>
+        <img src={assetBase + "/puf_uart_handshake.jpg"} alt="UART handshake logic for the PUF readout" />
+        <figcaption>
+          The important part was not only waiting for ready-high, but also confirming
+          that the transmitter actually entered the busy phase.
+        </figcaption>
+      </figure>
+
+      <h2>how the PC reads the response</h2>
+
+      <p>
+        The PC does not directly read individual PUF bits from the FPGA. It talks to
+        the FPGA through a serial UART link.
+      </p>
+
+      <p>
+        The host script sends a one-byte command such as <code>s</code> for a normal
+        SRAM PUF readout or <code>d</code> for diagnostic mode. After receiving the
+        command, the FPGA starts streaming bytes back over UART.
+      </p>
+
+      <p>
+        The full readout is:
+      </p>
+
+      <pre><code>16 KiB = 16384 bytes = 131072 bits</code></pre>
+
+      <p>
+        On the host side, the capture script collects these bytes and writes them as
+        hexadecimal text. The final file shape is:
+      </p>
+
+      <pre><code>512 lines × 64 hex characters</code></pre>
+
+      <p>
+        Each line is then interpreted as one 256-bit response block. That format
+        made the later analysis easier: the same bit position can be compared
+        across repeated power cycles for reliability, while the bit distribution
+        inside a response can be used for uniformity-style checks.
+      </p>
+
+      <p>
+        This also means that the capture script is part of the measurement
+        infrastructure. If it silently receives fewer bytes, repeats stale data, or
+        writes malformed lines, the statistical analysis becomes meaningless.
+      </p>
+
+      <h2>from raw bytes to PUF metrics</h2>
+
+      <p>
+        After the UART path started behaving, the task became more like a data
+        analysis problem. The capture script produced hexadecimal readout files.
+        I converted those hex strings back into bit vectors and then computed the
+        first-order PUF metrics from those vectors.
+      </p>
+
+      <p>
+        Uniformity checks whether a response has a balanced number of zeros and
+        ones. For each captured response, I counted the number of one bits and
+        divided it by the response length. A perfectly balanced response would be
+        close to 50%. If the value is far away from that, the memory startup
+        pattern is biased toward either zero or one.
+      </p>
+
+      <pre><code>uniformity = number_of_ones / number_of_bits</code></pre>
+
+      <p>
+        Bit-aliasing looks at the same idea from the bit-position side. For a
+        given bit position, I checked how often that bit was one across multiple
+        captured responses. If every bit position behaves independently and
+        without global bias, these values should also be around 50% on average.
+      </p>
+
+      <pre><code>bit_aliasing[i] = number_of_responses_where_bit_i_is_1 / number_of_responses</code></pre>
+
+      <p>
+        Reliability is about stability across repeated measurements. For this,
+        I compared responses captured after repeated power cycles and counted how
+        many bit positions changed. A reliable PUF response should not flip too
+        much between repeated readouts of the same device.
+      </p>
+
+      <p>
+        I liked this part because it connected the low-level debugging back to
+        the actual hardware security question. The Python analysis is not
+        complicated, but it only becomes meaningful after the FPGA readout path
+        is boringly correct.
+      </p>
+
+      <h2>small Verilog lessons from this task</h2>
+
+      <p>
+        The Verilog part looked small, but it forced a few useful habits.
+      </p>
+
+      <p>
+        First, transmit pulses should be boring and explicit. I cleared
+        <code>uart_tx_enable</code> by default on every clock and asserted it only in
+        the state that intentionally sends a byte. This avoids accidentally holding a
+        send request high for multiple cycles.
+      </p>
+
+      <p>
+        Second, the byte index and RAM address are different concepts. The RAM returns
+        16-bit words, while UART sends 8-bit bytes. The controller therefore uses a
+        byte index for the outgoing stream and derives the RAM word address from it:
+      </p>
+
+      <pre><code>raddr = i_r[13:1]</code></pre>
+
+      <p>
+        The lowest bit selects which half of the 16-bit word is sent:
+      </p>
+
+      <pre><code>i_r[0] = 0  -&gt;  rdata[7:0]
+i_r[0] = 1  -&gt;  rdata[15:8]</code></pre>
+
+      <figure>
+        <img src={assetBase + "/byte_index_to_raddr.jpg"} alt="Byte index to SRAM read address mapping" />
+        <figcaption>
+          The readout is byte-oriented from the UART perspective, but word-oriented
+          from the RAM perspective.
+        </figcaption>
+      </figure>
+
+      <p>
+        Third, debug output should not depend on the thing being debugged. The
+        diagnostic stream was useful precisely because it bypassed the PUF data path
+        and sent known constants. That made it possible to isolate the UART/FSM issue
+        before trusting the SRAM readout.
+      </p>
+
+      <p>
+        This was probably the biggest practical lesson of the task: before measuring a
+        physical effect, build enough boring infrastructure to prove that your
+        measurement pipeline is not inventing artifacts.
+      </p>
+
+      <h2>measurements</h2>
+
+      <p>
+        Once the readout path became reliable, the task finally reached the more
+        interesting layer: collecting measurements and thinking about the PUF
+        response itself.
+      </p>
+
+      <figure>
+        <img src={assetBase + "/measurements.jpg"} alt="Measurements collected from the weak SRAM PUF readout" />
+        <figcaption>getting repeatable measurements was the first real milestone after the UART path worked.</figcaption>
+      </figure>
+
+      <h2>what I learned</h2>
+
+      <p>
+        The main lesson was that hardware security work is not only about
+        cryptographic or security properties. At least in this task, a large part
+        of the work was closer to bring-up and measurement engineering: digital
+        design, UART communication, host-side capture, verification, and lots of
+        small debugging loops.
+      </p>
+
+      <p>
+        That is also what made the task useful. The PUF idea had to pass through
+        a real hardware data path before it became a plot, a metric, or a
+        conclusion. I think that is where most of the learning happened.
+      </p>
+
+      <h2>next steps</h2>
+
+      <p>
+        The natural next step is to analyse the collected readouts more
+        systematically: stability across resets, uniqueness across devices if
+        possible, and how much post-processing would be needed before using the
+        response as a reliable fingerprint.
+      </p>
+    </article>
+  </main>
+</BaseLayout>

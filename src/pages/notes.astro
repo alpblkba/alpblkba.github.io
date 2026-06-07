@@ -1,22 +1,30 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const notes = [
+  {
+    title: "SRAM Weak PUF Readout on iCE40",
+    date: "2026-06-07",
+    href: "/notes/sram-weak-puf-readout",
+  },
+];
 ---
 
-<BaseLayout title="notes | alpblkba">
-  <h1>notes</h1>
+<BaseLayout title="notes">
+  <main class="notes-page">
+    <h1>notes</h1>
 
-  <p>
-    Lab notes, debugging writeups, reading notes, and small technical artifacts.
-  </p>
+    <p class="notes-intro">
+      engineering notes, lab logs, paper notes, and small technical writeups.
+    </p>
 
-  <pre>{`planned:
-- stm32 bring-up notes
-- fpga toolchain notes
-- risc-v cpu experiments
-- hardware security notes
-- memory systems reading log`}</pre>
-
-  <p>
-    <a href="/">← home</a>
-  </p>
+    <section class="notes-list">
+      {notes.map((note) => (
+        <a class="note-card" href={note.href}>
+          <span class="note-date">{note.date}</span>
+          <span class="note-title">{note.title}</span>
+        </a>
+      ))}
+    </section>
+  </main>
 </BaseLayout>
