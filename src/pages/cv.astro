@@ -2,19 +2,229 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="CV | Alp Bölükbaşı">
-  <h1>cv</h1>
+<BaseLayout title="cv">
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">CV</p>
+      <h1>Alp O. Bolukbasi</h1>
+      <p class="lead">
+        M.Sc. Computer Science student at Karlsruhe Institute of Technology (KIT),
+        focused on hardware-aware systems software, embedded systems, FPGA/HLS
+        workflows, low-level debugging, and reliable infrastructure.
+      </p>
 
-  <p>
-    M.Sc. CS student at Karlsruhe Institute of Technology (KIT).
-    Currently working as a HiWi (student assistant) in Chair of Embedded Systems.
-  </p>
+      <p class="meta">
+        Karlsruhe, Germany · ‎ 
+        <a href="mailto:hello@alpblkba.dev">hello@alpblkba.dev</a> · ‎ 
+        <a href="https://github.com/alpblkba">github</a> · ‎ 
+        <a href="https://www.linkedin.com/in/alpblkba">linkedin</a>
+      </p>
+    </section>
 
-  <p>
-    Full CV coming soon.
-  </p>
+    <section>
+      <h2>Profile</h2>
+      <p>
+        Systems-oriented engineer with 5+ years of professional experience in
+        Linux-based systems, network automation, DevOps, distributed telecom
+        infrastructure, and production debugging. Current technical direction:
+        computer architecture, embedded systems, FPGA/RTL, RISC-V, hardware
+        security, accelerators, and hardware/software co-design.
+      </p>
+    </section>
 
-  <p>
-    <a href="/">← home</a>
-  </p>
+    <section>
+      <h2>Education</h2>
+
+      <div class="item">
+        <h3>Karlsruhe Institute of Technology (KIT) — M.Sc. Computer Science</h3>
+        <p class="muted">Oct 2025 – Present · Karlsruhe, Germany</p>
+        <p>
+          Focus: computer architecture, embedded systems, low-level systems,
+          hardware/software co-design, security, and reliability.
+        </p>
+        <p>
+          Selected coursework and labs: Embedded Systems I/II, FPGA Programming
+          Lab, Hardware-Efficient AI, Low Power Design, Practical Introduction
+          to Hardware Security, Internet of Everything, IoT Lab.
+        </p>
+      </div>
+
+      <div class="item">
+        <h3>Ozyegin University — B.Sc. Computer Science</h3>
+        <p class="muted">2017 – 2022 · Istanbul, Turkey</p>
+        <p>
+          Graduation project: B-Auth, a blockchain-based authentication and
+          authorization protocol for SDN controllers.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+
+      <div class="item">
+        <h3>KIT Chair for Embedded Systems — Student Research Assistant</h3>
+        <p class="muted">Apr 2026 – Present · Karlsruhe, Germany</p>
+        <ul>
+          <li>
+            Contributing to a customized embedded processor lab rewrite focused
+            on HLS-based accelerator development.
+          </li>
+          <li>
+            Designed and updated FPGA/HLS lab infrastructure, Vitis/Vivado
+            workflows, hardware/software interfaces, and student-facing
+            documentation.
+          </li>
+          <li>
+            Worked with Verilog, C, Vitis HLS, Vivado, embedded processors, and
+            reproducible lab bring-up flows.
+          </li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <h3>Nokia — IP Integration Engineer</h3>
+        <p class="muted">Dec 2023 – Sep 2025 · Istanbul, Turkey</p>
+        <ul>
+          <li>
+            Built Python/Go automation for configuration, validation, and
+            integration workflows on carrier-grade routing platforms.
+          </li>
+          <li>
+            Supported large-scale network migrations across Nokia 7705, IXR
+            7250, and SR 7750 platforms in EMEA/APAC deployments.
+          </li>
+          <li>
+            Debugged Linux, Kubernetes, TCP/IP, BGP, OSPF, IS-IS, MPLS,
+            automation, and distributed deployment issues.
+          </li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <h3>Ericsson — Integration Engineer</h3>
+        <p class="muted">Oct 2022 – Dec 2023 · Istanbul, Turkey</p>
+        <ul>
+          <li>
+            Developed Python, Ansible, and shell tooling for telecom node
+            integration, deployment, validation, and recovery workflows.
+          </li>
+          <li>
+            Troubleshot low-level connectivity, configuration, packet-flow, and
+            Linux/networking issues in distributed deployment environments.
+          </li>
+        </ul>
+      </div>
+
+      <div class="item compact">
+        <h3>Huawei — DevOps Engineer Intern</h3>
+        <p class="muted">Jun 2022 – Sep 2022 · Istanbul, Turkey</p>
+        <p>
+          Developed Go, Bash, and Ansible automation for network performance
+          validation, provisioning workflows, CI/CD pipelines, and Linux
+          infrastructure checks.
+        </p>
+      </div>
+
+      <div class="item compact">
+        <h3>PwC — Cyber Security Intern</h3>
+        <p class="muted">Oct 2021 – Jun 2022 · Istanbul, Turkey</p>
+        <p>
+          Built a cyber security risk maturity model to evaluate, score, and
+          visualize the security posture of a multi-entity enterprise
+          environment.
+        </p>
+      </div>
+
+      <div class="item compact">
+        <h3>Turkcell — Network Security Engineer, Part-Time</h3>
+        <p class="muted">Jul 2020 – Oct 2021 · Istanbul, Turkey</p>
+        <p>
+          Supported firewall, load balancer, WAN/LAN, VPN, routing, and network
+          security troubleshooting in production environments.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Selected Projects</h2>
+
+      <div class="item">
+        <h3>Hardware Security FPGA Work</h3>
+        <ul>
+          <li>
+            Implemented FPGA-based hardware security experiments using Verilog,
+            UART, Python tooling, cocotb, and open-source FPGA flows.
+          </li>
+          <li>
+            Built an SRAM PUF readout flow on Lattice iCE40HX8K and analyzed
+            repeated power-cycle captures for reliability, uniqueness,
+            uniformity, and bit-aliasing.
+          </li>
+          <li>
+            Implemented AES-128 hardware modules including SubBytes, ShiftRows,
+            MixColumns, AddRoundKey, key scheduling, and UART wrapper logic.
+          </li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <h3>rv32i-mla — RISC-V / ML Accelerator Playground</h3>
+        <ul>
+          <li>
+            Built a compact hardware/software co-design playground around a
+            custom RV32I-subset processor and a fixed-function 4x4 int8 matrix
+            multiplication accelerator.
+          </li>
+          <li>
+            Worked across Verilog RTL, FPGA integration, Python board bring-up,
+            and C-side runtime interaction.
+          </li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <h3>B-Auth — Blockchain-Based Authentication for SDN Controllers</h3>
+        <ul>
+          <li>
+            Designed a decentralized authentication and authorization protocol
+            for SDN controllers.
+          </li>
+          <li>
+            Integrated Python-based Ryu controllers with Go chaincode and
+            performed formal verification tests with AVISPA.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Technical Skills</h2>
+      <p>
+        <strong>Programming:</strong> C, C++, Python, Go, Bash, Verilog,
+        SystemVerilog basics, Rust basics
+      </p>
+      <p>
+        <strong>Low-level / hardware:</strong> FPGA, RTL design, HLS, RISC-V,
+        accelerators, embedded C, STM32, UART, SoC concepts
+      </p>
+      <p>
+        <strong>Systems:</strong> Linux, Docker, Kubernetes, CMake, Make, GDB,
+        Git, Ansible, CI/CD, automation, observability/debug workflows
+      </p>
+      <p>
+        <strong>Networking:</strong> TCP/IP, BGP, OSPF, IS-IS, MPLS, routing
+        platforms, distributed telecom infrastructure
+      </p>
+    </section>
+
+    <section>
+      <h2>Languages</h2>
+      <p>Turkish native · English C1/professional fluency · German A2</p>
+    </section>
+
+    <p class="backlink"><a href="/">← home</a></p>
+  </main>
 </BaseLayout>
+
+
