@@ -1,0 +1,538 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const imageBase = "/assets/notes/aes-cpa-on-fpga";
+---
+
+<BaseLayout title="Correlation Power Analysis on AES with an FPGA Sensor">
+  <main class="note">
+    <a class="back-link" href="/notes">← notes</a>
+
+    <article>
+      <header class="note-header">
+        <p class="eyebrow">HARDWARE SECURITY · SIDE-CHANNEL ANALYSIS · FPGA</p>
+        <h1>Correlation Power Analysis on AES with an FPGA Sensor</h1>
+        <p class="lead">
+          A final-round correlation power analysis against an AES-128
+          implementation on a Lattice iCE40HX8K, using a delay-based on-chip
+          sensor, BRAM-backed trace capture, and a bitwise inverse S-box
+          leakage model.
+        </p>
+        <div class="meta">
+          <time datetime="2026-07-15">2026-07-15</time>
+          <span aria-hidden="true">·</span>
+          <a
+            href="https://github.com/alpblkba/hardware-security/tree/main/task3-cpa"
+            target="_blank"
+            rel="noreferrer"
+          >
+            source
+          </a>
+        </div>
+      </header>
+
+      <section>
+        <h2>Implementation security, not AES cryptanalysis</h2>
+
+        <p>
+          AES is not weakened here at the algorithmic level. The attack targets
+          the physical implementation: while the circuit evaluates internal
+          state transitions, its switching activity affects measurable
+          quantities. Conventional power analysis observes supply current or
+          electromagnetic radiation. In this design, the measurement channel
+          is a delay-based sensor placed on the FPGA itself.
+        </p>
+
+        <p>
+          The objective is to determine whether repeated sensor measurements
+          contain a component that is statistically dependent on an internal
+          AES value. Correlation power analysis (CPA) provides the test. It
+          combines known ciphertexts, a key-dependent leakage hypothesis, and
+          many aligned traces. The correct key hypothesis should correlate more
+          strongly with the measured signal at the sample where the modeled
+          intermediate value affects the device.
+        </p>
+
+        <aside class="summary">
+          <strong>Experiment summary</strong>
+          <dl>
+            <div>
+              <dt>Target</dt>
+              <dd>AES-128 final round</dd>
+            </div>
+            <div>
+              <dt>Platform</dt>
+              <dd>Lattice iCE40HX8K</dd>
+            </div>
+            <div>
+              <dt>Trace width</dt>
+              <dd>56 samples</dd>
+            </div>
+            <div>
+              <dt>Final dataset</dt>
+              <dd>100,000 traces</dd>
+            </div>
+          </dl>
+        </aside>
+      </section>
+
+      <section>
+        <h2>Leakage model</h2>
+
+        <p>
+          The analysis proceeds one ciphertext byte at a time. For a ciphertext
+          byte <code>C</code> and a candidate round-key byte <code>K</code>,
+          the state before the final-round S-box is reconstructed as:
+        </p>
+
+        <pre><code>InvSBox(C XOR K)</code></pre>
+
+        <p>
+          Rather than reducing the intermediate value to a Hamming weight, the
+          implementation evaluates each of its eight output bits separately.
+          For every bit and every one of the 256 key-byte hypotheses, a vector
+          of predicted zero/one values is produced across all encryptions. That
+          vector is then correlated with each sample position in the measured
+          traces using the Pearson correlation coefficient.
+        </p>
+
+        <p>
+          The result is a correlation surface indexed by key hypothesis and
+          sample position. A successful attack does not merely require a high
+          numerical value; the expected key candidate must separate
+          consistently from competing hypotheses at a physically plausible
+          point in the capture window.
+        </p>
+      </section>
+
+      <section>
+        <h2>Establishing a known-good analysis path</h2>
+
+        <p>
+          Before evaluating measurements from the FPGA, the CPA implementation
+          was validated with the reference dataset supplied for the task. This
+          separates software-model errors from hardware-measurement problems.
+          Byte ordering, ciphertext reconstruction, inverse S-box indexing,
+          bit extraction, and correlation all have to agree before the physical
+          experiment is meaningful.
+        </p>
+
+        <figure>
+          <img
+            src={`${imageBase}/example-traces-preview.png`}
+            alt="Preview of aligned example sensor traces"
+            loading="lazy"
+          />
+          <figcaption>
+            Representative traces from the supplied dataset. The traces are
+            aligned and sampled over a fixed capture window.
+          </figcaption>
+        </figure>
+
+        <p>
+          For ciphertext byte 0 and inverse S-box output bit 1, the expected
+          final-round key byte is <code>0xd0</code>. Its score becomes
+          distinguishable after roughly 2,000 traces.
+        </p>
+
+        <figure>
+          <img
+            src={`${imageBase}/cpa-byte0-bit1-progress.png`}
+            alt="CPA progress showing the correct key hypothesis separating as more traces are used"
+            loading="lazy"
+          />
+          <figcaption>
+            Correlation progress for the expected hypothesis and the strongest
+            competing candidate.
+          </figcaption>
+        </figure>
+
+        <div class="figure-grid">
+          <figure>
+            <img
+              src={`${imageBase}/cpa-byte0-bit1-scores.png`}
+              alt="Final CPA scores for all key hypotheses"
+              loading="lazy"
+            />
+            <figcaption>
+              Maximum absolute correlation score for all 256 key-byte
+              hypotheses.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src={`${imageBase}/cpa-byte0-bit1-correlations.png`}
+              alt="Sample-wise correlation curves for CPA candidates"
+              loading="lazy"
+            />
+            <figcaption>
+              Sample-wise correlation curves around the point of maximum
+              leakage.
+            </figcaption>
+          </figure>
+        </div>
+
+        <p>
+          Recovering the expected candidate from the supplied traces establishes
+          a known-good analysis baseline. The same final-round model can then be
+          applied to the noisier traces obtained from the physical FPGA.
+        </p>
+      </section>
+
+      <section>
+        <h2>Capturing the final AES round</h2>
+
+        <p>
+          The FPGA design integrates the AES core, the delay sensor, one block
+          RAM, and a UART transport. The measurement logic is implemented in
+          <code>sense_module.v</code>. A final-round indication from the AES
+          core is synchronized into the sensor clock domain and converted into
+          a bounded capture interval.
+        </p>
+
+        <p>
+          On the detected edge, the BRAM write address is reset and capture is
+          enabled. The sensor value is then written once per sensor-clock cycle
+          for addresses 0 through 55. After the final write, capture stops.
+          This produces exactly 56 samples for each encryption without relying
+          on host-side timing.
+        </p>
+
+        <p>
+          Once encryption and capture are complete, the design sends the
+          16-byte ciphertext followed by the 56-byte trace over UART. Keeping
+          the ciphertext and measurement in the same transaction is important:
+          a lost byte or an off-by-one read would associate a trace with the
+          wrong cryptographic output and destroy the correlation.
+        </p>
+      </section>
+
+      <section>
+        <h2>Bring-up and trace acquisition</h2>
+
+        <p>
+          Bring-up starts with a known-answer test from NIST FIPS 197. The FPGA
+          must return the expected ciphertext before any trace collection is
+          accepted. The same transaction is also used to verify that 56 sensor
+          bytes arrive and that the sensor is operating away from saturation.
+        </p>
+
+        <pre><code>Plaintext:  3243f6a8885a308d313198a2e0370734
+Ciphertext: 3925841d02dc09fbdc118597196a0b32</code></pre>
+
+        <p>
+          The acquisition program then generates random 16-byte plaintexts,
+          transmits them to the FPGA, and records the plaintext, ciphertext, and
+          sensor trace in CSV files. A small 3,000-trace dataset was first used
+          to verify framing, dimensions, and numerical variation. The final
+          acquisition contained 100,000 encryptions.
+        </p>
+
+        <pre><code>python collect_traces.py -n 100000 -o measurements_100k</code></pre>
+
+        <p>
+          The measured traces used 56 samples and exhibited low-amplitude
+          variation rather than rail saturation. That operating point is
+          necessary but not sufficient for a successful attack: most of the
+          observed variance may still be unrelated noise.
+        </p>
+      </section>
+
+      <section>
+        <h2>CPA over 100,000 FPGA traces</h2>
+
+        <p>
+          The complete hardware analysis evaluated 16 ciphertext bytes, eight
+          inverse S-box output bits per byte, 256 key hypotheses, and all 56
+          sample positions. This corresponds to 128 independent bit-level CPA
+          experiments.
+        </p>
+
+        <p>The expected AES round-10 key was:</p>
+
+        <pre><code>abc1d22842e631c999631f6db7805e94</code></pre>
+
+        <p>
+          For byte 0 and output bit 4, the expected candidate
+          <code>0xab</code> produced the largest absolute correlation at sample
+          8:
+        </p>
+
+        <pre><code>Key candidate: 0xab
+Correlation:   0.021510
+Sample:        8
+Trace count:   100000</code></pre>
+
+        <figure>
+          <img
+            src={`${imageBase}/fpga-byte0-bit4.png`}
+            alt="CPA correlation result for FPGA byte 0 bit 4 using 100000 traces"
+            loading="lazy"
+          />
+          <figcaption>
+            Hardware CPA for byte 0, bit 4. The expected round-key candidate
+            ranks first at sample 8.
+          </figcaption>
+        </figure>
+
+        <p>
+          The other bit hypotheses did not produce stable first-ranked
+          recovery. This result should therefore be interpreted as evidence of
+          detectable key-dependent leakage, not as a full round-key recovery.
+          The distinction matters: reporting one successful bit-level model is
+          more defensible than presenting the maximum of many noisy
+          correlations as a recovered key.
+        </p>
+      </section>
+
+      <section>
+        <h2>What limited the attack</h2>
+
+        <p>
+          The dominant limitation was signal-to-noise ratio. An on-chip delay
+          sensor observes an indirect consequence of switching activity, and
+          its response depends on placement, routing, clocking, local supply
+          variation, and the chosen capture window. Only a subset of AES state
+          transitions may couple strongly enough into that sensor to be
+          distinguishable.
+        </p>
+
+        <p>
+          The sample positions associated with the strongest candidates also
+          shifted across ciphertext bytes, which is consistent with serialized
+          or time-distributed activity in the implementation. A more extensive
+          attack would treat sensor placement and capture timing as experimental
+          parameters rather than fixed constants.
+        </p>
+
+        <p>
+          Improvements would include repeated measurements across sensor
+          configurations, tighter timing closure, multiple sensing locations,
+          trace normalization, and a comparison of bit, Hamming-weight, and
+          Hamming-distance leakage models.
+        </p>
+      </section>
+
+      <section>
+        <h2>Engineering conclusions</h2>
+
+        <p>
+          The useful result of the exercise is the complete measurement chain.
+          The final-round event is captured in RTL, sensor values are stored in
+          BRAM, ciphertext and trace framing remain synchronized over UART, and
+          the host implementation evaluates the same leakage model on both
+          reference and physical datasets.
+        </p>
+
+        <p>
+          This is the practical boundary between cryptographic correctness and
+          implementation security. The AES core returned the correct NIST test
+          vector throughout the experiment. At the same time, repeated physical
+          observations exposed a statistically detectable dependency on one
+          modeled round-key byte. Correct functionality does not imply
+          resistance to side-channel analysis.
+        </p>
+      </section>
+
+      <section class="references">
+        <h2>References and implementation</h2>
+        <ul>
+          <li>
+            NIST, <em>FIPS PUB 197: Advanced Encryption Standard (AES)</em>.
+          </li>
+          <li>
+            <a
+              href="https://github.com/alpblkba/hardware-security/tree/main/task3-cpa/Task-3-source_files"
+              target="_blank"
+              rel="noreferrer"
+            >
+              FPGA implementation, acquisition scripts, and CPA code
+            </a>
+          </li>
+        </ul>
+      </section>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .note {
+    width: min(100% - 2rem, 860px);
+    margin: 0 auto;
+    padding: 3rem 0 5rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 2.5rem;
+    color: var(--muted, #777);
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: inherit;
+  }
+
+  article {
+    line-height: 1.78;
+  }
+
+  .note-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.8rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    color: var(--muted, #777);
+  }
+
+  h1 {
+    max-width: 780px;
+    margin: 0;
+    font-size: clamp(2.25rem, 6vw, 4.3rem);
+    line-height: 1.03;
+    letter-spacing: -0.045em;
+  }
+
+  .lead {
+    max-width: 740px;
+    margin: 1.5rem 0 1rem;
+    font-size: clamp(1.08rem, 2vw, 1.28rem);
+    line-height: 1.65;
+    color: var(--muted, #666);
+  }
+
+  .meta {
+    display: flex;
+    gap: 0.65rem;
+    align-items: center;
+    font-size: 0.92rem;
+    color: var(--muted, #777);
+  }
+
+  .meta a {
+    color: inherit;
+  }
+
+  section {
+    margin-top: 3.75rem;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    letter-spacing: -0.025em;
+  }
+
+  p {
+    margin: 1rem 0;
+  }
+
+  code {
+    font-size: 0.92em;
+  }
+
+  pre {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 10px;
+    background: var(--code-bg, rgba(127, 127, 127, 0.08));
+    line-height: 1.55;
+  }
+
+  pre code {
+    font-size: 0.88rem;
+  }
+
+  figure {
+    margin: 2.25rem 0;
+  }
+
+  figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 12px;
+  }
+
+  figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--muted, #777);
+  }
+
+  .figure-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .figure-grid figure {
+    margin: 1rem 0;
+  }
+
+  .summary {
+    margin: 2rem 0;
+    padding: 1.25rem;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 12px;
+    background: var(--code-bg, rgba(127, 127, 127, 0.05));
+  }
+
+  .summary > strong {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .summary dl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 0;
+  }
+
+  .summary dl div {
+    min-width: 0;
+  }
+
+  .summary dt {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted, #777);
+  }
+
+  .summary dd {
+    margin: 0.2rem 0 0;
+  }
+
+  .references ul {
+    padding-left: 1.25rem;
+  }
+
+  @media (max-width: 680px) {
+    .note {
+      width: min(100% - 1.25rem, 860px);
+      padding-top: 2rem;
+    }
+
+    .figure-grid,
+    .summary dl {
+      grid-template-columns: 1fr;
+    }
+
+    h1 {
+      font-size: clamp(2.15rem, 12vw, 3.2rem);
+    }
+  }
+</style>
