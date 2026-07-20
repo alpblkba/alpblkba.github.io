@@ -19,55 +19,41 @@ const imageBase =
 
       <p class="essay-deck">
         A practical guide to commits, branches, conflicts, rebasing,
-        recovery—and the uncomfortable similarities between version
-        control and human relationships.
+        recovery—and the uncomfortable similarities between version control
+        and human relationships.
       </p>
 
       <p class="note-meta">2026-07-20 · work in progress</p>
     </header>
 
-    <figure class="visual-placeholder visual-placeholder--hero">
-      <div class="visual-placeholder__label">
-        HERO IMAGE
-      </div>
-
-      <strong>Two histories diverging from a shared beginning</strong>
-
-      <span>
-        Planned asset:
-        <code>{imageBase}/hero-diverging-histories.webp</code>
-      </span>
-    </figure>
-
     <p class="lead">
-      Git was designed to coordinate changes in software. It records
-      snapshots, preserves ancestry, exposes conflicts, and gives us
-      tools for recovering from mistakes.
+      Git was designed to coordinate changes in software. It records snapshots,
+      preserves ancestry, exposes conflicts, and gives us tools for recovering
+      from mistakes.
     </p>
 
     <p>
-      Somewhere along the way, I began to notice that many of its most
-      useful ideas had very little to do with source code.
+      Somewhere along the way, I began to notice that many of its most useful
+      ideas had very little to do with source code.
     </p>
 
     <p>
-      This is not a relationship-advice article disguised as a Git
-      tutorial. It is a real Git tutorial, written after learning that
-      humans are considerably worse at version control than computers.
+      This is not a relationship-advice article disguised as a Git tutorial. It
+      is a real Git tutorial, written after learning that humans are
+      considerably worse at version control than computers.
     </p>
 
     <aside class="essay-callout">
       <strong>The premise</strong>
 
       <p>
-        Good version control does not prevent change, disagreement, or
-        mistakes. It makes them visible while they are still possible
-        to understand.
+        Good version control does not prevent change, disagreement, or mistakes.
+        It makes them visible while they are still possible to understand.
       </p>
     </aside>
 
-    <nav class="article-map" aria-label="Article sections">
-      <p class="article-map__title">In this note</p>
+    <nav class="essay-toc" aria-label="Table of contents">
+      <strong>In this note</strong>
 
       <ol>
         <li><a href="#history">Git is a model of history</a></li>
@@ -78,26 +64,26 @@ const imageBase =
         <li><a href="#undo">Reset, restore, and revert</a></li>
         <li><a href="#reflog">Recovery through the reflog</a></li>
         <li><a href="#remotes">Shared history and remote branches</a></li>
-        <li><a href="#tools">The commands worth remembering</a></li>
         <li><a href="#conclusion">What Git cannot save</a></li>
       </ol>
     </nav>
 
     <section id="history">
       <p class="section-number">01</p>
+
       <h2>Git is a model of history</h2>
 
       <p>
-        Before learning commands, it helps to understand what Git is
-        actually storing. Git is not merely a folder of old file
-        versions. It is a content-addressed object database whose
-        commits form a directed acyclic graph.
+        Before learning commands, it helps to understand what Git is actually
+        storing. Git is not merely a folder of old file versions. It is a
+        content-addressed object database whose commits form a directed acyclic
+        graph.
       </p>
 
       <p>
-        A commit points to a tree representing a project snapshot,
-        metadata describing the change, and one or more parent commits.
-        The parent links are what turn isolated snapshots into history.
+        A commit points to a tree representing a project snapshot, metadata
+        describing the change, and one or more parent commits. The parent links
+        are what turn isolated snapshots into history.
       </p>
 
       <pre><code>commit
@@ -121,19 +107,20 @@ const imageBase =
       </figure>
 
       <blockquote>
-        We often argue about history as though it were a document owned
-        by one person. Git treats it as a graph: shared ancestry,
-        explicit change, and paths that may eventually diverge.
+        We often argue about history as though it were a document owned by one
+        person. Git treats it as a graph: shared ancestry, explicit change, and
+        paths that may eventually diverge.
       </blockquote>
     </section>
 
     <section id="working-tree">
       <p class="section-number">02</p>
+
       <h2>Uncommitted changes</h2>
 
       <p>
-        A normal Git repository has three states that beginners often
-        collapse into one:
+        A normal Git repository has three states that beginners often collapse
+        into one:
       </p>
 
       <div class="concept-grid">
@@ -144,9 +131,7 @@ const imageBase =
 
         <article>
           <h3>Index</h3>
-          <p>
-            The exact snapshot being prepared for the next commit.
-          </p>
+          <p>The exact snapshot being prepared for the next commit.</p>
         </article>
 
         <article>
@@ -161,13 +146,14 @@ const imageBase =
       <pre><code>git status
 git diff
 git diff --staged
+
 git add path/to/file
 git commit</code></pre>
 
       <p>
-        <code>git add</code> does not merely “tell Git to track a
-        file.” It copies the chosen content into the index, preparing
-        part of the next snapshot.
+        <code>git add</code> does not merely “tell Git to track a file.” It
+        copies the chosen content into the index, preparing part of the next
+        snapshot.
       </p>
 
       <figure class="visual-placeholder">
@@ -184,20 +170,21 @@ git commit</code></pre>
       </figure>
 
       <blockquote>
-        Most friendships do not end because of one catastrophic
-        commit. They accumulate a working tree full of changes that
-        were never inspected, named, or shared.
+        Most friendships do not end because of one catastrophic commit. They
+        accumulate a working tree full of changes that were never inspected,
+        named, or shared.
       </blockquote>
     </section>
 
     <section id="branches">
       <p class="section-number">03</p>
+
       <h2>Branches are movable references</h2>
 
       <p>
-        A Git branch is not a separate copy of the project. It is a
-        lightweight name pointing to a commit. As new commits are
-        created, the active branch reference moves forward.
+        A Git branch is not a separate copy of the project. It is a lightweight
+        name pointing to a commit. As new commits are created, the active branch
+        reference moves forward.
       </p>
 
       <pre><code>git branch
@@ -205,9 +192,8 @@ git switch -c feature/new-direction
 git log --oneline --graph --decorate --all</code></pre>
 
       <p>
-        <code>HEAD</code> normally points to the currently checked-out
-        branch. In a detached HEAD state, it points directly to a
-        commit instead.
+        <code>HEAD</code> normally points to the currently checked-out branch.
+        In a detached HEAD state, it points directly to a commit instead.
       </p>
 
       <figure class="visual-placeholder">
@@ -223,35 +209,22 @@ git log --oneline --graph --decorate --all</code></pre>
         </span>
       </figure>
 
-      <figure class="visual-placeholder visual-placeholder--editorial">
-        <div class="visual-placeholder__label">
-          EDITORIAL IMAGE
-        </div>
-
-        <strong>Two roads leaving the same place</strong>
-
-        <span>
-          Planned asset:
-          <code>{imageBase}/shared-road-divergence.webp</code>
-        </span>
-      </figure>
-
       <blockquote>
-        Divergence does not mean the shared history was false. It means
-        the same starting point no longer guarantees the same
-        destination.
+        Divergence does not mean the shared history was false. It means the same
+        starting point no longer guarantees the same destination.
       </blockquote>
     </section>
 
     <section id="merge">
       <p class="section-number">04</p>
+
       <h2>Conflict is information</h2>
 
       <p>
-        A three-way merge compares two branch tips with their best
-        common ancestor. When both branches changed compatible regions,
-        Git can combine them automatically. When they changed the same
-        region incompatibly, Git stops and asks for a human decision.
+        A three-way merge compares two branch tips with their best common
+        ancestor. When both branches changed compatible regions, Git can combine
+        them automatically. When they changed the same region incompatibly, Git
+        stops and asks for a human decision.
       </p>
 
       <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
@@ -261,9 +234,8 @@ their version
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; other-branch</code></pre>
 
       <p>
-        The conflict markers are not the conflict itself. They are
-        Git's representation of competing changes that require
-        interpretation.
+        The conflict markers are not the conflict itself. They are Git's
+        representation of competing changes that require interpretation.
       </p>
 
       <pre><code>git merge other-branch
@@ -288,33 +260,32 @@ git commit</code></pre>
       </figure>
 
       <blockquote>
-        A conflict is not Git failing. It is Git refusing to pretend
-        that two incompatible changes are the same change.
+        A conflict is not Git failing. It is Git refusing to pretend that two
+        incompatible changes are the same change.
       </blockquote>
     </section>
 
     <section id="rebase">
       <p class="section-number">05</p>
+
       <h2>Rebase: cleaner history, different identities</h2>
 
       <p>
-        Rebasing takes a sequence of commits, temporarily removes them,
-        moves the branch to a new base, and replays equivalent changes
-        one by one.
+        Rebasing takes a sequence of commits, temporarily removes them, moves
+        the branch to a new base, and replays equivalent changes one by one.
       </p>
 
       <pre><code>git switch feature
 git rebase main</code></pre>
 
       <p>
-        The replayed commits have new parents and therefore new commit
-        hashes. The content may appear equivalent, but the commits are
-        new objects.
+        The replayed commits have new parents and therefore new commit hashes.
+        The content may appear equivalent, but the commits are new objects.
       </p>
 
       <figure class="visual-placeholder visual-placeholder--large">
         <div class="visual-placeholder__label">
-          PRIMARY REBASE DIAGRAM
+          TECHNICAL DIAGRAM
         </div>
 
         <strong>Rebase shown as detach, move, and replay</strong>
@@ -327,10 +298,12 @@ git rebase main</code></pre>
 
       <figure class="visual-placeholder">
         <div class="visual-placeholder__label">
-          COMPARISON DIAGRAM
+          TECHNICAL DIAGRAM
         </div>
 
-        <strong>Merge versus rebase: similar trees, different histories</strong>
+        <strong>
+          Merge versus rebase: similar trees, different histories
+        </strong>
 
         <span>
           Planned asset:
@@ -339,8 +312,8 @@ git rebase main</code></pre>
       </figure>
 
       <p>
-        Interactive rebase provides a controlled way to edit a private
-        sequence before sharing it:
+        Interactive rebase provides a controlled way to edit a private sequence
+        before sharing it:
       </p>
 
       <pre><code>git rebase -i HEAD~5
@@ -350,19 +323,36 @@ fixup  d4e5f6 typo in the previous change
 reword a7b8c9 explain the decision properly
 squash d0e1f2 combine related work</code></pre>
 
+      <figure class="visual-placeholder visual-placeholder--editorial">
+        <div class="visual-placeholder__label">
+          AI EDITORIAL ILLUSTRATION
+        </div>
+
+        <strong>
+          Interactive rebase: reviewing, rewording, squashing, and dropping a
+          private sequence before it becomes shared history
+        </strong>
+
+        <span>
+          Planned asset:
+          <code>{imageBase}/interactive-rebase.webp</code>
+        </span>
+      </figure>
+
       <blockquote>
-        Editing a private draft is reflection. Rewriting a shared past
-        is something else entirely.
+        Editing a private draft is reflection. Rewriting a shared past is
+        something else entirely.
       </blockquote>
     </section>
 
     <section id="undo">
       <p class="section-number">06</p>
+
       <h2>Reset, restore, and revert are not synonyms</h2>
 
       <p>
-        Git has several ways to undo work because “undo” can mean
-        several different things.
+        Git has several ways to undo work because “undo” can mean several
+        different things.
       </p>
 
       <div class="command-table">
@@ -374,16 +364,14 @@ squash d0e1f2 combine related work</code></pre>
         <div>
           <code>git reset</code>
           <span>
-            Move a branch reference and optionally update the index and
-            working tree.
+            Move a branch reference and optionally update the index and working
+            tree.
           </span>
         </div>
 
         <div>
           <code>git revert</code>
-          <span>
-            Create a new commit that inverses an earlier commit.
-          </span>
+          <span>Create a new commit that inverses an earlier commit.</span>
         </div>
       </div>
 
@@ -393,7 +381,6 @@ git reset --hard HEAD~1
 
 git restore path/to/file
 git restore --staged path/to/file
-
 git revert &lt;commit&gt;</code></pre>
 
       <figure class="visual-placeholder visual-placeholder--large">
@@ -401,7 +388,9 @@ git revert &lt;commit&gt;</code></pre>
           TECHNICAL DIAGRAM
         </div>
 
-        <strong>Soft, mixed, and hard reset across Git's three states</strong>
+        <strong>
+          Soft, mixed, and hard reset across Git's three states
+        </strong>
 
         <span>
           Planned asset:
@@ -410,19 +399,20 @@ git revert &lt;commit&gt;</code></pre>
       </figure>
 
       <blockquote>
-        Some mistakes should remain visible—not because they define us,
-        but because they explain what happened next.
+        Some mistakes should remain visible—not because they define us, but
+        because they explain what happened next.
       </blockquote>
     </section>
 
     <section id="reflog">
       <p class="section-number">07</p>
+
       <h2>The reflog remembers where your references were</h2>
 
       <p>
         The reflog records local updates to references such as
-        <code>HEAD</code>. A commit that appears lost after a reset or
-        rebase may still be reachable through the reflog.
+        <code>HEAD</code>. A commit that appears lost after a reset or rebase may
+        still be reachable through the reflog.
       </p>
 
       <pre><code>git reflog
@@ -443,20 +433,37 @@ git branch recovered-work &lt;old-commit&gt;</code></pre>
         </span>
       </figure>
 
+      <figure class="visual-placeholder visual-placeholder--editorial">
+        <div class="visual-placeholder__label">
+          AI EDITORIAL ILLUSTRATION
+        </div>
+
+        <strong>
+          Reflog recovery: examining a local record to recover something that
+          appeared to have disappeared
+        </strong>
+
+        <span>
+          Planned asset:
+          <code>{imageBase}/reflog-recovery-editorial.webp</code>
+        </span>
+      </figure>
+
       <blockquote>
-        Recovery is possible when the evidence still exists. Memory is
-        useful, but it is not the same thing as a shared record.
+        Recovery is possible when the evidence still exists. Memory is useful,
+        but it is not the same thing as a shared record.
       </blockquote>
     </section>
 
     <section id="remotes">
       <p class="section-number">08</p>
+
       <h2>Shared history requires coordination</h2>
 
       <p>
         Remote-tracking branches such as
-        <code>origin/main</code> represent the last known state of a
-        branch in another repository. They are updated by fetching.
+        <code>origin/main</code> represent the last known state of a branch in
+        another repository. They are updated by fetching.
       </p>
 
       <pre><code>git fetch origin
@@ -468,9 +475,9 @@ git push
 git push --force-with-lease</code></pre>
 
       <p>
-        <code>--force-with-lease</code> is safer than an unconditional
-        force push because it refuses to overwrite the remote branch
-        when it has changed in an unexpected way.
+        <code>--force-with-lease</code> is safer than an unconditional force
+        push because it refuses to overwrite the remote branch when it has
+        changed in an unexpected way.
       </p>
 
       <figure class="visual-placeholder">
@@ -478,7 +485,9 @@ git push --force-with-lease</code></pre>
           TECHNICAL DIAGRAM
         </div>
 
-        <strong>Local branch, remote-tracking branch, and remote branch</strong>
+        <strong>
+          Local branch, remote-tracking branch, and remote branch
+        </strong>
 
         <span>
           Planned asset:
@@ -487,81 +496,30 @@ git push --force-with-lease</code></pre>
       </figure>
 
       <blockquote>
-        You can rewrite your own draft. You cannot safely rewrite a
-        shared history without first knowing what changed for the other
-        person.
+        You can rewrite your own draft. You cannot safely rewrite a shared
+        history without first knowing what changed for the other person.
       </blockquote>
     </section>
 
-    <section id="tools">
-      <p class="section-number">09</p>
-      <h2>The commands worth remembering</h2>
-
-      <p>
-        This section will become the interview-preparation reference:
-        practical commands, the mental models behind them, and the
-        mistakes each one can create.
-      </p>
-
-      <div class="command-cloud">
-        <code>status</code>
-        <code>diff</code>
-        <code>add</code>
-        <code>commit</code>
-        <code>amend</code>
-        <code>switch</code>
-        <code>branch</code>
-        <code>merge</code>
-        <code>rebase</code>
-        <code>reset</code>
-        <code>restore</code>
-        <code>revert</code>
-        <code>reflog</code>
-        <code>stash</code>
-        <code>cherry-pick</code>
-        <code>fetch</code>
-        <code>pull</code>
-        <code>push</code>
-        <code>bisect</code>
-        <code>blame</code>
-        <code>show</code>
-        <code>log</code>
-      </div>
-
-      <figure class="visual-placeholder visual-placeholder--editorial">
-        <div class="visual-placeholder__label">
-          EDITORIAL IMAGE
-        </div>
-
-        <strong>A terminal session presented as an archaeological record</strong>
-
-        <span>
-          Planned asset:
-          <code>{imageBase}/terminal-history-archaeology.webp</code>
-        </span>
-      </figure>
-    </section>
-
     <section id="conclusion">
-      <p class="section-number">10</p>
+      <p class="section-number">09</p>
+
       <h2>What Git cannot save</h2>
 
       <p>
-        Git can preserve ancestry, identify divergence, expose
-        conflicting changes, and recover work that appeared to be
-        lost. It can even help a team describe exactly how a system
-        reached its current state.
+        Git can preserve ancestry, identify divergence, expose conflicting
+        changes, and recover work that appeared to be lost. It can even help a
+        team describe exactly how a system reached its current state.
       </p>
 
       <p>
-        It cannot decide what a person meant. It cannot make an
-        unspoken change visible. It cannot guarantee that two branches
-        still want to merge.
+        It cannot decide what a person meant. It cannot make an unspoken change
+        visible. It cannot guarantee that two branches still want to merge.
       </p>
 
       <blockquote class="closing-quote">
-        Good version control is not about never making mistakes. It is
-        about making history understandable.
+        Good version control is not about never making mistakes. It is about
+        making history understandable.
       </blockquote>
 
       <p>
