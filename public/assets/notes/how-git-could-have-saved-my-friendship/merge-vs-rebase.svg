@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"
+  viewBox="0 0 1200 800" role="img" aria-labelledby="svg-title svg-desc">
+  <title id="svg-title">Merge versus rebase</title>
+  <desc id="svg-desc">The merge side joins two histories with a merge commit. The rebase side replays feature commits to create a linear history.</desc>
+  <metadata>How Git Could Have Saved My Friendship — figure 04</metadata>
+
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5"
+      markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#4C8BF5" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5"
+      markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#666666" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+    <style>
+    :root { color-scheme: light; }
+    * { vector-effect: non-scaling-stroke; }
+    text {
+      font-family: Inter, "SF Pro Text", "SF Pro Display", -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      fill: #111111;
+      text-rendering: geometricPrecision;
+    }
+    .mono {
+      font-family: "JetBrains Mono", "IBM Plex Mono", "SFMono-Regular",
+        Consolas, monospace;
+    }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 1.6px; fill: #4C8BF5; }
+    .title { font-size: 30px; font-weight: 650; letter-spacing: -0.6px; }
+    .subtitle { font-size: 15px; font-weight: 450; fill: #666666; }
+    .section { font-size: 16px; font-weight: 650; letter-spacing: -0.15px; }
+    .label { font-size: 14px; font-weight: 650; }
+    .body { font-size: 14px; font-weight: 450; }
+    .small { font-size: 12px; font-weight: 500; fill: #666666; }
+    .tiny { font-size: 11px; font-weight: 550; fill: #666666; letter-spacing: 0.2px; }
+    .hash { font-size: 12px; font-weight: 550; fill: #666666; }
+    .blue-text { fill: #4C8BF5; }
+    .muted { fill: #B8B8B8; }
+    .white-text { fill: #FFFFFF; }
+    .panel { fill: #FFFFFF; stroke: #EDEDED; stroke-width: 2; }
+    .object { fill: #FFFFFF; stroke: #B8B8B8; stroke-width: 2; }
+    .object-dark { fill: #FFFFFF; stroke: #2F2F2F; stroke-width: 2; }
+    .object-blue { fill: #FFFFFF; stroke: #4C8BF5; stroke-width: 2; }
+    .soft-fill { fill: #EDEDED; }
+    .blue-fill { fill: #4C8BF5; }
+    .line { fill: none; stroke: #B8B8B8; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-dark { fill: none; stroke: #2F2F2F; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-blue { fill: none; stroke: #4C8BF5; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .rule { stroke: #EDEDED; stroke-width: 2; }
+    .dash { stroke-dasharray: 8 8; }
+    .dot { fill: #FFFFFF; stroke: #2F2F2F; stroke-width: 2; }
+    .dot-blue { fill: #FFFFFF; stroke: #4C8BF5; stroke-width: 2; }
+    .command-chip { fill: #4C8BF5; fill-opacity: 0.10; stroke: #4C8BF5; stroke-opacity: 0.34; stroke-width: 2; }
+  </style>
+  </defs>
+  <rect id="canvas" width="1200" height="800" fill="#FFFFFF" />
+
+  <g id="figure-header">
+    <text class="eyebrow" x="64" y="48">GIT SYSTEM / 04</text>
+    <text class="title" x="64" y="88">Merge versus rebase</text>
+    <text class="subtitle" x="64" y="116">Two ways to integrate the same work: preserve topology, or replay commits onto a new base.</text>
+    <line class="rule" x1="64" y1="144" x2="1136" y2="144" />
+  </g>
+
+  <line class="rule" x1="600" y1="184" x2="600" y2="720" />
+
+  <!-- Left comparison: merge -->
+  <g id="merge-comparison">
+    <text class="section" x="88" y="216">MERGE</text>
+    <text class="small" x="88" y="240">Preserves both lines of development</text>
+
+    <g id="merge-history">
+      <path class="line-dark" d="M135 400 L217 400" />
+      <path class="line-dark" d="M247 400 C278 400 286 320 329 320" />
+      <path class="line-dark" d="M247 400 C278 400 286 480 329 480" />
+      <path class="line-dark" d="M359 320 L425 320 M455 320 C486 320 490 400 513 400" />
+      <path class="line-dark" d="M359 480 L425 480 M455 480 C486 480 490 400 513 400" />
+      <g ><circle class="dot" cx="120" cy="400" r="15" /><text class="label" x="120" y="405" text-anchor="middle">A</text></g>
+      <g ><circle class="dot" cx="232" cy="400" r="15" /><text class="label" x="232" y="405" text-anchor="middle">B</text></g>
+      <g ><circle class="dot" cx="344" cy="320" r="15" /><text class="label" x="344" y="325" text-anchor="middle">C</text></g>
+      <g ><circle class="dot" cx="440" cy="320" r="15" /><text class="label" x="440" y="325" text-anchor="middle">D</text></g>
+      <g ><circle class="dot" cx="344" cy="480" r="15" /><text class="label" x="344" y="485" text-anchor="middle">c</text></g>
+      <g ><circle class="dot" cx="440" cy="480" r="15" /><text class="label" x="440" y="485" text-anchor="middle">d</text></g>
+      <g ><circle class="dot-blue" cx="528" cy="400" r="15" /><text class="label blue-text" x="528" y="405" text-anchor="middle">M</text></g>
+      <rect class="object" x="380" y="264" width="120" height="32" rx="8" />
+      <text class="mono tiny" x="440" y="285" text-anchor="middle">main</text>
+      <rect class="object" x="372" y="504" width="136" height="32" rx="8" />
+      <text class="mono tiny" x="440" y="525" text-anchor="middle">feature</text>
+      <rect class="command-chip" x="468" y="432" width="120" height="32" rx="8" />
+      <text class="mono tiny blue-text" x="528" y="453" text-anchor="middle">merge commit</text>
+    </g>
+
+    <g id="merge-properties">
+      <line class="rule" x1="88" y1="600" x2="560" y2="600" />
+      <text class="label" x="88" y="636">Original commit identities remain</text>
+      <text class="small" x="88" y="664">The integration itself becomes a new commit with two parents.</text>
+    </g>
+  </g>
+
+  <!-- Right comparison: rebase -->
+  <g id="rebase-comparison">
+    <text class="section" x="640" y="216">REBASE</text>
+    <text class="small" x="640" y="240">Replays feature work after the new base</text>
+
+    <g id="rebase-history">
+      <path class="line-dark" d="M687 400 L757 400 M787 400 L857 400 M887 400 L957 400" />
+      <path class="line-blue" d="M987 400 L1057 400" />
+      <g ><circle class="dot" cx="672" cy="400" r="15" /><text class="label" x="672" y="405" text-anchor="middle">A</text></g>
+      <g ><circle class="dot" cx="772" cy="400" r="15" /><text class="label" x="772" y="405" text-anchor="middle">B</text></g>
+      <g ><circle class="dot" cx="872" cy="400" r="15" /><text class="label" x="872" y="405" text-anchor="middle">C</text></g>
+      <g ><circle class="dot" cx="972" cy="400" r="15" /><text class="label" x="972" y="405" text-anchor="middle">D</text></g>
+      <g ><circle class="dot-blue" cx="1072" cy="400" r="15" /><text class="label blue-text" x="1072" y="405" text-anchor="middle">c′</text></g>
+      <g ><circle class="dot-blue" cx="1132" cy="400" r="15" /><text class="label blue-text" x="1132" y="405" text-anchor="middle">d′</text></g>
+
+      <g id="original-feature-commits">
+        <path class="line dash" d="M872 496 L972 496" />
+        <circle class="dot" cx="872" cy="496" r="15" stroke-dasharray="4 4" />
+        <text class="label muted" x="872" y="501" text-anchor="middle">c</text>
+        <circle class="dot" cx="972" cy="496" r="15" stroke-dasharray="4 4" />
+        <text class="label muted" x="972" y="501" text-anchor="middle">d</text>
+        <path class="line-blue dash" d="M872 478 C900 448 1036 456 1060 418" marker-end="url(#arrow-blue)" />
+        <path class="line-blue dash" d="M972 478 C1004 452 1104 454 1124 418" marker-end="url(#arrow-blue)" />
+        <text class="tiny" x="920" y="540" text-anchor="middle">old feature commits</text>
+      </g>
+
+      <rect class="object-blue" x="1064" y="320" width="136" height="40" rx="8" />
+      <text class="mono tiny blue-text" x="1132" y="345" text-anchor="middle">feature</text>
+      <path class="line-blue" d="M1132 360 L1132 382" marker-end="url(#arrow-blue)" />
+      <text class="tiny blue-text" x="1102" y="456" text-anchor="middle">new IDs</text>
+    </g>
+
+    <g id="rebase-properties">
+      <line class="rule" x1="640" y1="600" x2="1112" y2="600" />
+      <text class="label" x="640" y="636">A linear story, rebuilt commit identities</text>
+      <text class="small" x="640" y="664">The content is replayed; c′ and d′ are new commits.</text>
+    </g>
+  </g>
+</svg>

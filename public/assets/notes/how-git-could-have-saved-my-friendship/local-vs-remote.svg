@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"
+  viewBox="0 0 1200 800" role="img" aria-labelledby="svg-title svg-desc">
+  <title id="svg-title">Local versus remote</title>
+  <desc id="svg-desc">Two repository panels show local and origin. Commit changes local history. Push sends changes, fetch receives remote state, and pull fetches then integrates.</desc>
+  <metadata>How Git Could Have Saved My Friendship — figure 10</metadata>
+
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5"
+      markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#4C8BF5" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5"
+      markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#666666" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+    <style>
+    :root { color-scheme: light; }
+    * { vector-effect: non-scaling-stroke; }
+    text {
+      font-family: Inter, "SF Pro Text", "SF Pro Display", -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      fill: #111111;
+      text-rendering: geometricPrecision;
+    }
+    .mono {
+      font-family: "JetBrains Mono", "IBM Plex Mono", "SFMono-Regular",
+        Consolas, monospace;
+    }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 1.6px; fill: #4C8BF5; }
+    .title { font-size: 30px; font-weight: 650; letter-spacing: -0.6px; }
+    .subtitle { font-size: 15px; font-weight: 450; fill: #666666; }
+    .section { font-size: 16px; font-weight: 650; letter-spacing: -0.15px; }
+    .label { font-size: 14px; font-weight: 650; }
+    .body { font-size: 14px; font-weight: 450; }
+    .small { font-size: 12px; font-weight: 500; fill: #666666; }
+    .tiny { font-size: 11px; font-weight: 550; fill: #666666; letter-spacing: 0.2px; }
+    .hash { font-size: 12px; font-weight: 550; fill: #666666; }
+    .blue-text { fill: #4C8BF5; }
+    .muted { fill: #B8B8B8; }
+    .white-text { fill: #FFFFFF; }
+    .panel { fill: #FFFFFF; stroke: #EDEDED; stroke-width: 2; }
+    .object { fill: #FFFFFF; stroke: #B8B8B8; stroke-width: 2; }
+    .object-dark { fill: #FFFFFF; stroke: #2F2F2F; stroke-width: 2; }
+    .object-blue { fill: #FFFFFF; stroke: #4C8BF5; stroke-width: 2; }
+    .soft-fill { fill: #EDEDED; }
+    .blue-fill { fill: #4C8BF5; }
+    .line { fill: none; stroke: #B8B8B8; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-dark { fill: none; stroke: #2F2F2F; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-blue { fill: none; stroke: #4C8BF5; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .rule { stroke: #EDEDED; stroke-width: 2; }
+    .dash { stroke-dasharray: 8 8; }
+    .dot { fill: #FFFFFF; stroke: #2F2F2F; stroke-width: 2; }
+    .dot-blue { fill: #FFFFFF; stroke: #4C8BF5; stroke-width: 2; }
+    .command-chip { fill: #4C8BF5; fill-opacity: 0.10; stroke: #4C8BF5; stroke-opacity: 0.34; stroke-width: 2; }
+  </style>
+  </defs>
+  <rect id="canvas" width="1200" height="800" fill="#FFFFFF" />
+
+  <g id="figure-header">
+    <text class="eyebrow" x="64" y="48">GIT SYSTEM / 10</text>
+    <text class="title" x="64" y="88">Local versus remote</text>
+    <text class="subtitle" x="64" y="116">A remote is another repository. Network commands reconcile histories; commit never leaves your machine.</text>
+    <line class="rule" x1="64" y1="144" x2="1136" y2="144" />
+  </g>
+
+  <g id="repository-pair">
+    <g id="local-repository">
+      <rect class="panel" x="64" y="200" width="448" height="472" rx="8" />
+      <text class="section" x="88" y="240">Local repository</text>
+      <text class="small" x="488" y="240" text-anchor="end">your machine</text>
+      <line class="rule" x1="88" y1="264" x2="488" y2="264" />
+
+      <g id="local-commit-action">
+        <rect class="command-chip" x="344" y="296" width="120" height="40" rx="8" />
+        <text class="mono small blue-text" x="404" y="321" text-anchor="middle">git commit</text>
+        <path class="line-blue" d="M404 336 L404 392" marker-end="url(#arrow-blue)" />
+      </g>
+
+      <g id="local-history">
+        <path class="line-dark" d="M135 448 L241 448" />
+        <path class="line-blue" d="M271 448 L389 448" />
+        <g ><circle class="dot" cx="120" cy="448" r="15" /><text class="label" x="120" y="453" text-anchor="middle">A</text></g>
+        <g ><circle class="dot" cx="256" cy="448" r="15" /><text class="label" x="256" y="453" text-anchor="middle">B</text></g>
+        <g ><circle class="dot-blue" cx="404" cy="448" r="15" /><text class="label blue-text" x="404" y="453" text-anchor="middle">C</text></g>
+        <rect class="object-blue" x="344" y="504" width="120" height="40" rx="8" />
+        <text class="mono tiny blue-text" x="404" y="529" text-anchor="middle">main</text>
+        <path class="line-blue" d="M404 504 L404 468" marker-end="url(#arrow-blue)" />
+        <rect class="object" x="168" y="568" width="176" height="40" rx="8" />
+        <text class="mono tiny" x="256" y="593" text-anchor="middle">origin/main</text>
+        <path class="line" d="M256 568 L256 468" marker-end="url(#arrow-gray)" />
+      </g>
+      <text class="tiny" x="88" y="640">C EXISTS LOCALLY ONLY</text>
+    </g>
+
+    <g id="remote-repository">
+      <rect class="panel" x="688" y="200" width="448" height="472" rx="8" />
+      <text class="section" x="712" y="240">Remote repository</text>
+      <rect class="soft-fill" x="1032" y="216" width="80" height="32" rx="8" />
+      <text class="mono tiny" x="1072" y="237" text-anchor="middle">origin</text>
+      <line class="rule" x1="712" y1="264" x2="1112" y2="264" />
+
+      <g id="remote-history">
+        <path class="line-dark" d="M799 448 L929 448" />
+        <g ><circle class="dot" cx="784" cy="448" r="15" /><text class="label" x="784" y="453" text-anchor="middle">A</text></g>
+        <g ><circle class="dot" cx="944" cy="448" r="15" /><text class="label" x="944" y="453" text-anchor="middle">B</text></g>
+        <circle class="dot muted" cx="1080" cy="448" r="15" stroke-dasharray="4 4" />
+        <text class="label muted" x="1080" y="453" text-anchor="middle">C</text>
+        <path class="line dash" d="M959 448 L1065 448" />
+        <text class="tiny" x="1080" y="490" text-anchor="middle">after push</text>
+        <rect class="object" x="884" y="520" width="120" height="40" rx="8" />
+        <text class="mono tiny" x="944" y="545" text-anchor="middle">main</text>
+        <path class="line" d="M944 520 L944 468" marker-end="url(#arrow-gray)" />
+      </g>
+      <text class="tiny" x="712" y="640">B IS THE CURRENT REMOTE TIP</text>
+    </g>
+
+    <g id="network-operations">
+      <g id="push-operation">
+        <text class="mono label blue-text" x="600" y="312" text-anchor="middle">push</text>
+        <path class="line-blue" d="M520 328 L680 328" marker-end="url(#arrow-blue)" />
+      </g>
+      <g id="fetch-operation">
+        <text class="mono label" x="600" y="408" text-anchor="middle">fetch</text>
+        <path class="line-dark" d="M680 424 L520 424" marker-end="url(#arrow-gray)" />
+      </g>
+      <g id="pull-operation">
+        <text class="mono label" x="600" y="520" text-anchor="middle">pull</text>
+        <text class="tiny" x="600" y="542" text-anchor="middle">fetch + integrate</text>
+        <path class="line-dark" d="M680 560 L520 560" marker-end="url(#arrow-gray)" />
+      </g>
+    </g>
+
+    <text class="body" x="600" y="736" text-anchor="middle">commit is local · fetch updates remote-tracking refs · pull also integrates · push publishes</text>
+  </g>
+</svg>

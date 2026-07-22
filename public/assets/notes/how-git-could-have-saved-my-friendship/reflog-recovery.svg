@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"
+  viewBox="0 0 1200 800" role="img" aria-labelledby="svg-title svg-desc">
+  <title id="svg-title">Reflog recovery</title>
+  <desc id="svg-desc">A commit becomes unreferenced after main resets. HEAD reflog entries preserve its previous location, allowing a recovery branch to restore it.</desc>
+  <metadata>How Git Could Have Saved My Friendship — figure 08</metadata>
+
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5"
+      markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#4C8BF5" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5"
+      markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#666666" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+    <style>
+    :root { color-scheme: light; }
+    * { vector-effect: non-scaling-stroke; }
+    text {
+      font-family: Inter, "SF Pro Text", "SF Pro Display", -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      fill: #111111;
+      text-rendering: geometricPrecision;
+    }
+    .mono {
+      font-family: "JetBrains Mono", "IBM Plex Mono", "SFMono-Regular",
+        Consolas, monospace;
+    }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 1.6px; fill: #4C8BF5; }
+    .title { font-size: 30px; font-weight: 650; letter-spacing: -0.6px; }
+    .subtitle { font-size: 15px; font-weight: 450; fill: #666666; }
+    .section { font-size: 16px; font-weight: 650; letter-spacing: -0.15px; }
+    .label { font-size: 14px; font-weight: 650; }
+    .body { font-size: 14px; font-weight: 450; }
+    .small { font-size: 12px; font-weight: 500; fill: #666666; }
+    .tiny { font-size: 11px; font-weight: 550; fill: #666666; letter-spacing: 0.2px; }
+    .hash { font-size: 12px; font-weight: 550; fill: #666666; }
+    .blue-text { fill: #4C8BF5; }
+    .muted { fill: #B8B8B8; }
+    .white-text { fill: #FFFFFF; }
+    .panel { fill: #FFFFFF; stroke: #EDEDED; stroke-width: 2; }
+    .object { fill: #FFFFFF; stroke: #B8B8B8; stroke-width: 2; }
+    .object-dark { fill: #FFFFFF; stroke: #2F2F2F; stroke-width: 2; }
+    .object-blue { fill: #FFFFFF; stroke: #4C8BF5; stroke-width: 2; }
+    .soft-fill { fill: #EDEDED; }
+    .blue-fill { fill: #4C8BF5; }
+    .line { fill: none; stroke: #B8B8B8; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-dark { fill: none; stroke: #2F2F2F; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-blue { fill: none; stroke: #4C8BF5; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .rule { stroke: #EDEDED; stroke-width: 2; }
+    .dash { stroke-dasharray: 8 8; }
+    .dot { fill: #FFFFFF; stroke: #2F2F2F; stroke-width: 2; }
+    .dot-blue { fill: #FFFFFF; stroke: #4C8BF5; stroke-width: 2; }
+    .command-chip { fill: #4C8BF5; fill-opacity: 0.10; stroke: #4C8BF5; stroke-opacity: 0.34; stroke-width: 2; }
+  </style>
+  </defs>
+  <rect id="canvas" width="1200" height="800" fill="#FFFFFF" />
+
+  <g id="figure-header">
+    <text class="eyebrow" x="64" y="48">GIT SYSTEM / 08</text>
+    <text class="title" x="64" y="88">Reflog recovery</text>
+    <text class="subtitle" x="64" y="116">Branch names can move away from a commit; the reflog still records where HEAD used to be.</text>
+    <line class="rule" x1="64" y1="144" x2="1136" y2="144" />
+  </g>
+
+  <g id="reflog-recovery-story">
+    <!-- Commit graph after an accidental reset -->
+    <g id="post-reset-history">
+      <text class="eyebrow" x="88" y="208">COMMIT GRAPH</text>
+      <path class="line-dark" d="M159 312 L329 312 M359 312 L529 312" />
+      <g ><circle class="dot" cx="144" cy="312" r="15" /><text class="label" x="144" y="317" text-anchor="middle">A</text></g>
+      <g ><circle class="dot-blue" cx="344" cy="312" r="15" /><text class="label blue-text" x="344" y="317" text-anchor="middle">B</text></g>
+      <g id="lost-commit">
+        <circle class="dot" cx="544" cy="312" r="15" stroke-dasharray="4 4" />
+        <text class="label muted" x="544" y="317" text-anchor="middle">C</text>
+        <circle class="line dash" cx="544" cy="312" r="32" />
+        <text class="tiny" x="544" y="374" text-anchor="middle">unreferenced · 71c9</text>
+      </g>
+      <g id="main-after-reset">
+        <rect class="object-blue" x="284" y="224" width="120" height="40" rx="8" />
+        <text class="mono tiny blue-text" x="344" y="249" text-anchor="middle">main</text>
+        <path class="line-blue" d="M344 264 L344 292" marker-end="url(#arrow-blue)" />
+      </g>
+      <text class="small" x="144" y="416">main moved backward; C lost its branch name.</text>
+    </g>
+
+    <!-- Recovery action -->
+    <g id="recovery-branch">
+      <rect class="command-chip" x="760" y="240" width="344" height="48" rx="8" />
+      <text class="mono body blue-text" x="932" y="270" text-anchor="middle">git branch recovery HEAD@{1}</text>
+      <rect class="object-blue" x="844" y="328" width="176" height="48" rx="8" />
+      <text class="mono body blue-text" x="932" y="358" text-anchor="middle">recovery → 71c9</text>
+      <path class="line-blue" d="M828 352 C736 352 688 312 578 312" marker-end="url(#arrow-blue)" />
+      <text class="eyebrow" x="932" y="416" text-anchor="middle">RECOVERED</text>
+    </g>
+
+    <!-- Reflog is a timeline of ref movement, not a second commit graph -->
+    <g id="reflog-timeline">
+      <text class="eyebrow" x="88" y="496">HEAD REFLOG</text>
+      <path class="line" d="M144 552 L984 552" />
+
+      <g id="reflog-entry-3">
+        <circle class="dot" cx="144" cy="552" r="10" />
+        <text class="mono label" x="144" y="592" text-anchor="middle">HEAD@{3}</text>
+        <text class="small" x="144" y="616" text-anchor="middle">A · 0ac2</text>
+      </g>
+      <g id="reflog-entry-2">
+        <circle class="dot" cx="424" cy="552" r="10" />
+        <text class="mono label" x="424" y="592" text-anchor="middle">HEAD@{2}</text>
+        <text class="small" x="424" y="616" text-anchor="middle">B · 5be1</text>
+      </g>
+      <g id="reflog-entry-1">
+        <circle class="dot-blue" cx="704" cy="552" r="10" />
+        <text class="mono label blue-text" x="704" y="592" text-anchor="middle">HEAD@{1}</text>
+        <text class="small blue-text" x="704" y="616" text-anchor="middle">C · 71c9</text>
+        <path class="line-blue dash" d="M704 540 C704 464 624 416 560 346" marker-end="url(#arrow-blue)" />
+      </g>
+      <g id="reflog-entry-0">
+        <circle class="dot" cx="984" cy="552" r="10" />
+        <text class="mono label" x="984" y="592" text-anchor="middle">HEAD@{0}</text>
+        <text class="small" x="984" y="616" text-anchor="middle">B · reset</text>
+      </g>
+      <text class="tiny" x="144" y="664">OLDER</text>
+      <text class="tiny" x="984" y="664" text-anchor="end">NOW</text>
+    </g>
+
+    <text class="section" x="600" y="736" text-anchor="middle">Nothing is truly lost immediately: first recover the name.</text>
+  </g>
+</svg>

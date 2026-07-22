@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"
+  viewBox="0 0 1200 800" role="img" aria-labelledby="svg-title svg-desc">
+  <title id="svg-title">Detached HEAD</title>
+  <desc id="svg-desc">The left panel shows HEAD detached at commit E while main remains at C. The right panel shows git switch minus c rescue attaching a new branch to E.</desc>
+  <metadata>How Git Could Have Saved My Friendship — figure 09</metadata>
+
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5"
+      markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#4C8BF5" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5"
+      markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#666666" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+    <style>
+    :root { color-scheme: light; }
+    * { vector-effect: non-scaling-stroke; }
+    text {
+      font-family: Inter, "SF Pro Text", "SF Pro Display", -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      fill: #111111;
+      text-rendering: geometricPrecision;
+    }
+    .mono {
+      font-family: "JetBrains Mono", "IBM Plex Mono", "SFMono-Regular",
+        Consolas, monospace;
+    }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 1.6px; fill: #4C8BF5; }
+    .title { font-size: 30px; font-weight: 650; letter-spacing: -0.6px; }
+    .subtitle { font-size: 15px; font-weight: 450; fill: #666666; }
+    .section { font-size: 16px; font-weight: 650; letter-spacing: -0.15px; }
+    .label { font-size: 14px; font-weight: 650; }
+    .body { font-size: 14px; font-weight: 450; }
+    .small { font-size: 12px; font-weight: 500; fill: #666666; }
+    .tiny { font-size: 11px; font-weight: 550; fill: #666666; letter-spacing: 0.2px; }
+    .hash { font-size: 12px; font-weight: 550; fill: #666666; }
+    .blue-text { fill: #4C8BF5; }
+    .muted { fill: #B8B8B8; }
+    .white-text { fill: #FFFFFF; }
+    .panel { fill: #FFFFFF; stroke: #EDEDED; stroke-width: 2; }
+    .object { fill: #FFFFFF; stroke: #B8B8B8; stroke-width: 2; }
+    .object-dark { fill: #FFFFFF; stroke: #2F2F2F; stroke-width: 2; }
+    .object-blue { fill: #FFFFFF; stroke: #4C8BF5; stroke-width: 2; }
+    .soft-fill { fill: #EDEDED; }
+    .blue-fill { fill: #4C8BF5; }
+    .line { fill: none; stroke: #B8B8B8; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-dark { fill: none; stroke: #2F2F2F; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-blue { fill: none; stroke: #4C8BF5; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .rule { stroke: #EDEDED; stroke-width: 2; }
+    .dash { stroke-dasharray: 8 8; }
+    .dot { fill: #FFFFFF; stroke: #2F2F2F; stroke-width: 2; }
+    .dot-blue { fill: #FFFFFF; stroke: #4C8BF5; stroke-width: 2; }
+    .command-chip { fill: #4C8BF5; fill-opacity: 0.10; stroke: #4C8BF5; stroke-opacity: 0.34; stroke-width: 2; }
+  </style>
+  </defs>
+  <rect id="canvas" width="1200" height="800" fill="#FFFFFF" />
+
+  <g id="figure-header">
+    <text class="eyebrow" x="64" y="48">GIT SYSTEM / 09</text>
+    <text class="title" x="64" y="88">Detached HEAD</text>
+    <text class="subtitle" x="64" y="116">Commits can continue without a branch name. Attach one before moving away, and the work becomes durable.</text>
+    <line class="rule" x1="64" y1="144" x2="1136" y2="144" />
+  </g>
+
+  <line class="rule" x1="600" y1="184" x2="600" y2="704" />
+
+  <g id="detached-state">
+    <text class="eyebrow" x="80" y="216">DETACHED</text>
+    <text class="small" x="80" y="240">HEAD names a commit directly</text>
+
+    <g id="detached-history">
+      <path class="line-dark" d="M111 408 L185 408 M215 408 L289 408" />
+      <path class="line-blue" d="M319 408 L393 408 M423 408 L497 408" />
+      <g ><circle class="dot" cx="96" cy="408" r="15" /><text class="label" x="96" y="413" text-anchor="middle">A</text></g>
+      <g ><circle class="dot" cx="200" cy="408" r="15" /><text class="label" x="200" y="413" text-anchor="middle">B</text></g>
+      <g ><circle class="dot" cx="304" cy="408" r="15" /><text class="label" x="304" y="413" text-anchor="middle">C</text></g>
+      <g ><circle class="dot-blue" cx="408" cy="408" r="15" /><text class="label blue-text" x="408" y="413" text-anchor="middle">D</text></g>
+      <g ><circle class="dot-blue" cx="512" cy="408" r="15" /><text class="label blue-text" x="512" y="413" text-anchor="middle">E</text></g>
+    </g>
+
+    <g id="detached-main-pointer">
+      <rect class="object" x="244" y="296" width="120" height="40" rx="8" />
+      <text class="mono tiny" x="304" y="321" text-anchor="middle">main</text>
+      <path class="line" d="M304 336 L304 388" marker-end="url(#arrow-gray)" />
+    </g>
+    <g id="detached-head-pointer">
+      <rect class="blue-fill" x="448" y="264" width="128" height="48" rx="8" />
+      <text class="mono label white-text" x="512" y="294" text-anchor="middle">HEAD</text>
+      <path class="line-blue" d="M512 312 L512 388" marker-end="url(#arrow-blue)" />
+    </g>
+
+    <line class="rule" x1="80" y1="520" x2="560" y2="520" />
+    <text class="label" x="80" y="560">D and E exist</text>
+    <text class="small" x="80" y="586">but no branch name reaches them yet.</text>
+    <text class="tiny" x="80" y="632">MAIN STAYS AT C</text>
+  </g>
+
+  <g id="saved-state">
+    <text class="eyebrow" x="640" y="216">SAVED</text>
+    <text class="small" x="640" y="240">HEAD attaches to a new branch name</text>
+
+    <g id="saved-history">
+      <path class="line-dark" d="M671 408 L745 408 M775 408 L849 408" />
+      <path class="line-blue" d="M879 408 L953 408 M983 408 L1057 408" />
+      <g ><circle class="dot" cx="656" cy="408" r="15" /><text class="label" x="656" y="413" text-anchor="middle">A</text></g>
+      <g ><circle class="dot" cx="760" cy="408" r="15" /><text class="label" x="760" y="413" text-anchor="middle">B</text></g>
+      <g ><circle class="dot" cx="864" cy="408" r="15" /><text class="label" x="864" y="413" text-anchor="middle">C</text></g>
+      <g ><circle class="dot-blue" cx="968" cy="408" r="15" /><text class="label blue-text" x="968" y="413" text-anchor="middle">D</text></g>
+      <g ><circle class="dot-blue" cx="1072" cy="408" r="15" /><text class="label blue-text" x="1072" y="413" text-anchor="middle">E</text></g>
+    </g>
+
+    <g id="saved-main-pointer">
+      <rect class="object" x="804" y="296" width="120" height="40" rx="8" />
+      <text class="mono tiny" x="864" y="321" text-anchor="middle">main</text>
+      <path class="line" d="M864 336 L864 388" marker-end="url(#arrow-gray)" />
+    </g>
+    <g id="saved-head-and-branch">
+      <rect class="command-chip" x="916" y="184" width="220" height="40" rx="8" />
+      <text class="mono small blue-text" x="1026" y="209" text-anchor="middle">git switch -c rescue</text>
+      <rect class="object-blue" x="1000" y="264" width="136" height="48" rx="8" />
+      <text class="mono body blue-text" x="1068" y="294" text-anchor="middle">rescue</text>
+      <rect class="blue-fill" x="928" y="264" width="64" height="48" rx="8" />
+      <text class="mono tiny white-text" x="960" y="294" text-anchor="middle">HEAD</text>
+      <path class="line-blue" d="M1068 312 L1072 388" marker-end="url(#arrow-blue)" />
+    </g>
+
+    <line class="rule" x1="640" y1="520" x2="1120" y2="520" />
+    <text class="label" x="640" y="560">D and E are reachable</text>
+    <text class="small" x="640" y="586">through the new rescue branch.</text>
+    <text class="tiny blue-text" x="640" y="632">HEAD → RESCUE → E</text>
+  </g>
+</svg>
