@@ -93,17 +93,19 @@ const imageBase =
 ├── committer
 └── message</code></pre>
 
-      <figure class="visual-placeholder">
-        <div class="visual-placeholder__label">
-          TECHNICAL DIAGRAM
-        </div>
+      <figure class="visual-placeholder visual-placeholder--large">
+        <img
+          src={`${imageBase}/git-object-model.svg`}
+          alt="Git object model showing blobs, trees, commits, tags, and their content-addressed relationships"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
 
-        <strong>Git object model: blob, tree, commit, and tag</strong>
-
-        <span>
-          Planned asset:
-          <code>{imageBase}/git-object-model.svg</code>
-        </span>
+        <figcaption>
+          Git stores content as objects connected by content-addressed
+          references.
+        </figcaption>
       </figure>
 
       <blockquote>
@@ -156,17 +158,19 @@ git commit</code></pre>
         snapshot.
       </p>
 
-      <figure class="visual-placeholder">
-        <div class="visual-placeholder__label">
-          TECHNICAL DIAGRAM
-        </div>
+      <figure class="visual-placeholder visual-placeholder--large">
+        <img
+          src={`${imageBase}/working-tree-index-head.svg`}
+          alt="Git working tree, staging index, HEAD, and repository model"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
 
-        <strong>Working tree, index, and repository</strong>
-
-        <span>
-          Planned asset:
-          <code>{imageBase}/three-states-of-git.svg</code>
-        </span>
+        <figcaption>
+          Changes move from the working tree to the index and finally into
+          committed history.
+        </figcaption>
       </figure>
 
       <blockquote>
@@ -196,17 +200,34 @@ git log --oneline --graph --decorate --all</code></pre>
         In a detached HEAD state, it points directly to a commit instead.
       </p>
 
-      <figure class="visual-placeholder">
-        <div class="visual-placeholder__label">
-          TECHNICAL DIAGRAM
-        </div>
+      <figure class="visual-placeholder visual-placeholder--large">
+        <img
+          src={`${imageBase}/head-and-branches.svg`}
+          alt="Git HEAD and movable branch references pointing to commits"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
 
-        <strong>HEAD, branch references, and detached HEAD</strong>
+        <figcaption>
+          HEAD normally refers to the checked-out branch, while each branch is
+          a movable reference to a commit.
+        </figcaption>
+      </figure>
 
-        <span>
-          Planned asset:
-          <code>{imageBase}/head-and-branch-references.svg</code>
-        </span>
+      <figure class="visual-placeholder visual-placeholder--large">
+        <img
+          src={`${imageBase}/detached-head.svg`}
+          alt="Git detached HEAD state followed by recovery through creation of a new branch"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
+
+        <figcaption>
+          Work created in a detached HEAD state can be preserved by attaching
+          it to a new branch.
+        </figcaption>
       </figure>
 
       <blockquote>
@@ -246,17 +267,19 @@ git status
 git add resolved-file
 git commit</code></pre>
 
-      <figure class="visual-placeholder">
-        <div class="visual-placeholder__label">
-          TECHNICAL DIAGRAM
-        </div>
+      <figure class="visual-placeholder visual-placeholder--large">
+        <img
+          src={`${imageBase}/three-way-merge.svg`}
+          alt="Three-way Git merge using two branch tips and their common ancestor"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
 
-        <strong>Three-way merge and the common ancestor</strong>
-
-        <span>
-          Planned asset:
-          <code>{imageBase}/three-way-merge.svg</code>
-        </span>
+        <figcaption>
+          A three-way merge compares both branch tips with their shared
+          ancestor.
+        </figcaption>
       </figure>
 
       <blockquote>
@@ -284,31 +307,18 @@ git rebase main</code></pre>
       </p>
 
       <figure class="visual-placeholder visual-placeholder--large">
-        <div class="visual-placeholder__label">
-          TECHNICAL DIAGRAM
-        </div>
+        <img
+          src={`${imageBase}/merge-vs-rebase.svg`}
+          alt="Comparison between Git merge and Git rebase commit histories"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
 
-        <strong>Rebase shown as detach, move, and replay</strong>
-
-        <span>
-          Planned asset:
-          <code>{imageBase}/rebase-detach-move-replay.svg</code>
-        </span>
-      </figure>
-
-      <figure class="visual-placeholder">
-        <div class="visual-placeholder__label">
-          TECHNICAL DIAGRAM
-        </div>
-
-        <strong>
-          Merge versus rebase: similar trees, different histories
-        </strong>
-
-        <span>
-          Planned asset:
-          <code>{imageBase}/merge-versus-rebase.svg</code>
-        </span>
+        <figcaption>
+          Merge preserves divergent ancestry. Rebase replays changes onto a new
+          base to produce a linear history.
+        </figcaption>
       </figure>
 
       <p>
@@ -323,20 +333,34 @@ fixup  d4e5f6 typo in the previous change
 reword a7b8c9 explain the decision properly
 squash d0e1f2 combine related work</code></pre>
 
+      <figure class="visual-placeholder visual-placeholder--large">
+        <img
+          src={`${imageBase}/interactive-rebase.svg`}
+          alt="Interactive Git rebase using pick, reword, edit, squash, fixup, and drop"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
+
+        <figcaption>
+          Interactive rebase turns an untidy private sequence into a deliberate
+          published history.
+        </figcaption>
+      </figure>
+
       <figure class="visual-placeholder visual-placeholder--editorial">
-        <div class="visual-placeholder__label">
-          AI EDITORIAL ILLUSTRATION
-        </div>
+        <img
+          src={`${imageBase}/interactive-rebase.webp`}
+          alt="Two software engineers examining and reorganizing a private commit history with interactive rebase"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
 
-        <strong>
-          Interactive rebase: reviewing, rewording, squashing, and dropping a
-          private sequence before it becomes shared history
-        </strong>
-
-        <span>
-          Planned asset:
-          <code>{imageBase}/interactive-rebase.webp</code>
-        </span>
+        <figcaption>
+          Reviewing, rewording, squashing, and dropping a private sequence
+          before it becomes shared history.
+        </figcaption>
       </figure>
 
       <blockquote>
@@ -384,18 +408,18 @@ git restore --staged path/to/file
 git revert &lt;commit&gt;</code></pre>
 
       <figure class="visual-placeholder visual-placeholder--large">
-        <div class="visual-placeholder__label">
-          TECHNICAL DIAGRAM
-        </div>
+        <img
+          src={`${imageBase}/reset-soft-mixed-hard.svg`}
+          alt="Comparison of Git reset soft, mixed, and hard modes across HEAD, the index, and the working tree"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
 
-        <strong>
-          Soft, mixed, and hard reset across Git's three states
-        </strong>
-
-        <span>
-          Planned asset:
-          <code>{imageBase}/reset-soft-mixed-hard.svg</code>
-        </span>
+        <figcaption>
+          Soft, mixed, and hard reset differ in how they update HEAD, the index,
+          and the working tree.
+        </figcaption>
       </figure>
 
       <blockquote>
@@ -420,33 +444,49 @@ git revert &lt;commit&gt;</code></pre>
 git switch --detach &lt;old-commit&gt;
 git branch recovered-work &lt;old-commit&gt;</code></pre>
 
-      <figure class="visual-placeholder">
-        <div class="visual-placeholder__label">
-          TECHNICAL DIAGRAM
-        </div>
+      <figure class="visual-placeholder visual-placeholder--large">
+        <img
+          src={`${imageBase}/reflog-recovery.svg`}
+          alt="Recovery of an apparently lost Git commit using reflog and a new branch"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
 
-        <strong>Recovering an apparently lost commit with reflog</strong>
+        <figcaption>
+          Reflog records previous reference positions, allowing an apparently
+          lost commit to be recovered.
+        </figcaption>
+      </figure>
 
-        <span>
-          Planned asset:
-          <code>{imageBase}/reflog-recovery.svg</code>
-        </span>
+      <figure class="visual-placeholder visual-placeholder--large">
+        <img
+          src={`${imageBase}/git-recovery-cheatsheet.svg`}
+          alt="Git recovery decision tree covering reflog, restore, reset, and related tools"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
+
+        <figcaption>
+          The correct recovery tool depends on whether the missing object is a
+          commit, a file, a staged change, or published history.
+        </figcaption>
       </figure>
 
       <figure class="visual-placeholder visual-placeholder--editorial">
-        <div class="visual-placeholder__label">
-          AI EDITORIAL ILLUSTRATION
-        </div>
+        <img
+          src={`${imageBase}/reflog-recovery-editorial.webp`}
+          alt="Two software engineers examining local history to recover something that appeared to have been lost"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
 
-        <strong>
-          Reflog recovery: examining a local record to recover something that
-          appeared to have disappeared
-        </strong>
-
-        <span>
-          Planned asset:
-          <code>{imageBase}/reflog-recovery-editorial.webp</code>
-        </span>
+        <figcaption>
+          Something may no longer be reachable from the active branch without
+          having disappeared from the local record.
+        </figcaption>
       </figure>
 
       <blockquote>
@@ -480,19 +520,19 @@ git push --force-with-lease</code></pre>
         changed in an unexpected way.
       </p>
 
-      <figure class="visual-placeholder">
-        <div class="visual-placeholder__label">
-          TECHNICAL DIAGRAM
-        </div>
+      <figure class="visual-placeholder visual-placeholder--large">
+        <img
+          src={`${imageBase}/local-vs-remote.svg`}
+          alt="Local Git repository, remote-tracking reference, and remote repository with fetch, pull, and push operations"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
 
-        <strong>
-          Local branch, remote-tracking branch, and remote branch
-        </strong>
-
-        <span>
-          Planned asset:
-          <code>{imageBase}/local-and-remote-history.svg</code>
-        </span>
+        <figcaption>
+          A local branch, a remote-tracking reference, and the branch on the
+          actual remote repository are related but distinct.
+        </figcaption>
       </figure>
 
       <blockquote>
@@ -517,15 +557,39 @@ git push --force-with-lease</code></pre>
         visible. It cannot guarantee that two branches still want to merge.
       </p>
 
+      <figure class="visual-placeholder visual-placeholder--large">
+        <img
+          src={`${imageBase}/git-mental-model.svg`}
+          alt="Git mental model connecting snapshots, history, branches, references, recovery, and confidence"
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+        />
+
+        <figcaption>
+          Git turns snapshots, ancestry, references, and recovery mechanisms
+          into an understandable model of change.
+        </figcaption>
+      </figure>
+
       <blockquote class="closing-quote">
         Good version control is not about never making mistakes. It is about
         making history understandable.
       </blockquote>
 
-      <p>
-        Humans do not have <code>git status</code>. That is exactly why
-        communication matters.
-      </p>
+      <figure class="final-editorial">
+        <img
+          src={`${imageBase}/this-was-us.webp`}
+          alt="Humans do not have git status. That is exactly why communication matters."
+          loading="lazy"
+          decoding="async"
+          style="display: block; width: 100%; height: auto;"
+          />
+         <figcaption>
+          Humans do not have <code>git status</code>. That is exactly why
+          communication matters.
+        </figcaption>
+      </figure>
     </section>
 
     <a class="back-link back-link--bottom" href="/notes">← notes</a>
