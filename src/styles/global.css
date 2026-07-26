@@ -257,6 +257,7 @@ textarea.input { min-height: 90px; resize: vertical; }
    ══════════════════════════════════════════════════════════════════════ */
 
 body { text-rendering: optimizeLegibility; }
+img { height: auto; }
 a { color: var(--color-accent-700); text-decoration: none; }
 a:hover { color: var(--color-accent); }
 
