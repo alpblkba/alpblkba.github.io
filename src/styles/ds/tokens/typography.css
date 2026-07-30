@@ -27,7 +27,7 @@
   --text-xl: 32px;    /* h2 */
   --text-2xl: 46px;
   --text-3xl: 64px;
-  --text-display: clamp(34px, 5.4vw, 76px); /* the name, hero only — mono is wide */
+  --text-display: clamp(21px, 1.9vw, 27px); /* the name, hero only — sits just above the lede */
 
   --leading-tight: 1.06; /* @kind font */
   --leading-snug: 1.35; /* @kind font */

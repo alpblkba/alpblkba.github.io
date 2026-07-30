@@ -2,30 +2,30 @@
 :root {
   /* ground + surfaces */
   --bg-desktop: var(--obsidian);        /* the carbon plate behind everything */
-  --bg-bar: rgba(8, 13, 12, 0.76);      /* glass chrome, expects backdrop-filter */
-  --surface-window: linear-gradient(160deg, rgba(14, 22, 20, 0.58), rgba(4, 7, 6, 0.66));
-  --surface-solid: #080D0C;             /* when a real opaque fill is required */
-  --surface-raised: rgba(4, 7, 6, 0.55);    /* inputs, keycaps, readout wells */
-  --surface-hover: rgba(6, 46, 42, 0.38);
-  --surface-active: rgba(6, 46, 42, 0.62);
+  --bg-bar: rgba(4, 8, 7, 0.82);        /* glass chrome, expects backdrop-filter */
+  --surface-window: linear-gradient(160deg, rgba(11, 18, 17, 0.6), rgba(2, 4, 3, 0.7));
+  --surface-solid: #060A09;             /* when a real opaque fill is required */
+  --surface-raised: rgba(2, 4, 3, 0.58);    /* inputs, keycaps, readout wells */
+  --surface-hover: rgba(5, 33, 30, 0.42);
+  --surface-active: rgba(5, 33, 30, 0.66);
 
   /* copy — body text is a clipped gradient, so these are the gradient ends */
-  --text-a: var(--neon-78);
-  --text-b: var(--aqua-78);
+  --text-a: var(--ink-a);
+  --text-b: var(--ink-b);
   --text-body: var(--body-gradient);        /* use as background + clip */
-  --text-solid: rgba(214, 255, 248, 0.92);  /* fallback / micro-labels under 13px */
-  --text-muted: rgba(150, 236, 222, 0.72);
-  --text-dim: rgba(122, 206, 195, 0.5);
+  --text-solid: rgba(220, 236, 233, 0.94);  /* fallback / micro-labels under 13px */
+  --text-muted: rgba(168, 197, 193, 0.78);
+  --text-dim: rgba(130, 158, 155, 0.6);
   --text-on-signal: var(--obsidian);        /* on a neon fill */
 
-  /* headings — polished chrome, lit from above, read by their specular crest */
+  /* headings — brushed metal, lit from above */
   --text-heading: var(--neon-soft);
 
   /* frames */
   --border-window: var(--neon-20);
   --border-window-focus: var(--aqua-30);
   --border-hairline: var(--neon-14);
-  --border-input: rgba(0, 245, 212, 0.24);
+  --border-input: rgba(79, 214, 196, 0.24);
 
   /* signals, each with exactly one job */
   --accent-primary: var(--neon);        /* primary action, focus crest, brand chip */
@@ -40,7 +40,7 @@
   --accent-wood: var(--patina-lit);     /* material / grain references */
 
   /* per-section hue: lights its tab, its focused panel frame and its tags.
-     All six sit on the green → turquoise → sky arc. */
+     All six sit on the green → turquoise → slate arc. */
   --ws-home: var(--neon);
   --ws-about: var(--mint);
   --ws-projects: var(--aqua);
@@ -48,6 +48,6 @@
   --ws-music: var(--velvet-rose);
   --ws-cv: var(--pale-mint);
 
-  --selection-bg: rgba(0, 245, 212, 0.28);
-  --scrollbar-thumb: rgba(0, 245, 212, 0.26);
+  --selection-bg: rgba(79, 214, 196, 0.26);
+  --scrollbar-thumb: rgba(79, 214, 196, 0.24);
 }

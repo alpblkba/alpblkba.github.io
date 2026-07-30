@@ -14,7 +14,7 @@ import { contact, facts, direction, notes, projectGroups } from '../data/site.js
   <GlassPanel class="area-hero" title="alp@kit — whoami" accent="var(--ws-home)" focused large>
     <TerminalPrompt command="whoami" output="Karlsruhe, Germany — M.Sc. Computer Science, KIT" />
     <p class="eyebrow hero-eyebrow" style="margin-top:22px">systems · embedded · computer architecture</p>
-    <h1 class="hero-name">Alp O.<br />Bolukbasi</h1>
+    <h1 class="hero-name">Alp Bolukbasi</h1>
     <p class="hero-lede">
       I like software that gets close enough to the machine to make abstractions
       nervous — hardware-aware systems work, somewhere between the debugger and
@@ -28,12 +28,7 @@ import { contact, facts, direction, notes, projectGroups } from '../data/site.js
   </GlassPanel>
 
   <GlassPanel class="area-id" title="~/id" accent="var(--ws-about)">
-    <div class="stack">
-      <div class="portrait">
-        <img src="/images/portrait.png" alt="Alp O. Bolukbasi" width="1024" height="1024" />
-      </div>
-      <MetaList items={contact} />
-    </div>
+    <MetaList items={contact} />
   </GlassPanel>
 
   <GlassPanel class="area-facts" title="~/facts" meta="scan me" flush>

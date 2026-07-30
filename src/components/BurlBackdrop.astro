@@ -1,27 +1,18 @@
 ---
-/* BurlBackdrop — the fractal-warped carbon plate: textured black, cool mineral
-   grain, no hue of its own. The material is the brand: it is rendered once per
-   page and never re-derived. `dim` drops the plate to 0.4 for pages read end to
-   end (long prose, cv). Class names below predate the carbon retint. */
+/* BurlBackdrop — the plate behind everything: an authored carbon image plus a
+   fine monochrome grain pass. Rendered once per page and never re-derived.
+   `dim` drops the plate for pages read end to end (long prose, cv).
+   Class names predate the carbon retint. */
 const { dim = false } = Astro.props;
 ---
 
 <div class="burl" aria-hidden="true" data-dim={dim ? "" : undefined}>
   <svg width="0" height="0" style="position:absolute">
-    <filter id="burl" x="-10%" y="-10%" width="120%" height="120%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.006 0.052" numOctaves="5" seed="17" result="grain"></feTurbulence>
-      <feDisplacementMap in="SourceGraphic" in2="grain" scale="42" xChannelSelector="R" yChannelSelector="G" result="warp"></feDisplacementMap>
-      <feTurbulence type="fractalNoise" baseFrequency="0.021 0.09" numOctaves="4" seed="5" result="fibre"></feTurbulence>
-      <feColorMatrix in="fibre" type="matrix" values="0.10 0 0 0 0.02  0.34 0 0 0 0.05  0.30 0 0 0 0.045  0 0 0 0.5 0" result="fibretint"></feColorMatrix>
-      <feBlend in="warp" in2="fibretint" mode="multiply"></feBlend>
-    </filter>
     <filter id="burlg">
       <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="9"></feTurbulence>
       <feColorMatrix type="saturate" values="0"></feColorMatrix>
     </filter>
   </svg>
   <div class="burl-plate"></div>
-  <div class="burl-vignette"></div>
-  <div class="burl-bloom"></div>
   <div class="burl-grain"></div>
 </div>

@@ -1,40 +1,43 @@
-/* Neon Turquoise & Carbon — the raw ramp.
-   One turquoise signal burning through four grades of textured black.
+/* Muted Turquoise & Carbon — the raw ramp.
+   A turquoise that has been walked most of the way to grey, on true black.
    Never reference these directly in a component; use colors.css. */
 :root {
   /* carbon + void */
-  --obsidian: #040706;        /* the ground everything sits on */
-  --carbon-shadow: #080D0C;
-  --carbon: #0E1614;          /* panel core */
-  --carbon-mid: #142120;      /* grain banding */
-  --graphite: #1B2C2A;
-  --specular: #2C4744;        /* polished shine on the carbon */
-  --patina: #1E4A44;          /* cool flare in the grain */
-  --patina-lit: #3E8C80;
+  --obsidian: #020403;        /* the ground everything sits on */
+  --carbon-shadow: #060A09;
+  --carbon: #0B1211;          /* panel core */
+  --carbon-mid: #101A18;
+  --graphite: #172523;
+  --specular: #263C39;
+  --patina: #1B3E3A;
+  --patina-lit: #6FA79E;
 
-  /* ambient backlight (was velvet burgundy — now deep lagoon) */
-  --velvet: #062E2A;
-  --velvet-lit: #0C4F49;
-  --velvet-rose: #7DD3FC;     /* the "soft" hue: sky, for non-technical sections */
+  /* ambient */
+  --velvet: #05211E;
+  --velvet-lit: #0A3A35;
+  --velvet-rose: #9FC4D6;     /* the "soft" hue: cool slate-blue */
 
-  /* the signal, and its cool twin */
-  --neon: #00F5D4;
-  --neon-soft: #5CFFE6;
-  --neon-deep: #00B899;
-  --aqua: #22D3EE;
-  --aqua-soft: #7DE9FF;
-  --mint: #6EE7B7;
-  --teal: #2DD4BF;
-  --pale-mint: #A7F3D0;
+  /* the signal, dialled back from neon to something that reads as metal */
+  --neon: #4FD6C4;
+  --neon-soft: #8FE3D6;
+  --neon-deep: #2C9C8E;
+  --aqua: #6FC9D8;
+  --aqua-soft: #9BDCE6;
+  --mint: #86C9B2;
+  --teal: #58BFB2;
+  --pale-mint: #AFD6CB;
 
-  /* signal alphas — the identity keeps its ~0.78 veil, just brighter beneath */
-  --neon-78: rgba(0, 245, 212, 0.78);
-  --aqua-78: rgba(34, 211, 238, 0.78);
-  --neon-35: rgba(0, 245, 212, 0.35);
-  --neon-20: rgba(0, 245, 212, 0.2);
-  --neon-14: rgba(0, 245, 212, 0.14);
-  --aqua-30: rgba(34, 211, 238, 0.3);
-  --carbon-83: rgba(14, 22, 20, 0.83);
+  /* ink — body copy is a clipped gradient, so these are its two ends.
+     Mostly white and grey, with just enough turquoise to stay in family. */
+  --ink-a: rgba(178, 221, 213, 0.9);
+  --ink-b: rgba(200, 221, 228, 0.9);
+
+  /* signal alphas */
+  --neon-35: rgba(79, 214, 196, 0.35);
+  --neon-20: rgba(79, 214, 196, 0.2);
+  --neon-14: rgba(79, 214, 196, 0.14);
+  --aqua-30: rgba(111, 201, 216, 0.3);
+  --carbon-83: rgba(11, 18, 17, 0.83);
   --white-45: rgba(255, 255, 255, 0.45);
   --white-25: rgba(255, 255, 255, 0.25);
 }

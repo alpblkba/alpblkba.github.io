@@ -1,19 +1,20 @@
 :root {
   /* Depth is ambient: a wide black bloom under every glass panel plus a 1px
-     white inner crest. No tight drop shadows, nothing crisp. */
+     white inner crest. No tight drop shadows, nothing crisp, and no coloured
+     halos — the plate carries the atmosphere, the chrome stays dry. */
   --shadow-none: none;
-  --shadow-panel: var(--glass-inner), 0 26px 60px rgba(0, 0, 0, 0.62);
-  --shadow-panel-hover: var(--glass-inner), 0 0 0 1px rgba(0, 245, 212, 0.16), 0 14px 40px rgba(6, 46, 42, 0.7);
-  --shadow-float: var(--glass-inner), 0 34px 80px rgba(0, 0, 0, 0.72);
-  --glow-signal: 0 0 26px rgba(0, 245, 212, 0.26);
-  --glow-cyan: 0 0 22px rgba(34, 211, 238, 0.28);
-  --glow-chip: 0 0 14px rgba(0, 245, 212, 0.55);
+  --shadow-panel: var(--glass-inner), 0 26px 60px rgba(0, 0, 0, 0.7);
+  --shadow-panel-hover: var(--glass-inner), 0 0 0 1px rgba(79, 214, 196, 0.14), 0 14px 40px rgba(0, 0, 0, 0.72);
+  --shadow-float: var(--glass-inner), 0 34px 80px rgba(0, 0, 0, 0.8);
+  --glow-signal: 0 0 18px rgba(79, 214, 196, 0.12);
+  --glow-cyan: 0 0 14px rgba(111, 201, 216, 0.14);
+  --glow-chip: 0 0 8px rgba(79, 214, 196, 0.3);
 
-  --ring: 2px solid rgba(0, 245, 212, 0.75); /* @kind other */
+  --ring: 2px solid rgba(79, 214, 196, 0.75); /* @kind other */
   --ring-offset: 3px; /* @kind spacing */
 
-  --blur-float: blur(14px) saturate(1.1); /* @kind other */
-  --scrim-float: rgba(4, 7, 6, 0.78); /* @kind color */
+  --blur-float: blur(14px) saturate(1.05); /* @kind other */
+  --scrim-float: rgba(2, 4, 3, 0.84); /* @kind color */
 
   /* motion: slow, plush, never springy */
   --ease-velvet: cubic-bezier(0.2, 0.7, 0.2, 1); /* @kind other */
