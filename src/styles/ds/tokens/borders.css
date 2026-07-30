@@ -1,0 +1,16 @@
+:root {
+  /* Softer than the wood: glass panels are 14px, controls 10px, tags 999px. */
+  --radius-window: 14px;
+  --radius-panel: 14px;
+  --radius-control: 10px;
+  --radius-sm: 10px;
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+  --radius-none: 0px;
+
+  --border-width: 1px;
+  --border-width-focus: 1px;
+  --border-window-frame: var(--border-width) solid var(--border-window); /* @kind other */
+  --border-window-frame-focus: var(--border-width) solid var(--border-window-focus); /* @kind other */
+  --divider: var(--border-width) solid var(--border-hairline); /* @kind other */
+}

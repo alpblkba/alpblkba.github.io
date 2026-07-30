@@ -1,63 +1,59 @@
 ---
-import "../styles/global.css";
+/* alpblkba.dev — page shell. Burl plate, glass status bar, section pills,
+   the panel grid, and the ctrl+k launcher.
+
+   `layout` picks the panel grid (see .lay-* in site.css); "prose" is the
+   single-column note-article layout. Long-form pages (notes, cv) run the
+   lifted gloss scope and dim the plate — the design system requires both for
+   documents read end to end. */
+import '../styles/site.css';
+import BurlBackdrop from '../components/BurlBackdrop.astro';
+import StatusBar from '../components/StatusBar.astro';
+import CommandPalette from '../components/CommandPalette.astro';
+import KeyCap from '../components/KeyCap.astro';
 
 const {
-  title = "alpblkba",
-  description = "Systems, embedded, computer architecture, and hardware-aware software.",
+  title = 'alpblkba.dev',
+  description = 'Systems, embedded, computer architecture, and hardware-aware software.',
+  section,
+  layout = 'prose',
+  foot = 'alpblkba.dev — cyber-velvet & buckeye burl'
 } = Astro.props;
 
-const path = Astro.url.pathname.replace(/\/$/, "") || "/";
-const isCurrent = (href) => (path === href ? "page" : undefined);
+const longform = layout === 'prose' || section === 'cv';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-gloss={longform ? 'lifted' : 'lacquer'}>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-180.png" sizes="180x180" />
+    <link rel="apple-touch-icon" href="/favicon-180.png" />
     <title>{title}</title>
   </head>
 
   <body>
-    <div class="site">
-      <header class="site-header">
-        <nav class="nav">
-          <a class="nav-brand brand" href="/">
-            <span class="brand-dot"></span>
-            <span>alpblkba</span>
-          </a>
-          <a href="/about" aria-current={isCurrent("/about")}>about</a>
-          <a href="/projects" aria-current={isCurrent("/projects")}>projects</a>
-          <a href="/notes" aria-current={isCurrent("/notes")}>notes</a>
-          <a href="/music" aria-current={isCurrent("/music")}>music</a>
-          <a href="/cv" aria-current={isCurrent("/cv")}>cv</a>
-          <a class="ext" href="https://github.com/alpblkba">github &#8599;</a>
-        </nav>
-      </header>
+    <BurlBackdrop dim={longform} />
 
-      <main>
-        <slot />
-      </main>
+    <div class="shell">
+      <StatusBar current={section} />
 
-      <section class="poster">
-        <div class="poster-inner">
-          <p>somewhere between the debugger and the datasheet</p>
-          <a class="btn" href="mailto:hello@alpblkba.dev">hello@alpblkba.dev</a>
-        </div>
-      </section>
+      {layout === 'prose' ? (
+        <div class="shell-main lay-prose"><slot /></div>
+      ) : (
+        <main class:list={["shell-main", `lay-${layout}`]}><slot /></main>
+      )}
 
-      <footer class="site-footer">
-        <div class="site-footer-inner">
-          <span>alpblkba.dev &#8212; built with Astro, deployed with GitHub Pages</span>
-          <span class="footer-links">
-            <a href="https://github.com/alpblkba">github</a>
-            <a href="https://www.linkedin.com/in/alpblkba">linkedin</a>
-            <a href="mailto:hello@alpblkba.dev">email</a>
-          </span>
-        </div>
+      <footer class="shell-foot">
+        <span><KeyCap>ctrl</KeyCap> + <KeyCap>k</KeyCap> launcher</span>
+        <span><KeyCap>1</KeyCap>…<KeyCap>6</KeyCap> section</span>
+        <span class="foot-end">{foot}</span>
       </footer>
     </div>
+
+    <CommandPalette />
   </body>
 </html>

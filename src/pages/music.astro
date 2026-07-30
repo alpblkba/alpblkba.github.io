@@ -1,17 +1,16 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GlassPanel from '../components/GlassPanel.astro';
+import Tag from '../components/Tag.astro';
+import { music } from '../data/site.js';
 ---
 
-<BaseLayout title="music | alpblkba">
-  <div class="shell">
-    <div class="page-head">
-      <h1 class="page-title">music</h1>
+<BaseLayout title="music — alpblkba.dev" section="music" layout="music" foot="alpblkba.dev — different medium, same instinct">
+  <GlassPanel class="area-hero" title="~/music" accent="var(--ws-music)" focused large>
+    <h2>Different medium</h2>
+    <div class="prose-col">
+      {music.map((p) => <p>{p}</p>)}
     </div>
-    <div class="prose" style="padding:44px 0 80px;font-size:18px">
-      <p>
-        A small corner for my original music, and creative experiments. I just don't know when to upload.
-      </p>
-      <p>Different medium, same instinct: structure, timing, texture, constraints.</p>
-    </div>
-  </div>
+    <div class="tagrow"><Tag tone="music">demo</Tag></div>
+  </GlassPanel>
 </BaseLayout>

@@ -1,0 +1,9 @@
+---
+const { items = [] } = Astro.props;
+---
+
+<div class="sysinfo">
+  {items.map((it) => (
+    <span><b>{it.k}</b><i data-lit={it.lit ? "" : undefined}>{it.v}</i></span>
+  ))}
+</div>

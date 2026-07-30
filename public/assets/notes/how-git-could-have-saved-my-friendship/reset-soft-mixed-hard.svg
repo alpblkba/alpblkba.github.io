@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="svg-title svg-desc">
+  <title id="svg-title">Reset: soft, mixed, hard</title>
+  <desc id="svg-desc">Three rows compare reset soft, mixed, and hard across HEAD, index, and working tree using checkmarked state changes.</desc>
+  <metadata>How Git Could Have Saved My Friendship — figure 07</metadata>
+
+    <style>
+    /* Figure stylesheet. These SVGs are loaded as standalone images, so nothing here
+       can come from the page — the whole visual contract lives in this block.
+       Order matters: sizes first, colour modifiers last. */
+    #canvas { fill: #070C0B; }
+    text {
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system,
+        "Helvetica Neue", Arial, sans-serif;
+      fill: #A8E8DC;
+    }
+    .mono {
+      font-family: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo,
+        "DejaVu Sans Mono", Consolas, monospace;
+    }
+    .eyebrow  { font-size: 13px; font-weight: 500; letter-spacing: 2.6px; fill: #3E8C80; }
+    .title    { font-size: 30px; font-weight: 700; letter-spacing: -0.2px; fill: #EAFFFA; }
+    .subtitle { font-size: 15px; fill: #7ACEC3; }
+    .section  { font-size: 17px; font-weight: 700; fill: #D6FFF8; }
+    .label    { font-size: 15px; font-weight: 500; fill: #C8F7EE; }
+    .body     { font-size: 15px; fill: #A8E8DC; }
+    .small    { font-size: 13px; fill: #7ACEC3; }
+    .tiny     { font-size: 11px; letter-spacing: 0.6px; fill: #6FBFB4; }
+    .hash     { font-size: 13px; letter-spacing: 0.5px; }
+
+    /* strokes */
+    .rule      { stroke: #17332F; stroke-width: 1.5; }
+    .line      { fill: none; stroke: #2E5A54; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-dark { fill: none; stroke: #47857C; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .line-blue { fill: none; stroke: #00F5D4; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .dash      { stroke-dasharray: 7 6; }
+
+    /* solids */
+    .dot          { fill: #12211F; stroke: #47857C; stroke-width: 2; }
+    .dot-blue     { fill: #06312B; stroke: #00F5D4; stroke-width: 2.5; }
+    .object       { fill: #101B19; stroke: #2E5A54; stroke-width: 1.5; }
+    .object-blue  { fill: rgba(0, 245, 212, 0.1); stroke: #00F5D4; stroke-width: 1.5; }
+    .object-dark  { fill: #0A1211; stroke: #3E6B65; stroke-width: 1.5; }
+    .panel        { fill: #0A100F; stroke: #1C3A35; stroke-width: 1.5; }
+    .command-chip { fill: rgba(0, 245, 212, 0.09); stroke: #1E5B52; stroke-width: 1.5; }
+    .blue-fill    { fill: #00F5D4; stroke: none; }
+    .soft-fill    { fill: #101B19; stroke: #1C3A35; stroke-width: 1.5; }
+
+    /* colour modifiers — always last */
+    .muted      { fill: #4E7C76; }
+    .blue-text  { fill: #00F5D4; }
+    .white-text { fill: #04120F; }
+    .dot.muted  { fill: #0C1413; stroke: #2A4B46; }
+    .line.muted { fill: none; stroke: #2A4B46; }
+  </style><defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#00F5D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#4E7C76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+    
+  </defs>
+  <rect id="canvas" width="1200" height="800" fill="#070C0B"></rect>
+
+  <g id="figure-header">
+    <text class="eyebrow" x="64" y="48">GIT SYSTEM / 07</text>
+    <text class="title" x="64" y="88">Reset: soft, mixed, hard</text>
+    <text class="subtitle" x="64" y="116">Every mode moves HEAD; the distinction is how far the target snapshot propagates.</text>
+    <line class="rule" x1="64" y1="144" x2="1136" y2="144"></line>
+  </g>
+
+  <g id="reset-matrix">
+    <g id="matrix-headings">
+      <text class="tiny" x="568" y="200">HEAD</text>
+      <text class="tiny" x="768" y="200">INDEX</text>
+      <text class="tiny" x="968" y="200">WORKING TREE</text>
+    </g>
+
+    <g id="reset-soft-panel">
+      <rect class="panel" x="64" y="224" width="1072" height="144" rx="8"></rect>
+      <text class="section" x="88" y="264">Soft</text>
+      <text class="mono small blue-text" x="88" y="292">git reset --soft target</text>
+      <g id="soft-commit-move">
+        <text class="tiny" x="368" y="252">TARGET</text>
+        <circle class="dot-blue" cx="392" cy="288" r="12"></circle>
+        <circle class="dot" cx="472" cy="288" r="12"></circle>
+        <path class="line" d="M404 288 L460 288"></path>
+        <path class="line-blue" d="M472 320 C448 344 400 344 392 308" marker-end="url(#arrow-blue)"></path>
+      </g>
+      <g>
+    <rect class="object" x="544" y="248" width="176" height="72" rx="8"></rect>
+    <circle class="blue-fill" cx="568" cy="284" r="10"></circle>
+    <path d="M563 284 L567 288 L574 279" fill="none" stroke="#04120F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <text class="label" x="588" y="281">moved</text>
+    <text class="tiny" x="588" y="299">to target</text>
+  </g>
+      <g>
+    <rect class="object" x="744" y="248" width="176" height="72" rx="8"></rect>
+    <circle class="blue-fill" cx="768" cy="284" r="10"></circle>
+    <path d="M763 284 L767 288 L774 279" fill="none" stroke="#04120F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <text class="label" x="788" y="281">kept</text>
+    <text class="tiny" x="788" y="299">staged changes</text>
+  </g>
+      <g>
+    <rect class="object" x="944" y="248" width="168" height="72" rx="8"></rect>
+    <circle class="blue-fill" cx="968" cy="284" r="10"></circle>
+    <path d="M963 284 L967 288 L974 279" fill="none" stroke="#04120F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <text class="label" x="988" y="281">kept</text>
+    <text class="tiny" x="988" y="299">file changes</text>
+  </g>
+    </g>
+
+    <g id="reset-mixed-panel">
+      <rect class="panel" x="64" y="392" width="1072" height="144" rx="8"></rect>
+      <text class="section" x="88" y="432">Mixed</text>
+      <text class="mono small blue-text" x="88" y="460">git reset --mixed target</text>
+      <g id="mixed-commit-move">
+        <text class="tiny" x="368" y="420">TARGET</text>
+        <circle class="dot-blue" cx="392" cy="456" r="12"></circle>
+        <circle class="dot" cx="472" cy="456" r="12"></circle>
+        <path class="line" d="M404 456 L460 456"></path>
+        <path class="line-blue" d="M472 488 C448 512 400 512 392 476" marker-end="url(#arrow-blue)"></path>
+      </g>
+      <g>
+    <rect class="object" x="544" y="416" width="176" height="72" rx="8"></rect>
+    <circle class="blue-fill" cx="568" cy="452" r="10"></circle>
+    <path d="M563 452 L567 456 L574 447" fill="none" stroke="#04120F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <text class="label" x="588" y="449">moved</text>
+    <text class="tiny" x="588" y="467">to target</text>
+  </g>
+      <g>
+    <rect class="object" x="744" y="416" width="176" height="72" rx="8"></rect>
+    <circle class="blue-fill" cx="768" cy="452" r="10"></circle>
+    <path d="M763 452 L767 456 L774 447" fill="none" stroke="#04120F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <text class="label" x="788" y="449">reset</text>
+    <text class="tiny" x="788" y="467">to target</text>
+  </g>
+      <g>
+    <rect class="object" x="944" y="416" width="168" height="72" rx="8"></rect>
+    <circle class="blue-fill" cx="968" cy="452" r="10"></circle>
+    <path d="M963 452 L967 456 L974 447" fill="none" stroke="#04120F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <text class="label" x="988" y="449">kept</text>
+    <text class="tiny" x="988" y="467">file changes</text>
+  </g>
+    </g>
+
+    <g id="reset-hard-panel">
+      <rect class="panel" x="64" y="560" width="1072" height="144" rx="8"></rect>
+      <text class="section" x="88" y="600">Hard</text>
+      <text class="mono small blue-text" x="88" y="628">git reset --hard target</text>
+      <g id="hard-commit-move">
+        <text class="tiny" x="368" y="588">TARGET</text>
+        <circle class="dot-blue" cx="392" cy="624" r="12"></circle>
+        <circle class="dot" cx="472" cy="624" r="12"></circle>
+        <path class="line" d="M404 624 L460 624"></path>
+        <path class="line-blue" d="M472 656 C448 680 400 680 392 644" marker-end="url(#arrow-blue)"></path>
+      </g>
+      <g>
+    <rect class="object" x="544" y="584" width="176" height="72" rx="8"></rect>
+    <circle class="blue-fill" cx="568" cy="620" r="10"></circle>
+    <path d="M563 620 L567 624 L574 615" fill="none" stroke="#04120F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <text class="label" x="588" y="617">moved</text>
+    <text class="tiny" x="588" y="635">to target</text>
+  </g>
+      <g>
+    <rect class="object" x="744" y="584" width="176" height="72" rx="8"></rect>
+    <circle class="blue-fill" cx="768" cy="620" r="10"></circle>
+    <path d="M763 620 L767 624 L774 615" fill="none" stroke="#04120F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <text class="label" x="788" y="617">reset</text>
+    <text class="tiny" x="788" y="635">to target</text>
+  </g>
+      <g>
+    <rect class="object" x="944" y="584" width="168" height="72" rx="8"></rect>
+    <circle class="blue-fill" cx="968" cy="620" r="10"></circle>
+    <path d="M963 620 L967 624 L974 615" fill="none" stroke="#04120F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <text class="label" x="988" y="617">reset</text>
+    <text class="tiny" x="988" y="635">overwritten</text>
+  </g>
+    </g>
+
+    <text class="small" x="600" y="752" text-anchor="middle">HEAD → Index → Working Tree: each mode advances one boundary farther.</text>
+  </g>
+</svg>

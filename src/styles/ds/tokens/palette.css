@@ -1,0 +1,40 @@
+/* Neon Turquoise & Carbon — the raw ramp.
+   One turquoise signal burning through four grades of textured black.
+   Never reference these directly in a component; use colors.css. */
+:root {
+  /* carbon + void */
+  --obsidian: #040706;        /* the ground everything sits on */
+  --carbon-shadow: #080D0C;
+  --carbon: #0E1614;          /* panel core */
+  --carbon-mid: #142120;      /* grain banding */
+  --graphite: #1B2C2A;
+  --specular: #2C4744;        /* polished shine on the carbon */
+  --patina: #1E4A44;          /* cool flare in the grain */
+  --patina-lit: #3E8C80;
+
+  /* ambient backlight (was velvet burgundy — now deep lagoon) */
+  --velvet: #062E2A;
+  --velvet-lit: #0C4F49;
+  --velvet-rose: #7DD3FC;     /* the "soft" hue: sky, for non-technical sections */
+
+  /* the signal, and its cool twin */
+  --neon: #00F5D4;
+  --neon-soft: #5CFFE6;
+  --neon-deep: #00B899;
+  --aqua: #22D3EE;
+  --aqua-soft: #7DE9FF;
+  --mint: #6EE7B7;
+  --teal: #2DD4BF;
+  --pale-mint: #A7F3D0;
+
+  /* signal alphas — the identity keeps its ~0.78 veil, just brighter beneath */
+  --neon-78: rgba(0, 245, 212, 0.78);
+  --aqua-78: rgba(34, 211, 238, 0.78);
+  --neon-35: rgba(0, 245, 212, 0.35);
+  --neon-20: rgba(0, 245, 212, 0.2);
+  --neon-14: rgba(0, 245, 212, 0.14);
+  --aqua-30: rgba(34, 211, 238, 0.3);
+  --carbon-83: rgba(14, 22, 20, 0.83);
+  --white-45: rgba(255, 255, 255, 0.45);
+  --white-25: rgba(255, 255, 255, 0.25);
+}

@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="svg-title svg-desc">
+  <title id="svg-title">Three-way merge</title>
+  <desc id="svg-desc">Base commit branches to main and feature. Main and feature feed a merge commit. The base is highlighted as the common ancestor.</desc>
+  <metadata>How Git Could Have Saved My Friendship — figure 05</metadata>
+
+    <style>
+    /* Figure stylesheet. These SVGs are loaded as standalone images, so nothing here
+       can come from the page — the whole visual contract lives in this block.
+       Order matters: sizes first, colour modifiers last. */
+    #canvas { fill: #070C0B; }
+    text {
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system,
+        "Helvetica Neue", Arial, sans-serif;
+      fill: #A8E8DC;
+    }
+    .mono {
+      font-family: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo,
+        "DejaVu Sans Mono", Consolas, monospace;
+    }
+    .eyebrow  { font-size: 13px; font-weight: 500; letter-spacing: 2.6px; fill: #3E8C80; }
+    .title    { font-size: 30px; font-weight: 700; letter-spacing: -0.2px; fill: #EAFFFA; }
+    .subtitle { font-size: 15px; fill: #7ACEC3; }
+    .section  { font-size: 17px; font-weight: 700; fill: #D6FFF8; }
+    .label    { font-size: 15px; font-weight: 500; fill: #C8F7EE; }
+    .body     { font-size: 15px; fill: #A8E8DC; }
+    .small    { font-size: 13px; fill: #7ACEC3; }
+    .tiny     { font-size: 11px; letter-spacing: 0.6px; fill: #6FBFB4; }
+    .hash     { font-size: 13px; letter-spacing: 0.5px; }
+
+    /* strokes */
+    .rule      { stroke: #17332F; stroke-width: 1.5; }
+    .line      { fill: none; stroke: #2E5A54; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-dark { fill: none; stroke: #47857C; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .line-blue { fill: none; stroke: #00F5D4; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .dash      { stroke-dasharray: 7 6; }
+
+    /* solids */
+    .dot          { fill: #12211F; stroke: #47857C; stroke-width: 2; }
+    .dot-blue     { fill: #06312B; stroke: #00F5D4; stroke-width: 2.5; }
+    .object       { fill: #101B19; stroke: #2E5A54; stroke-width: 1.5; }
+    .object-blue  { fill: rgba(0, 245, 212, 0.1); stroke: #00F5D4; stroke-width: 1.5; }
+    .object-dark  { fill: #0A1211; stroke: #3E6B65; stroke-width: 1.5; }
+    .panel        { fill: #0A100F; stroke: #1C3A35; stroke-width: 1.5; }
+    .command-chip { fill: rgba(0, 245, 212, 0.09); stroke: #1E5B52; stroke-width: 1.5; }
+    .blue-fill    { fill: #00F5D4; stroke: none; }
+    .soft-fill    { fill: #101B19; stroke: #1C3A35; stroke-width: 1.5; }
+
+    /* colour modifiers — always last */
+    .muted      { fill: #4E7C76; }
+    .blue-text  { fill: #00F5D4; }
+    .white-text { fill: #04120F; }
+    .dot.muted  { fill: #0C1413; stroke: #2A4B46; }
+    .line.muted { fill: none; stroke: #2A4B46; }
+  </style><defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#00F5D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#4E7C76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+    
+  </defs>
+  <rect id="canvas" width="1200" height="800" fill="#070C0B"></rect>
+
+  <g id="figure-header">
+    <text class="eyebrow" x="64" y="48">GIT SYSTEM / 05</text>
+    <text class="title" x="64" y="88">Three-way merge</text>
+    <text class="subtitle" x="64" y="116">Git compares two tips against their common ancestor, then composes both sets of change.</text>
+    <line class="rule" x1="64" y1="144" x2="1136" y2="144"></line>
+  </g>
+
+  <g id="three-way-merge-model">
+    
+    <g id="base-snapshot">
+      <rect class="object-blue" x="72" y="320" width="240" height="184" rx="8"></rect>
+      <rect class="blue-fill" x="88" y="336" width="128" height="24" rx="8"></rect>
+      <text class="tiny white-text" x="152" y="353" text-anchor="middle">COMMON ANCESTOR</text>
+      <text class="section" x="96" y="392">Base</text>
+      <text class="mono hash blue-text" x="288" y="392" text-anchor="end">B</text>
+      <line class="rule" x1="96" y1="408" x2="288" y2="408"></line>
+      <text class="mono small" x="96" y="440">timeout: 10</text>
+      <text class="mono small" x="96" y="472">auth: basic</text>
+    </g>
+
+    <g id="main-snapshot">
+      <rect class="object" x="392" y="200" width="240" height="184" rx="8"></rect>
+      <text class="section" x="416" y="240">Main</text>
+      <text class="mono hash" x="608" y="240" text-anchor="end">M</text>
+      <line class="rule" x1="416" y1="256" x2="608" y2="256"></line>
+      <text class="mono body blue-text" x="416" y="296">timeout: 30</text>
+      <text class="mono small" x="416" y="328">auth: basic</text>
+      <text class="tiny" x="416" y="360">CHANGED FROM BASE</text>
+    </g>
+
+    <g id="feature-snapshot">
+      <rect class="object" x="392" y="464" width="240" height="184" rx="8"></rect>
+      <text class="section" x="416" y="504">Feature</text>
+      <text class="mono hash" x="608" y="504" text-anchor="end">F</text>
+      <line class="rule" x1="416" y1="520" x2="608" y2="520"></line>
+      <text class="mono small" x="416" y="560">timeout: 10</text>
+      <text class="mono body blue-text" x="416" y="592">auth: oauth</text>
+      <text class="tiny" x="416" y="624">CHANGED FROM BASE</text>
+    </g>
+
+    
+    <g id="merge-snapshot">
+      <rect class="object-blue" x="824" y="320" width="296" height="184" rx="8"></rect>
+      <rect class="blue-fill" x="824" y="320" width="6" height="184" rx="3"></rect>
+      <text class="section" x="848" y="360">Merge commit</text>
+      <text class="mono hash blue-text" x="1096" y="360" text-anchor="end">R</text>
+      <line class="rule" x1="848" y1="376" x2="1096" y2="376"></line>
+      <text class="mono body blue-text" x="848" y="416">timeout: 30</text>
+      <text class="mono body blue-text" x="848" y="448">auth: oauth</text>
+      <text class="tiny" x="848" y="480">BOTH INDEPENDENT CHANGES</text>
+    </g>
+
+    <g id="merge-relationships">
+      <path class="line-blue" d="M312 352 C352 352 352 292 390 292" marker-end="url(#arrow-blue)"></path>
+      <path class="line-blue" d="M312 472 C352 472 352 556 390 556" marker-end="url(#arrow-blue)"></path>
+      <path class="line-dark" d="M632 292 C720 292 752 352 822 352" marker-end="url(#arrow-gray)"></path>
+      <path class="line-dark" d="M632 556 C720 556 752 472 822 472" marker-end="url(#arrow-gray)"></path>
+      <text class="tiny blue-text" x="344" y="320">diff</text>
+      <text class="tiny blue-text" x="344" y="520">diff</text>
+      <text class="tiny" x="704" y="292">parent 1</text>
+      <text class="tiny" x="704" y="540">parent 2</text>
+    </g>
+
+    <g id="merge-equation">
+      <rect class="panel" x="408" y="696" width="384" height="48" rx="8"></rect>
+      <text class="mono body" x="600" y="726" text-anchor="middle">result = merge(base, main, feature)</text>
+    </g>
+  </g>
+</svg>

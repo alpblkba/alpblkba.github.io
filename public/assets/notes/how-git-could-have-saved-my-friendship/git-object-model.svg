@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="svg-title svg-desc">
+  <title id="svg-title">Git object model</title>
+  <desc id="svg-desc">A tag points to a commit. The commit points to a tree and a parent commit. The tree points to multiple blobs by SHA.</desc>
+  <metadata>How Git Could Have Saved My Friendship — figure 01</metadata>
+
+    <style>
+    /* Figure stylesheet. These SVGs are loaded as standalone images, so nothing here
+       can come from the page — the whole visual contract lives in this block.
+       Order matters: sizes first, colour modifiers last. */
+    #canvas { fill: #070C0B; }
+    text {
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system,
+        "Helvetica Neue", Arial, sans-serif;
+      fill: #A8E8DC;
+    }
+    .mono {
+      font-family: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo,
+        "DejaVu Sans Mono", Consolas, monospace;
+    }
+    .eyebrow  { font-size: 13px; font-weight: 500; letter-spacing: 2.6px; fill: #3E8C80; }
+    .title    { font-size: 30px; font-weight: 700; letter-spacing: -0.2px; fill: #EAFFFA; }
+    .subtitle { font-size: 15px; fill: #7ACEC3; }
+    .section  { font-size: 17px; font-weight: 700; fill: #D6FFF8; }
+    .label    { font-size: 15px; font-weight: 500; fill: #C8F7EE; }
+    .body     { font-size: 15px; fill: #A8E8DC; }
+    .small    { font-size: 13px; fill: #7ACEC3; }
+    .tiny     { font-size: 11px; letter-spacing: 0.6px; fill: #6FBFB4; }
+    .hash     { font-size: 13px; letter-spacing: 0.5px; }
+
+    /* strokes */
+    .rule      { stroke: #17332F; stroke-width: 1.5; }
+    .line      { fill: none; stroke: #2E5A54; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-dark { fill: none; stroke: #47857C; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .line-blue { fill: none; stroke: #00F5D4; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .dash      { stroke-dasharray: 7 6; }
+
+    /* solids */
+    .dot          { fill: #12211F; stroke: #47857C; stroke-width: 2; }
+    .dot-blue     { fill: #06312B; stroke: #00F5D4; stroke-width: 2.5; }
+    .object       { fill: #101B19; stroke: #2E5A54; stroke-width: 1.5; }
+    .object-blue  { fill: rgba(0, 245, 212, 0.1); stroke: #00F5D4; stroke-width: 1.5; }
+    .object-dark  { fill: #0A1211; stroke: #3E6B65; stroke-width: 1.5; }
+    .panel        { fill: #0A100F; stroke: #1C3A35; stroke-width: 1.5; }
+    .command-chip { fill: rgba(0, 245, 212, 0.09); stroke: #1E5B52; stroke-width: 1.5; }
+    .blue-fill    { fill: #00F5D4; stroke: none; }
+    .soft-fill    { fill: #101B19; stroke: #1C3A35; stroke-width: 1.5; }
+
+    /* colour modifiers — always last */
+    .muted      { fill: #4E7C76; }
+    .blue-text  { fill: #00F5D4; }
+    .white-text { fill: #04120F; }
+    .dot.muted  { fill: #0C1413; stroke: #2A4B46; }
+    .line.muted { fill: none; stroke: #2A4B46; }
+  </style><defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#00F5D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#4E7C76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+    
+  </defs>
+  <rect id="canvas" width="1200" height="800" fill="#070C0B"></rect>
+
+  <g id="figure-header">
+    <text class="eyebrow" x="64" y="48">GIT SYSTEM / 01</text>
+    <text class="title" x="64" y="88">Git object model</text>
+    <text class="subtitle" x="64" y="116">Content-addressed objects form a graph: names are hashes, and objects point to other objects.</text>
+    <line class="rule" x1="64" y1="144" x2="1136" y2="144"></line>
+  </g>
+
+  
+  <g id="object-graph">
+    <g id="annotated-tag">
+      <rect class="object" x="96" y="192" width="260" height="64" rx="8"></rect>
+      <text class="section" x="120" y="220">Annotated tag</text>
+      <text class="mono hash" x="120" y="242">v2.1.0 · 31d8a6e</text>
+      <path class="line-blue" d="M226 256 L226 286" marker-end="url(#arrow-blue)"></path>
+      <text class="tiny blue-text" x="240" y="276">object</text>
+    </g>
+
+    <g id="commit-object">
+      <rect class="object-blue" x="96" y="288" width="260" height="168" rx="8"></rect>
+      <rect class="blue-fill" x="96" y="288" width="6" height="168" rx="3"></rect>
+      <text class="section" x="120" y="320">Commit</text>
+      <text class="mono hash blue-text" x="332" y="320" text-anchor="end">9f2a7c1</text>
+      <line class="rule" x1="120" y1="336" x2="332" y2="336"></line>
+      <text class="tiny" x="120" y="364">tree</text>
+      <text class="mono body" x="176" y="364">7a3b190</text>
+      <text class="tiny" x="120" y="392">parent</text>
+      <text class="mono body" x="176" y="392">1c8e44a</text>
+      <text class="tiny" x="120" y="420">message</text>
+      <text class="body" x="192" y="420">Add sign-in flow</text>
+      <text class="tiny" x="120" y="444">author + time</text>
+    </g>
+
+    <g id="parent-commit">
+      <path class="line-blue" d="M226 456 L226 518" marker-end="url(#arrow-blue)"></path>
+      <text class="tiny blue-text" x="240" y="492">parent</text>
+      <rect class="object" x="96" y="520" width="260" height="112" rx="8"></rect>
+      <text class="section" x="120" y="552">Parent commit</text>
+      <text class="mono hash" x="332" y="552" text-anchor="end">1c8e44a</text>
+      <line class="rule" x1="120" y1="568" x2="332" y2="568"></line>
+      <text class="tiny" x="120" y="596">tree</text>
+      <text class="mono body" x="176" y="596">62d19b0</text>
+      <text class="small" x="120" y="620">Previous snapshot + metadata</text>
+    </g>
+
+    <g id="tree-object">
+      <path class="line-blue" d="M356 364 L454 364" marker-end="url(#arrow-blue)"></path>
+      <text class="tiny blue-text" x="392" y="350">tree</text>
+      <rect class="object-blue" x="456" y="256" width="312" height="328" rx="8"></rect>
+      <text class="section" x="480" y="288">Tree</text>
+      <text class="mono hash blue-text" x="744" y="288" text-anchor="end">7a3b190</text>
+      <text class="small" x="480" y="314">A directory snapshot</text>
+      <line class="rule" x1="480" y1="336" x2="744" y2="336"></line>
+
+      <g id="tree-entry-app">
+        <text class="mono tiny" x="480" y="372">100644</text>
+        <text class="mono body" x="544" y="372">app.ts</text>
+        <text class="mono hash" x="744" y="372" text-anchor="end">b61c002</text>
+      </g>
+      <line class="rule" x1="480" y1="392" x2="744" y2="392"></line>
+      <g id="tree-entry-auth">
+        <text class="mono tiny" x="480" y="428">100644</text>
+        <text class="mono body" x="544" y="428">auth.ts</text>
+        <text class="mono hash" x="744" y="428" text-anchor="end">a42ef17</text>
+      </g>
+      <line class="rule" x1="480" y1="448" x2="744" y2="448"></line>
+      <g id="tree-entry-readme">
+        <text class="mono tiny" x="480" y="484">100644</text>
+        <text class="mono body" x="544" y="484">README.md</text>
+        <text class="mono hash" x="744" y="484" text-anchor="end">d08aa51</text>
+      </g>
+      <line class="rule" x1="480" y1="504" x2="744" y2="504"></line>
+      <text class="small" x="480" y="548">Each entry stores mode, name, and object SHA.</text>
+    </g>
+
+    <g id="blob-objects">
+      <path class="line-blue" d="M768 368 C816 368 816 268 862 268" marker-end="url(#arrow-blue)"></path>
+      <path class="line-blue" d="M768 424 C816 424 816 404 862 404" marker-end="url(#arrow-blue)"></path>
+      <path class="line-blue" d="M768 480 C816 480 816 540 862 540" marker-end="url(#arrow-blue)"></path>
+
+      <g id="blob-app">
+        <rect class="object" x="864" y="216" width="272" height="104" rx="8"></rect>
+        <text class="section" x="888" y="248">Blob</text>
+        <text class="mono hash" x="1112" y="248" text-anchor="end">b61c002</text>
+        <text class="mono body" x="888" y="280">app.ts bytes</text>
+        <text class="small" x="888" y="304">File content; no filename stored</text>
+      </g>
+      <g id="blob-auth">
+        <rect class="object" x="864" y="352" width="272" height="104" rx="8"></rect>
+        <text class="section" x="888" y="384">Blob</text>
+        <text class="mono hash" x="1112" y="384" text-anchor="end">a42ef17</text>
+        <text class="mono body" x="888" y="416">auth.ts bytes</text>
+        <text class="small" x="888" y="440">Identical bytes reuse one object</text>
+      </g>
+      <g id="blob-readme">
+        <rect class="object" x="864" y="488" width="272" height="104" rx="8"></rect>
+        <text class="section" x="888" y="520">Blob</text>
+        <text class="mono hash" x="1112" y="520" text-anchor="end">d08aa51</text>
+        <text class="mono body" x="888" y="552">README.md bytes</text>
+        <text class="small" x="888" y="576">Content determines identity</text>
+      </g>
+    </g>
+
+    <g id="sha-rule">
+      <rect class="panel" x="864" y="624" width="272" height="80" rx="8"></rect>
+      <text class="tiny" x="888" y="650">OBJECT IDENTITY</text>
+      <text class="mono body" x="888" y="680">type + size + content → SHA</text>
+    </g>
+  </g>
+</svg>

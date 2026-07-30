@@ -1,0 +1,12 @@
+---
+const { role, org, when, where, bullets = [], compact = false } = Astro.props;
+---
+
+<div class="cve" data-compact={compact ? "" : undefined}>
+  <div class="cve-head">
+    <h3 class="cve-role">{role}{org && <span class="cve-org"> — {org}</span>}</h3>
+    {when && <span class="cve-when">{when}</span>}
+  </div>
+  {where && <p class="cve-where">{where}</p>}
+  {bullets.length > 0 && <ul class="cve-bullets">{bullets.map((b) => <li>{b}</li>)}</ul>}
+</div>

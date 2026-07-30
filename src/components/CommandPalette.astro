@@ -1,0 +1,67 @@
+---
+/* CommandPalette — ctrl/cmd+k launcher, 1…6 jump to a section. The only
+   element allowed the heavy float blur and shadow. */
+import { sections } from '../data/site.js';
+---
+
+<div class="palette-scrim" data-palette hidden>
+  <div class="palette" role="dialog" aria-label="jump to a section" data-palette-box>
+    <div class="palette-field">
+      <span>&gt;</span>
+      <input type="text" placeholder="jump to a section…" data-palette-input aria-label="jump to a section" />
+    </div>
+    <ul class="palette-list">
+      {sections.map((s, i) => (
+        <li>
+          <a class="palette-item" href={s.href} style={`--accent: ${s.color}`} data-palette-item data-label={s.label}>
+            <span class="palette-glyph">{i + 1}</span>
+            <span>{s.label}</span>
+            <span class="palette-hint">section</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div class="palette-keys"><span>↑↓ move</span><span>↵ open</span><span>esc close</span></div>
+  </div>
+</div>
+
+<script>
+  const scrim = document.querySelector('[data-palette]');
+  if (scrim) {
+    const input = scrim.querySelector('[data-palette-input]');
+    const items = [...scrim.querySelectorAll('[data-palette-item]')];
+    let active = 0;
+
+    const visible = () => items.filter((el) => !el.parentElement.hidden);
+    const paint = () => {
+      const vis = visible();
+      active = Math.max(0, Math.min(active, vis.length - 1));
+      items.forEach((el) => el.removeAttribute('data-on'));
+      if (vis[active]) vis[active].setAttribute('data-on', '');
+    };
+    const open = () => { scrim.hidden = false; input.value = ''; items.forEach((el) => { el.parentElement.hidden = false; }); active = 0; paint(); input.focus(); };
+    const close = () => { scrim.hidden = true; };
+
+    scrim.addEventListener('click', (e) => { if (!e.target.closest('[data-palette-box]')) close(); });
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      items.forEach((el) => { el.parentElement.hidden = !el.dataset.label.includes(q); });
+      active = 0; paint();
+    });
+    input.addEventListener('keydown', (e) => {
+      const vis = visible();
+      if (e.key === 'ArrowDown') { e.preventDefault(); active = (active + 1) % vis.length; paint(); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); active = (active - 1 + vis.length) % vis.length; paint(); }
+      if (e.key === 'Enter' && vis[active]) { e.preventDefault(); location.href = vis[active].href; }
+    });
+    addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); scrim.hidden ? open() : close(); return; }
+      if (e.key === 'Escape') { close(); return; }
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (scrim.hidden && !e.metaKey && !e.ctrlKey && tag !== 'input' && tag !== 'textarea' && /^[1-6]$/.test(e.key)) {
+        const el = items[Number(e.key) - 1];
+        if (el) location.href = el.href;
+      }
+    });
+  }
+</script>

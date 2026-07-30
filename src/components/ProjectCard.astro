@@ -1,0 +1,15 @@
+---
+import Tag from './Tag.astro';
+import { tagTone } from '../data/site.js';
+const { name, kicker, body, href, tags = [] } = Astro.props;
+---
+
+<article class="pcard">
+  {kicker && <p class="pcard-kicker">{kicker}</p>}
+  <h3 class="pcard-title">{name}</h3>
+  {body && <p class="pcard-body">{body}</p>}
+  {tags.length > 0 && (
+    <div class="pcard-tags">{tags.map((t) => <Tag tone={tagTone(t)}>{t}</Tag>)}</div>
+  )}
+  {href && <a class="pcard-link" href={href}>repository ↗</a>}
+</article>

@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="svg-title svg-desc">
+  <title id="svg-title">Git mental model</title>
+  <desc id="svg-desc">An editorial conceptual sequence flows from history to branches to snapshots to references to recovery and finally confidence.</desc>
+  <metadata>How Git Could Have Saved My Friendship — figure 12</metadata>
+
+    <style>
+    /* Figure stylesheet. These SVGs are loaded as standalone images, so nothing here
+       can come from the page — the whole visual contract lives in this block.
+       Order matters: sizes first, colour modifiers last. */
+    #canvas { fill: #070C0B; }
+    text {
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system,
+        "Helvetica Neue", Arial, sans-serif;
+      fill: #A8E8DC;
+    }
+    .mono {
+      font-family: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo,
+        "DejaVu Sans Mono", Consolas, monospace;
+    }
+    .eyebrow  { font-size: 13px; font-weight: 500; letter-spacing: 2.6px; fill: #3E8C80; }
+    .title    { font-size: 30px; font-weight: 700; letter-spacing: -0.2px; fill: #EAFFFA; }
+    .subtitle { font-size: 15px; fill: #7ACEC3; }
+    .section  { font-size: 17px; font-weight: 700; fill: #D6FFF8; }
+    .label    { font-size: 15px; font-weight: 500; fill: #C8F7EE; }
+    .body     { font-size: 15px; fill: #A8E8DC; }
+    .small    { font-size: 13px; fill: #7ACEC3; }
+    .tiny     { font-size: 11px; letter-spacing: 0.6px; fill: #6FBFB4; }
+    .hash     { font-size: 13px; letter-spacing: 0.5px; }
+
+    /* strokes */
+    .rule      { stroke: #17332F; stroke-width: 1.5; }
+    .line      { fill: none; stroke: #2E5A54; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-dark { fill: none; stroke: #47857C; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .line-blue { fill: none; stroke: #00F5D4; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .dash      { stroke-dasharray: 7 6; }
+
+    /* solids */
+    .dot          { fill: #12211F; stroke: #47857C; stroke-width: 2; }
+    .dot-blue     { fill: #06312B; stroke: #00F5D4; stroke-width: 2.5; }
+    .object       { fill: #101B19; stroke: #2E5A54; stroke-width: 1.5; }
+    .object-blue  { fill: rgba(0, 245, 212, 0.1); stroke: #00F5D4; stroke-width: 1.5; }
+    .object-dark  { fill: #0A1211; stroke: #3E6B65; stroke-width: 1.5; }
+    .panel        { fill: #0A100F; stroke: #1C3A35; stroke-width: 1.5; }
+    .command-chip { fill: rgba(0, 245, 212, 0.09); stroke: #1E5B52; stroke-width: 1.5; }
+    .blue-fill    { fill: #00F5D4; stroke: none; }
+    .soft-fill    { fill: #101B19; stroke: #1C3A35; stroke-width: 1.5; }
+
+    /* colour modifiers — always last */
+    .muted      { fill: #4E7C76; }
+    .blue-text  { fill: #00F5D4; }
+    .white-text { fill: #04120F; }
+    .dot.muted  { fill: #0C1413; stroke: #2A4B46; }
+    .line.muted { fill: none; stroke: #2A4B46; }
+  </style><defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#00F5D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#4E7C76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+    
+  </defs>
+  <rect id="canvas" width="1200" height="900" fill="#070C0B"></rect>
+
+  <g id="figure-header">
+    <text class="eyebrow" x="64" y="48">GIT SYSTEM / 12</text>
+    <text class="title" x="64" y="88">Git mental model</text>
+    <text class="subtitle" x="64" y="116">Git turns project state into an addressable history—and addressability makes experimentation reversible.</text>
+    <line class="rule" x1="64" y1="144" x2="1136" y2="144"></line>
+  </g>
+
+  
+  <g id="git-philosophy">
+    <path class="line-blue" d="M320 224 L320 728"></path>
+
+    <g id="concept-history">
+      <circle class="blue-fill" cx="320" cy="232" r="8"></circle>
+      <text class="tiny" x="112" y="238">01</text>
+      <text class="title" x="280" y="242" text-anchor="end">History</text>
+      <text class="section" x="376" y="232">A sequence of project states</text>
+      <text class="small" x="376" y="256">Work becomes navigable when each state has identity.</text>
+    </g>
+
+    <g id="concept-branches">
+      <circle class="blue-fill" cx="320" cy="328" r="8"></circle>
+      <text class="tiny" x="112" y="334">02</text>
+      <text class="title" x="280" y="338" text-anchor="end">Branches</text>
+      <text class="section" x="376" y="328">Movable names within that history</text>
+      <text class="small" x="376" y="352">Parallel lines of work are cheap to create and cheap to rename.</text>
+    </g>
+
+    <g id="concept-snapshots">
+      <circle class="blue-fill" cx="320" cy="424" r="8"></circle>
+      <text class="tiny" x="112" y="430">03</text>
+      <text class="title" x="280" y="434" text-anchor="end">Snapshots</text>
+      <text class="section" x="376" y="424">Complete states, not loose patches</text>
+      <text class="small" x="376" y="448">Every commit describes the whole project at one moment.</text>
+    </g>
+
+    <g id="concept-references">
+      <circle class="blue-fill" cx="320" cy="520" r="8"></circle>
+      <text class="tiny" x="112" y="526">04</text>
+      <text class="title" x="280" y="530" text-anchor="end">References</text>
+      <text class="section" x="376" y="520">Small pointers make identity practical</text>
+      <text class="small" x="376" y="544">Names move; the underlying objects remain content-addressed.</text>
+    </g>
+
+    <g id="concept-recovery">
+      <circle class="blue-fill" cx="320" cy="616" r="8"></circle>
+      <text class="tiny" x="112" y="622">05</text>
+      <text class="title" x="280" y="626" text-anchor="end">Recovery</text>
+      <text class="section" x="376" y="616">Prior pointer positions remain observable</text>
+      <text class="small" x="376" y="640">A mistake is often a lost name, not lost content.</text>
+    </g>
+
+    <g id="concept-confidence">
+      <circle class="dot-blue" cx="320" cy="712" r="15"></circle>
+      <text class="tiny blue-text" x="112" y="718">06</text>
+      <text class="title blue-text" x="280" y="722" text-anchor="end">Confidence</text>
+      <text class="section" x="376" y="712">Reversible work changes team behavior</text>
+      <text class="small" x="376" y="736">People can explore, review, disagree, and repair without fear.</text>
+    </g>
+
+    <g id="philosophy-thesis">
+      <line class="rule" x1="376" y1="800" x2="1088" y2="800"></line>
+      <text class="section" x="376" y="840">When history is addressable, mistakes become navigable.</text>
+    </g>
+  </g>
+</svg>

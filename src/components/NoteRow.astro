@@ -1,0 +1,14 @@
+---
+import Tag from './Tag.astro';
+import { tagTone } from '../data/site.js';
+const { date, title, href, tag } = Astro.props;
+---
+
+<a class="nrow" href={href}>
+  <span class="nrow-date">{date}</span>
+  <span class="nrow-title">{title}</span>
+  <span class="nrow-tail">
+    {tag && <Tag tone={tagTone(tag)}>{tag}</Tag>}
+    <span class="nrow-arrow">→</span>
+  </span>
+</a>

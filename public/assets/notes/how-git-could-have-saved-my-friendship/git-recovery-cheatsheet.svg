@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1200" viewBox="0 0 960 1200" role="img" aria-labelledby="svg-title svg-desc">
+  <title id="svg-title">Git recovery cheatsheet</title>
+  <desc id="svg-desc">A one-page decision tree branches from what happened to deleted commit, old file, undo, and wrong commit, leading to reflog, checkout, restore, and reset.</desc>
+  <metadata>How Git Could Have Saved My Friendship — figure 11</metadata>
+
+    <style>
+    /* Figure stylesheet. These SVGs are loaded as standalone images, so nothing here
+       can come from the page — the whole visual contract lives in this block.
+       Order matters: sizes first, colour modifiers last. */
+    #canvas { fill: #070C0B; }
+    text {
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system,
+        "Helvetica Neue", Arial, sans-serif;
+      fill: #A8E8DC;
+    }
+    .mono {
+      font-family: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo,
+        "DejaVu Sans Mono", Consolas, monospace;
+    }
+    .eyebrow  { font-size: 13px; font-weight: 500; letter-spacing: 2.6px; fill: #3E8C80; }
+    .title    { font-size: 30px; font-weight: 700; letter-spacing: -0.2px; fill: #EAFFFA; }
+    .subtitle { font-size: 15px; fill: #7ACEC3; }
+    .section  { font-size: 17px; font-weight: 700; fill: #D6FFF8; }
+    .label    { font-size: 15px; font-weight: 500; fill: #C8F7EE; }
+    .body     { font-size: 15px; fill: #A8E8DC; }
+    .small    { font-size: 13px; fill: #7ACEC3; }
+    .tiny     { font-size: 11px; letter-spacing: 0.6px; fill: #6FBFB4; }
+    .hash     { font-size: 13px; letter-spacing: 0.5px; }
+
+    /* strokes */
+    .rule      { stroke: #17332F; stroke-width: 1.5; }
+    .line      { fill: none; stroke: #2E5A54; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-dark { fill: none; stroke: #47857C; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .line-blue { fill: none; stroke: #00F5D4; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .dash      { stroke-dasharray: 7 6; }
+
+    /* solids */
+    .dot          { fill: #12211F; stroke: #47857C; stroke-width: 2; }
+    .dot-blue     { fill: #06312B; stroke: #00F5D4; stroke-width: 2.5; }
+    .object       { fill: #101B19; stroke: #2E5A54; stroke-width: 1.5; }
+    .object-blue  { fill: rgba(0, 245, 212, 0.1); stroke: #00F5D4; stroke-width: 1.5; }
+    .object-dark  { fill: #0A1211; stroke: #3E6B65; stroke-width: 1.5; }
+    .panel        { fill: #0A100F; stroke: #1C3A35; stroke-width: 1.5; }
+    .command-chip { fill: rgba(0, 245, 212, 0.09); stroke: #1E5B52; stroke-width: 1.5; }
+    .blue-fill    { fill: #00F5D4; stroke: none; }
+    .soft-fill    { fill: #101B19; stroke: #1C3A35; stroke-width: 1.5; }
+
+    /* colour modifiers — always last */
+    .muted      { fill: #4E7C76; }
+    .blue-text  { fill: #00F5D4; }
+    .white-text { fill: #04120F; }
+    .dot.muted  { fill: #0C1413; stroke: #2A4B46; }
+    .line.muted { fill: none; stroke: #2A4B46; }
+  </style><defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#00F5D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#4E7C76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+    
+  </defs>
+  <rect id="canvas" width="960" height="1200" fill="#070C0B"></rect>
+
+  <g id="figure-header">
+    <text class="eyebrow" x="64" y="48">GIT SYSTEM / 11</text>
+    <text class="title" x="64" y="88">Git recovery cheatsheet</text>
+    <text class="subtitle" x="64" y="116">Start from the failure mode, then choose the smallest mechanism that restores reachability or content.</text>
+    <line class="rule" x1="64" y1="144" x2="896" y2="144"></line>
+  </g>
+
+  <g id="recovery-decision-tree">
+    <g id="root-question">
+      <rect class="object-dark" x="200" y="192" width="560" height="96" rx="8"></rect>
+      <text class="tiny" x="480" y="224" text-anchor="middle">START HERE</text>
+      <text class="title" x="480" y="260" text-anchor="middle">What happened?</text>
+    </g>
+
+    
+    <g id="decision-branches">
+      <path class="line" d="M480 288 L480 344 M240 344 L720 344 M240 344 L240 400 M720 344 L720 400"></path>
+      <path class="line" d="M480 344 L480 680 M240 680 L720 680 M240 680 L240 736 M720 680 L720 736"></path>
+    </g>
+
+    <g id="deleted-commit-path">
+      <rect class="panel" x="64" y="400" width="352" height="96" rx="8"></rect>
+      <text class="section" x="88" y="436">Deleted commit</text>
+      <text class="small" x="88" y="464">Find where HEAD pointed before</text>
+      <path class="line-blue" d="M240 496 L240 544" marker-end="url(#arrow-blue)"></path>
+      <rect class="object-blue" x="64" y="552" width="352" height="80" rx="8"></rect>
+      <text class="tiny blue-text" x="88" y="580">USE</text>
+      <text class="mono section blue-text" x="88" y="610">git reflog</text>
+    </g>
+
+    <g id="old-file-path">
+      <rect class="panel" x="544" y="400" width="352" height="96" rx="8"></rect>
+      <text class="section" x="568" y="436">Need old file</text>
+      <text class="small" x="568" y="464">Read one path from a snapshot</text>
+      <path class="line-blue" d="M720 496 L720 544" marker-end="url(#arrow-blue)"></path>
+      <rect class="object-blue" x="544" y="552" width="352" height="80" rx="8"></rect>
+      <text class="tiny blue-text" x="568" y="580">USE</text>
+      <text class="mono section blue-text" x="568" y="610">git checkout</text>
+    </g>
+
+    <g id="undo-path">
+      <rect class="panel" x="64" y="736" width="352" height="96" rx="8"></rect>
+      <text class="section" x="88" y="772">Need undo</text>
+      <text class="small" x="88" y="800">Restore working-tree content</text>
+      <path class="line-blue" d="M240 832 L240 880" marker-end="url(#arrow-blue)"></path>
+      <rect class="object-blue" x="64" y="888" width="352" height="80" rx="8"></rect>
+      <text class="tiny blue-text" x="88" y="916">USE</text>
+      <text class="mono section blue-text" x="88" y="946">git restore</text>
+    </g>
+
+    <g id="wrong-commit-path">
+      <rect class="panel" x="544" y="736" width="352" height="96" rx="8"></rect>
+      <text class="section" x="568" y="772">Wrong commit</text>
+      <text class="small" x="568" y="800">Move the current branch pointer</text>
+      <path class="line-blue" d="M720 832 L720 880" marker-end="url(#arrow-blue)"></path>
+      <rect class="object-blue" x="544" y="888" width="352" height="80" rx="8"></rect>
+      <text class="tiny blue-text" x="568" y="916">USE</text>
+      <text class="mono section blue-text" x="568" y="946">git reset</text>
+    </g>
+
+    <g id="recovery-caution">
+      <line class="rule" x1="160" y1="1040" x2="800" y2="1040"></line>
+      <text class="body" x="480" y="1080" text-anchor="middle">Inspect first. Move the fewest references necessary.</text>
+      <text class="tiny" x="480" y="1112" text-anchor="middle">STATUS · LOG · REFLOG</text>
+    </g>
+  </g>
+</svg>

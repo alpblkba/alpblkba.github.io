@@ -1,0 +1,36 @@
+---
+/* TerminalPrompt — types at 26ms/char, click to skip. It never gates the
+   content below it: the command is in the markup and the script only hides
+   what has not been typed yet, so no-JS readers see the finished line. */
+const { user = 'alp', host = 'kit', cwd = '~', command = 'whoami', output } = Astro.props;
+---
+
+<div class="term" data-term>
+  <div>
+    <span class="term-who">{user}@{host}</span><span class="term-colon">:</span><span class="term-cwd">{cwd}</span><span class="term-dollar"> $ </span><span class="term-cmd" data-term-cmd>{command}</span><span class="caret"></span>
+  </div>
+  {output && <div class="term-out" data-term-out>{output}</div>}
+</div>
+
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-term]').forEach((root) => {
+    const cmd = root.querySelector('[data-term-cmd]');
+    const out = root.querySelector('[data-term-out]');
+    if (!cmd) return;
+    const full = cmd.textContent;
+    if (reduce || innerWidth < 900) return;
+    let n = 0, t;
+    const finish = () => { clearTimeout(t); cmd.textContent = full; if (out) out.style.visibility = ''; root.style.cursor = 'default'; };
+    if (out) out.style.visibility = 'hidden';
+    cmd.textContent = '';
+    root.style.cursor = 'pointer';
+    root.addEventListener('click', finish);
+    const tick = () => {
+      n += 1;
+      cmd.textContent = full.slice(0, n);
+      if (n < full.length) t = setTimeout(tick, 26); else finish();
+    };
+    t = setTimeout(tick, 26);
+  });
+</script>

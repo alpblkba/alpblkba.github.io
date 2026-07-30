@@ -1,0 +1,81 @@
+/* Element defaults. Everything else is a component. */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--obsidian);
+  color: var(--text-solid);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings: lit chrome-turquoise in the terminal face. The specular crest is
+   what makes them read as machined rather than flat — never remove the
+   text-shadow, and never set a heading under 20px in the display face
+   (use .eyebrow instead). */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 0.5em;
+  font-family: var(--font-heading);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-gloss);
+  line-height: var(--leading-tight);
+  color: var(--text-heading);
+  background: var(--gloss-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: var(--gloss-shadow);
+}
+h1 { font-size: var(--text-3xl); font-weight: var(--weight-black); line-height: 0.96; }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-lg); font-weight: var(--weight-semibold); }
+h4 { font-size: var(--text-md); font-weight: var(--weight-semibold); }
+h5 { font-size: var(--text-base); font-weight: var(--weight-semibold); }
+h6 {
+  font-family: var(--font-mono); font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-caps); text-transform: uppercase;
+  font-weight: var(--weight-medium);
+  background: var(--body-gradient); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; text-shadow: var(--body-glow);
+}
+
+/* Body copy: the 135° neon → aqua gradient clipped to the glyphs. */
+p, li, dd, dt, blockquote, figcaption, td, th, label, .gradient-text {
+  background: var(--body-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: var(--body-glow);
+}
+p { margin: 0 0 1em; text-wrap: pretty; }
+strong { font-weight: var(--weight-semibold); }
+em { font-style: italic; }
+
+a { color: var(--accent-link); text-decoration: none; text-underline-offset: 3px; transition: filter var(--dur-fast) var(--ease-velvet); }
+a:hover { filter: brightness(1.25) saturate(1.2); text-decoration: underline; }
+a:active { filter: brightness(0.9); }
+/* a link inside clipped body copy inherits the clip, so re-tint it */
+p a, li a, dd a { -webkit-text-fill-color: var(--accent-link); background: none; }
+p a:hover, li a:hover, dd a:hover { -webkit-text-fill-color: var(--accent-link-hover); }
+
+code, kbd, samp, pre { font-family: var(--font-mono); font-size: 0.92em; }
+code { -webkit-text-fill-color: var(--accent-cool); background: none; }
+img { display: block; max-width: 100%; height: auto; }
+hr { height: 0; border: 0; border-top: var(--divider); margin: var(--space-6) 0; }
+:focus { outline: none; }
+:focus-visible { outline: var(--ring); outline-offset: var(--ring-offset); border-radius: var(--radius-xs); }
+::selection { background: var(--selection-bg); -webkit-text-fill-color: var(--text-solid); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--obsidian); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: var(--radius-pill); }
+
+/* Micro-labels under 13px keep a solid fill — a clipped gradient loses too much
+   ink at that size. This is the one documented exception to the gradient rule. */
+.micro { font-family: var(--font-mono); font-size: var(--text-2xs); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--text-dim); -webkit-text-fill-color: var(--text-dim); background: none; text-shadow: none; }
+.eyebrow { font-family: var(--font-mono); font-size: var(--text-2xs); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+}

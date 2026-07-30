@@ -1,0 +1,8 @@
+---
+const { label, accent = 'var(--accent-primary)' } = Astro.props;
+---
+
+<div class="fact" style={`--accent: ${accent}`}>
+  <p class="fact-label">{label}</p>
+  <p class="fact-text"><slot /></p>
+</div>

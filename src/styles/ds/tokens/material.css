@@ -1,0 +1,46 @@
+/* The material stack: textured carbon, lagoon backlight, glass containers.
+   Compose these in a fixed full-bleed layer under the content (see the
+   BurlBackdrop component), never as a background on a text container. */
+:root {
+  /* body copy: 135° neon → aqua, clipped to glyphs */
+  --body-gradient: linear-gradient(135deg, var(--neon-78) 0%, var(--aqua-78) 100%); /* @kind color */
+  --body-glow: 0 0 10px var(--neon-35); /* @kind shadow */
+  --body-glow-strong: 0 0 16px rgba(0, 245, 212, 0.4); /* @kind shadow */
+
+  /* headings: lit chrome-turquoise, clipped to glyphs. Top-lit so the crest
+     reads first; never let the bottom stop go darker than the plate. */
+  --gloss-gradient: linear-gradient(180deg, #FFFFFF 0%, #8CFFEE 46%, #00E8C9 100%); /* @kind color */
+  /* NB: text-shadow paints on top of a background-clip:text fill, so anything
+     dark here mutes the glyph instead of seating it. Glow only. */
+  --gloss-shadow: 0px 0px 26px rgba(0, 245, 212, 0.42); /* @kind shadow */
+
+  /* textured carbon: graphite banding + mineral flecks, warped by fractal noise */
+  --burl-bands: linear-gradient(102deg, #060A09 0%, var(--carbon-mid) 22%, var(--graphite) 38%, #0A100F 55%, #1D302E 74%, var(--carbon-shadow) 100%); /* @kind color */
+  --burl-eye: radial-gradient(circle at 18% 24%, rgba(62, 140, 128, 0.42) 0 3%, transparent 9%), radial-gradient(circle at 22% 27%, rgba(4, 7, 6, 0.9) 0 1.6%, transparent 6%), radial-gradient(circle at 74% 18%, rgba(62, 140, 128, 0.3) 0 2.4%, transparent 8%), radial-gradient(circle at 61% 71%, rgba(62, 140, 128, 0.36) 0 2.8%, transparent 9%), radial-gradient(circle at 64% 74%, rgba(4, 7, 6, 0.88) 0 1.4%, transparent 6%); /* @kind color */
+  --burl-swirl: radial-gradient(ellipse 70% 26% at 12% 58%, rgba(20, 33, 32, 0.9), transparent 70%), radial-gradient(ellipse 58% 22% at 88% 46%, rgba(20, 33, 32, 0.85), transparent 70%); /* @kind color */
+  --burl-opacity: 0.5; /* @kind other */
+  --burl-frequency: 0.006 0.052; /* @kind other */ /* feTurbulence baseFrequency, warp pass */
+  --burl-octaves: 5; /* @kind other */
+  --burl-displace: 42; /* @kind other */ /* feDisplacementMap scale */
+  --grain-opacity: 0.2; /* @kind other */
+
+  /* lagoon ambient backlight */
+  --velvet-vignette: radial-gradient(ellipse at 50% 35%, rgba(6, 46, 42, 0.5) 0%, rgba(4, 7, 6, 0.97) 80%); /* @kind color */
+  --velvet-bloom: radial-gradient(ellipse at center, rgba(6, 46, 42, 0.55) 0%, rgba(6, 46, 42, 0.2) 42%, transparent 72%); /* @kind color */
+
+  /* glass containers */
+  --glass-fill: var(--surface-window); /* @kind color */
+  --glass-border: 1px solid var(--neon-20); /* @kind other */
+  --glass-blur: blur(9px) saturate(1.1); /* @kind other */
+  --glass-inner: inset 0 1px 0 rgba(255, 255, 255, 0.07); /* @kind shadow */
+  --signal-fill: linear-gradient(135deg, rgba(0, 245, 212, 0.2), rgba(34, 211, 238, 0.14)); /* @kind color */
+}
+
+/* Accessibility scope: raises the chrome midpoint so headings clear 4.5:1 at
+   small sizes. Set data-gloss="lifted" on <html> for dense documents, CVs and
+   anything printed. Same token names. */
+[data-gloss="lifted"] {
+  --gloss-gradient: linear-gradient(180deg, #FFFFFF 0%, #C8FFF4 46%, var(--neon-soft) 100%); /* @kind color */
+  --gloss-shadow: 0px 0px 24px rgba(0, 245, 212, 0.4); /* @kind shadow */
+  --text-heading: #DFFFF7;
+}

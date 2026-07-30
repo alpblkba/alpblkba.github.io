@@ -1,0 +1,13 @@
+---
+/* Readout — a numeral in the display face over the body gradient. Every value
+   here is real; the design system forbids inventing a metric to fill the grid. */
+const { label, value, unit, meter } = Astro.props;
+---
+
+<div class="readout">
+  <span class="readout-value">{value}{unit && <span class="readout-unit">{unit}</span>}</span>
+  <span class="readout-label">{label}</span>
+  {meter != null && (
+    <span class="readout-meter"><span style={`width: ${Math.max(0, Math.min(100, meter))}%`}></span></span>
+  )}
+</div>
