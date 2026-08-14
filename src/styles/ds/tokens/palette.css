@@ -1,43 +1,31 @@
-/* Muted Turquoise & Carbon — the raw ramp.
-   A turquoise that has been walked most of the way to grey, on true black.
+/* Overlay Cyan — the raw ramp.
+   The palette is three tints of one near-white cyan at descending alpha, laid
+   over a photographic nebula plate and a single dark scrim. There is no opaque
+   surface colour anywhere in the source: every value below is an alpha.
    Never reference these directly in a component; use colors.css. */
 :root {
-  /* carbon + void */
-  --obsidian: #020403;        /* the ground everything sits on */
-  --carbon-shadow: #060A09;
-  --carbon: #0B1211;          /* panel core */
-  --carbon-mid: #101A18;
-  --graphite: #172523;
-  --specular: #263C39;
-  --patina: #1B3E3A;
-  --patina-lit: #6FA79E;
+  /* the three ink tints (source: T1 / T2 / CY) */
+  --cyan-95: rgba(218, 244, 250, 0.95);   /* T1  — primary copy, names */
+  --cyan-92: rgba(218, 244, 250, 0.92);   /* T1 lifted, ghost-button hover */
+  --cyan-82: rgba(165, 215, 230, 0.82);   /* T2  — secondary copy, meta */
+  --cyan-70: rgba(230, 249, 252, 0.70);   /* CY  — eyebrows, tags, dot */
+  --cyan-98: rgba(230, 249, 252, 0.98);   /* hover peak — the brightest value */
 
-  /* ambient */
-  --velvet: #05211E;
-  --velvet-lit: #0A3A35;
-  --velvet-rose: #9FC4D6;     /* the "soft" hue: cool slate-blue */
+  /* structural alphas of the same near-white cyan */
+  --cyan-55: rgba(230, 249, 252, 0.55);   /* nav border, hover */
+  --cyan-50: rgba(230, 249, 252, 0.50);   /* section-header rule */
+  --cyan-42: rgba(230, 249, 252, 0.42);   /* ghost-button border, hover */
+  --cyan-30: rgba(230, 249, 252, 0.30);   /* nav border, rest */
+  --cyan-28: rgba(230, 249, 252, 0.28);   /* footer rule */
+  --cyan-22: rgba(230, 249, 252, 0.22);   /* header / section divider */
+  --cyan-20: rgba(230, 249, 252, 0.20);   /* scrollbar thumb, rule bloom */
+  --cyan-18: rgba(230, 249, 252, 0.18);   /* dim control border */
+  --cyan-10: rgba(230, 249, 252, 0.10);   /* row separator — the faintest rule */
+  --cyan-07: rgba(230, 249, 252, 0.07);   /* nav hover wash */
+  --cyan-05: rgba(230, 249, 252, 0.05);   /* ghost hover wash */
 
-  /* the signal, dialled back from neon to something that reads as metal */
-  --neon: #4FD6C4;
-  --neon-soft: #8FE3D6;
-  --neon-deep: #2C9C8E;
-  --aqua: #6FC9D8;
-  --aqua-soft: #9BDCE6;
-  --mint: #86C9B2;
-  --teal: #58BFB2;
-  --pale-mint: #AFD6CB;
-
-  /* ink — body copy is a clipped gradient, so these are its two ends.
-     Mostly white and grey, with just enough turquoise to stay in family. */
-  --ink-a: rgba(178, 221, 213, 0.9);
-  --ink-b: rgba(200, 221, 228, 0.9);
-
-  /* signal alphas */
-  --neon-35: rgba(79, 214, 196, 0.35);
-  --neon-20: rgba(79, 214, 196, 0.2);
-  --neon-14: rgba(79, 214, 196, 0.14);
-  --aqua-30: rgba(111, 201, 216, 0.3);
-  --carbon-83: rgba(11, 18, 17, 0.83);
-  --white-45: rgba(255, 255, 255, 0.45);
-  --white-25: rgba(255, 255, 255, 0.25);
+  /* the ground: photo plate + scrim + the black a control sits in */
+  --scrim: rgba(6, 11, 19, 0.42);         /* fixed full-page darkening layer */
+  --plate-fallback: #060B13;              /* flat stand-in when the photo is absent */
+  --black-18: rgba(0, 0, 0, 0.18);        /* the only "fill" in the system */
 }

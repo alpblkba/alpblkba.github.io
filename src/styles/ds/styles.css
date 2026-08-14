@@ -1,7 +1,8 @@
-/* alpblkba.dev — Muted Turquoise & Carbon. Consumers link this one file. */
+/* alpblkba.dev — Overlay Cyan. Consumers link this one file.
+   Values are lifted verbatim from the "Dark Mode Portfolio Design" Figma Make
+   source (src/App.tsx + src/index.css). Do not round them. */
 @import url("tokens/fonts.css");
 @import url("tokens/palette.css");
-@import url("tokens/material.css");
 @import url("tokens/colors.css");
 @import url("tokens/typography.css");
 @import url("tokens/spacing.css");

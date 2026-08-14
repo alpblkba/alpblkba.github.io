@@ -1,43 +1,32 @@
+/* The scale is small and literal: nothing in the source is larger than the
+   name, and nothing is smaller than the footer. Sizes are the exact px values
+   used in App.tsx — do not snap them to a 4px grid. */
 :root {
-  /* The display voice is the terminal face at heavy weight — same grid as every
-     meta label on the page, so the name and the shell prompt read as one system.
-     Headings only — never body. */
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, "DejaVu Sans Mono", monospace;
-  --font-display: var(--font-mono);
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 
-  --font-heading: var(--font-display);
-  --font-body: var(--font-sans);
-  --font-terminal: var(--font-mono);
-  --font-meta: var(--font-mono);
+  --font-display: var(--font-mono);   /* the name */
+  --font-meta: var(--font-mono);      /* years, dates, codes, tags, nav, footer */
+  --font-body: var(--font-sans);      /* descriptions, note titles, tagline */
 
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
-  --weight-bold: 700;
-  --weight-black: 800;
+  --weight-bold: 700;                 /* name + project name only */
 
-  --text-3xs: 10px;   /* panel titlebar meta */
-  --text-2xs: 11px;   /* eyebrows, tags */
-  --text-xs: 12px;    /* mono meta, dates */
-  --text-sm: 13px;    /* terminal lines, buttons */
-  --text-base: 16px;  /* body */
-  --text-md: 19px;    /* lede, prose */
-  --text-lg: 25px;    /* h3 / card titles */
-  --text-xl: 32px;    /* h2 */
-  --text-2xl: 46px;
-  --text-3xl: 64px;
-  --text-display: clamp(21px, 1.9vw, 27px); /* the name, hero only — sits just above the lede */
+  --text-3xs: 10px;    /* tag label, footer */
+  --text-2xs: 11px;    /* eyebrow code, year, date, [source ↗], ghost button */
+  --text-xs: 12px;     /* nav link, italic tagline */
+  --text-sm: 13px;     /* body copy, note title, hero line */
+  --text-md: 14px;     /* project name */
+  --text-display: clamp(17px, 4vw, 21px);  /* the name — the largest type here */
 
-  --leading-tight: 1.06; /* @kind font */
-  --leading-snug: 1.35; /* @kind font */
-  --leading-body: 1.62; /* @kind font */
-  --leading-prose: 1.6; /* @kind font */
-  --leading-terminal: 1.7; /* @kind font */
+  --leading-tight: 1.5;    /* hero mono line */
+  --leading-body: 1.65;    /* project descriptions, prose */
 
-  --tracking-gloss: 0.02em; /* @kind font */   /* mandatory on every heading */
-  --tracking-normal: 0; /* @kind font */
-  --tracking-meta: 0.06em; /* @kind font */
-  --tracking-caps: 0.18em; /* @kind font */    /* uppercase micro-labels */
-  --tracking-eyebrow: 0.26em; /* @kind font */
+  --tracking-caps: 0.10em; /* uppercase section code */
+  --tracking-footer: 0.04em;
+  --tracking-tag: 0.02em;
+  --tracking-nav: 0.01em;
+  --tracking-normal: 0;
 }

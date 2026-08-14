@@ -1,59 +1,34 @@
 ---
-/* alpblkba.dev — page shell. Burl plate, glass status bar, section pills,
-   the panel grid, and the ctrl+k launcher.
-
-   `layout` picks the panel grid (see .lay-* in site.css); "prose" is the
-   single-column note-article layout. Long-form pages (notes, cv) run the
-   lifted gloss scope and dim the plate — the design system requires both for
-   documents read end to end. */
 import '../styles/site.css';
-import BurlBackdrop from '../components/BurlBackdrop.astro';
-import StatusBar from '../components/StatusBar.astro';
-import CommandPalette from '../components/CommandPalette.astro';
-import KeyCap from '../components/KeyCap.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Rule from '../components/Rule.astro';
 
-const {
-  title = 'alpblkba.dev',
-  description = 'Systems, embedded, computer architecture, and hardware-aware software.',
-  section,
-  layout = 'prose',
-  foot = 'alpblkba.dev — cyber-velvet & buckeye burl'
-} = Astro.props;
-
-const longform = layout === 'prose' || section === 'cv';
+const { title, current, description = 'Alp Bolukbasi — hardware-aware systems engineer, Karlsruhe.' } = Astro.props;
 ---
-
 <!doctype html>
-<html lang="en" data-gloss={longform ? 'lifted' : 'lacquer'}>
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title ? `${title} — alpblkba.dev` : 'alpblkba.dev'}</title>
     <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon-180.png" sizes="180x180" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon-180.png" />
-    <title>{title}</title>
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
   </head>
-
   <body>
-    <BurlBackdrop dim={longform} />
-
     <div class="shell">
-      <StatusBar current={section} />
-
-      {layout === 'prose' ? (
-        <div class="shell-main lay-prose"><slot /></div>
-      ) : (
-        <main class:list={["shell-main", `lay-${layout}`]}><slot /></main>
-      )}
-
-      <footer class="shell-foot">
-        <span><KeyCap>ctrl</KeyCap> + <KeyCap>k</KeyCap> launcher</span>
-        <span><KeyCap>1</KeyCap>…<KeyCap>6</KeyCap> section</span>
-        <span class="foot-end">{foot}</span>
-      </footer>
+      <img class="plate" src="/images/backdrop.jpg" alt="" aria-hidden="true" />
+      <div class="plate-scrim"></div>
+      <div class="col">
+        <SiteHeader current={current} />
+        <Rule weight="divider" inset />
+        <div class="section-pad">
+          <slot />
+        </div>
+        <SiteFooter />
+      </div>
     </div>
-
-    <CommandPalette />
   </body>
 </html>

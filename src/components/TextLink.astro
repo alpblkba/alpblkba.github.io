@@ -1,0 +1,11 @@
+---
+/* [source ↗] / [read ↗] — the bracket and the arrow are type, not icons. */
+const { label, href = '#', arrow = true, bracket = true, external = true, end = false } = Astro.props;
+const text = `${bracket ? '[' : ''}${label}${arrow ? ' ↗' : ''}${bracket ? ']' : ''}`;
+---
+<a
+  class={end ? 'link link--end' : 'link'}
+  href={href}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noreferrer' : undefined}
+>{text}</a>

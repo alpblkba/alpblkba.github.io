@@ -1,16 +1,17 @@
+/* Corners are almost square. 3px is the system radius; the only circle in the
+   system is the 6px status dot. Every border is a 1px hairline in cyan alpha. */
 :root {
-  /* Softer than the wood: glass panels are 14px, controls 10px, tags 999px. */
-  --radius-window: 14px;
-  --radius-panel: 14px;
-  --radius-control: 10px;
-  --radius-sm: 10px;
-  --radius-xs: 4px;
-  --radius-pill: 999px;
+  --radius-control: 3px;
+  --radius-tag: 3px;
   --radius-none: 0px;
+  --radius-dot: 50%;
 
   --border-width: 1px;
-  --border-width-focus: 1px;
-  --border-window-frame: var(--border-width) solid var(--border-window); /* @kind other */
-  --border-window-frame-focus: var(--border-width) solid var(--border-window-focus); /* @kind other */
-  --divider: var(--border-width) solid var(--border-hairline); /* @kind other */
+  --rule-height: 1px;
+
+  --border-nav: var(--border-width) solid var(--border-control);
+  --border-nav-hover: var(--border-width) solid var(--border-control-hover);
+  --border-dim: var(--border-width) solid var(--border-control-dim);
+  --border-dim-hover: var(--border-width) solid var(--border-control-dim-hover);
+  --border-tag-frame: var(--border-width) solid var(--border-tag);
 }

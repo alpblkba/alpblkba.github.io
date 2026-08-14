@@ -1,30 +1,21 @@
+/* Depth comes from one shared text-shadow, not from boxes. Nothing in this
+   system casts a box-shadow: text sits directly on the photograph and stays
+   legible because every glyph carries its own shadow. */
 :root {
-  /* Depth is ambient: a wide black bloom under every glass panel plus a 1px
-     white inner crest. No tight drop shadows, nothing crisp, and no coloured
-     halos — the plate carries the atmosphere, the chrome stays dry. */
+  /* mandatory on every piece of text over the plate */
+  --text-shadow-plate: 0 1px 4px rgba(0, 0, 0, 0.75), 0 0px 12px rgba(0, 0, 0, 0.45);
+
+  /* the two glows in the source: the dot, and the rule under a section header */
+  --glow-dot: 0 0 6px rgba(230, 249, 252, 0.60);
+  --glow-rule: 0 0 6px rgba(230, 249, 252, 0.20);
+
   --shadow-none: none;
-  --shadow-panel: var(--glass-inner), 0 26px 60px rgba(0, 0, 0, 0.7);
-  --shadow-panel-hover: var(--glass-inner), 0 0 0 1px rgba(79, 214, 196, 0.14), 0 14px 40px rgba(0, 0, 0, 0.72);
-  --shadow-float: var(--glass-inner), 0 34px 80px rgba(0, 0, 0, 0.8);
-  --glow-signal: 0 0 18px rgba(79, 214, 196, 0.12);
-  --glow-cyan: 0 0 14px rgba(111, 201, 216, 0.14);
-  --glow-chip: 0 0 8px rgba(79, 214, 196, 0.3);
 
-  --ring: 2px solid rgba(79, 214, 196, 0.75); /* @kind other */
-  --ring-offset: 3px; /* @kind spacing */
+  /* motion: one duration, one easing, colour-only. No transforms, no springs. */
+  --dur-hover: 0.15s; /* @kind other */
+  --ease-hover: ease; /* @kind other */
+  --transition-control: color var(--dur-hover), border-color var(--dur-hover), background var(--dur-hover);
+  --transition-text: color var(--dur-hover);
 
-  --blur-float: blur(14px) saturate(1.05); /* @kind other */
-  --scrim-float: rgba(2, 4, 3, 0.84); /* @kind color */
-
-  /* motion: slow, plush, never springy */
-  --ease-velvet: cubic-bezier(0.2, 0.7, 0.2, 1); /* @kind other */
-  --ease-snap: cubic-bezier(0.2, 0.7, 0.2, 1); /* @kind other */
-  --ease-out: cubic-bezier(0, 0, 0.2, 1); /* @kind other */
-  --dur-instant: 120ms; /* @kind other */
-  --dur-fast: 220ms; /* @kind other */
-  --dur-base: 320ms; /* @kind other */
-  --dur-slow: 500ms; /* @kind other */
-  --caret-blink: 1.05s; /* @kind other */
-  --type-speed: 26ms; /* @kind other */
-  --lift: -1px; /* @kind spacing */   /* hover translate on controls */
+  --scrollbar-width: 4px;
 }

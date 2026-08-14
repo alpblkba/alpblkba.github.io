@@ -1,14 +1,10 @@
 ---
-import Tag from './Tag.astro';
-import { tagTone } from '../data/site.js';
-const { date, title, href, tag } = Astro.props;
+import TextLink from './TextLink.astro';
+const { date, title, href, tag, linkLabel = 'read' } = Astro.props;
 ---
-
-<a class="nrow" href={href}>
-  <span class="nrow-date">{date}</span>
-  <span class="nrow-title">{title}</span>
-  <span class="nrow-tail">
-    {tag && <Tag tone={tagTone(tag)}>{tag}</Tag>}
-    <span class="nrow-arrow">→</span>
-  </span>
-</a>
+<div class="note-row">
+  <time class="note-date">{date}</time>
+  <span class="note-title">{title}</span>
+  {tag && <span class="note-tag">{tag}</span>}
+  {href && <TextLink label={linkLabel} href={href} external={false} />}
+</div>

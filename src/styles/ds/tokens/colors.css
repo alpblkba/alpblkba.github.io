@@ -1,53 +1,38 @@
-/* Semantic roles. Components reference ONLY these. */
+/* Semantic roles. Components reference ONLY these.
+   One hue family, four steps of emphasis. There are no status colours, no
+   per-section hues and no brand accent beyond the cyan itself — the source
+   carries meaning with weight, alpha and monospace brackets instead. */
 :root {
-  /* ground + surfaces */
-  --bg-desktop: var(--obsidian);        /* the carbon plate behind everything */
-  --bg-bar: rgba(4, 8, 7, 0.82);        /* glass chrome, expects backdrop-filter */
-  --surface-window: linear-gradient(160deg, rgba(11, 18, 17, 0.6), rgba(2, 4, 3, 0.7));
-  --surface-solid: #060A09;             /* when a real opaque fill is required */
-  --surface-raised: rgba(2, 4, 3, 0.58);    /* inputs, keycaps, readout wells */
-  --surface-hover: rgba(5, 33, 30, 0.42);
-  --surface-active: rgba(5, 33, 30, 0.66);
+  /* ground */
+  --bg-plate: var(--plate-fallback);        /* behind the photo, and its fallback */
+  --bg-scrim: var(--scrim);                 /* fixed layer over the photo */
+  --fill-control: var(--black-18);          /* nav links, ghost buttons at rest */
+  --fill-control-hover: var(--cyan-07);
+  --fill-ghost-hover: var(--cyan-05);
 
-  /* copy — body text is a clipped gradient, so these are the gradient ends */
-  --text-a: var(--ink-a);
-  --text-b: var(--ink-b);
-  --text-body: var(--body-gradient);        /* use as background + clip */
-  --text-solid: rgba(220, 236, 233, 0.94);  /* fallback / micro-labels under 13px */
-  --text-muted: rgba(168, 197, 193, 0.78);
-  --text-dim: rgba(130, 158, 155, 0.6);
-  --text-on-signal: var(--obsidian);        /* on a neon fill */
-
-  /* headings — brushed metal, lit from above */
-  --text-heading: var(--neon-soft);
+  /* copy */
+  --text-primary: var(--cyan-95);           /* name, project name, body prose */
+  --text-secondary: var(--cyan-82);         /* years, dates, location, footer */
+  --text-eyebrow: var(--cyan-70);           /* section codes, tag labels */
+  --text-hover: var(--cyan-98);             /* the only hover colour */
+  --text-ghost-hover: var(--cyan-92);
 
   /* frames */
-  --border-window: var(--neon-20);
-  --border-window-focus: var(--aqua-30);
-  --border-hairline: var(--neon-14);
-  --border-input: rgba(79, 214, 196, 0.24);
+  --border-control: var(--cyan-30);         /* nav link at rest */
+  --border-control-hover: var(--cyan-55);
+  --border-control-dim: var(--cyan-18);     /* ghost button at rest */
+  --border-control-dim-hover: var(--cyan-42);
+  --border-tag: var(--cyan-70);             /* tags carry the full eyebrow alpha */
 
-  /* signals, each with exactly one job */
-  --accent-primary: var(--neon);        /* primary action, focus crest, brand chip */
-  --accent-link: var(--aqua);           /* links, and only links */
-  --accent-link-hover: var(--aqua-soft);
-  --accent-prompt: var(--neon);         /* shell prompt, ok state */
-  --accent-path: var(--mint);           /* paths / cwd in terminal copy */
-  --accent-warn: var(--neon-soft);
-  --accent-alert: var(--velvet-rose);
-  --accent-soft: var(--velvet-rose);    /* music, non-technical */
-  --accent-cool: var(--aqua-soft);      /* hardware tags */
-  --accent-wood: var(--patina-lit);     /* material / grain references */
+  /* rules — four weights, each with one job */
+  --rule-strong: var(--cyan-50);            /* under a section header */
+  --rule-footer: var(--cyan-28);
+  --rule-divider: var(--cyan-22);           /* header ↔ sections */
+  --rule-row: var(--cyan-10);               /* between two project rows */
 
-  /* per-section hue: lights its tab, its focused panel frame and its tags.
-     All six sit on the green → turquoise → slate arc. */
-  --ws-home: var(--neon);
-  --ws-about: var(--mint);
-  --ws-projects: var(--aqua);
-  --ws-notes: var(--teal);
-  --ws-music: var(--velvet-rose);
-  --ws-cv: var(--pale-mint);
+  /* signal */
+  --dot-live: var(--cyan-70);               /* the 6px location dot */
 
-  --selection-bg: rgba(79, 214, 196, 0.26);
-  --scrollbar-thumb: rgba(79, 214, 196, 0.24);
+  --selection-bg: rgba(230, 249, 252, 0.22);
+  --scrollbar-thumb: var(--cyan-20);
 }
