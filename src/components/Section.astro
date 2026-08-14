@@ -1,0 +1,11 @@
+---
+import Rule from './Rule.astro';
+const { code, title } = Astro.props;
+---
+<section class="section">
+  <div class="section-head">
+    <p class="eyebrow">{code} // {title}</p>
+    <Rule weight="strong" />
+  </div>
+  <div class="section-body"><slot /></div>
+</section>

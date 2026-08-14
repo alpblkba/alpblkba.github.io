@@ -1,0 +1,32 @@
+/* The scale is small and literal: nothing in the source is larger than the
+   name, and nothing is smaller than the footer. Sizes are the exact px values
+   used in App.tsx — do not snap them to a 4px grid. */
+:root {
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, "DejaVu Sans Mono", monospace;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  --font-display: var(--font-mono);   /* the name */
+  --font-meta: var(--font-mono);      /* years, dates, codes, tags, nav, footer */
+  --font-body: var(--font-sans);      /* descriptions, note titles, tagline */
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;                 /* name + project name only */
+
+  --text-3xs: 10px;    /* tag label, footer */
+  --text-2xs: 11px;    /* eyebrow code, year, date, [source ↗], ghost button */
+  --text-xs: 12px;     /* nav link, italic tagline */
+  --text-sm: 13px;     /* body copy, note title, hero line */
+  --text-md: 14px;     /* project name */
+  --text-display: clamp(17px, 4vw, 21px);  /* the name — the largest type here */
+
+  --leading-tight: 1.5;    /* hero mono line */
+  --leading-body: 1.65;    /* project descriptions, prose */
+
+  --tracking-caps: 0.10em; /* uppercase section code */
+  --tracking-footer: 0.04em;
+  --tracking-tag: 0.02em;
+  --tracking-nav: 0.01em;
+  --tracking-normal: 0;
+}

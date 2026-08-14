@@ -1,0 +1,21 @@
+---
+import { identity, nav } from '../data/site.js';
+import NavLink from './NavLink.astro';
+const { current } = Astro.props;
+---
+<header class="content-pad">
+  <div class="head-top">
+    <a class="wordmark" href="/">{identity.name}</a>
+    <div class="dot-row">
+      <div class="dot"></div>
+      <span class="dot-label">{identity.location}</span>
+    </div>
+  </div>
+  <p class="hero-line">{identity.line}</p>
+  <p class="hero-tagline">{identity.tagline}</p>
+  <nav class="nav">
+    {nav.map(item => (
+      <NavLink label={item.label} href={item.href ?? `/${item.label}`} external={item.external} current={current === item.label} />
+    ))}
+  </nav>
+</header>

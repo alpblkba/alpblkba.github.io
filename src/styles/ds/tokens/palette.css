@@ -1,0 +1,31 @@
+/* Overlay Cyan — the raw ramp.
+   The palette is three tints of one near-white cyan at descending alpha, laid
+   over a photographic nebula plate and a single dark scrim. There is no opaque
+   surface colour anywhere in the source: every value below is an alpha.
+   Never reference these directly in a component; use colors.css. */
+:root {
+  /* the three ink tints (source: T1 / T2 / CY) */
+  --cyan-95: rgba(218, 244, 250, 0.95);   /* T1  — primary copy, names */
+  --cyan-92: rgba(218, 244, 250, 0.92);   /* T1 lifted, ghost-button hover */
+  --cyan-82: rgba(165, 215, 230, 0.82);   /* T2  — secondary copy, meta */
+  --cyan-70: rgba(230, 249, 252, 0.70);   /* CY  — eyebrows, tags, dot */
+  --cyan-98: rgba(230, 249, 252, 0.98);   /* hover peak — the brightest value */
+
+  /* structural alphas of the same near-white cyan */
+  --cyan-55: rgba(230, 249, 252, 0.55);   /* nav border, hover */
+  --cyan-50: rgba(230, 249, 252, 0.50);   /* section-header rule */
+  --cyan-42: rgba(230, 249, 252, 0.42);   /* ghost-button border, hover */
+  --cyan-30: rgba(230, 249, 252, 0.30);   /* nav border, rest */
+  --cyan-28: rgba(230, 249, 252, 0.28);   /* footer rule */
+  --cyan-22: rgba(230, 249, 252, 0.22);   /* header / section divider */
+  --cyan-20: rgba(230, 249, 252, 0.20);   /* scrollbar thumb, rule bloom */
+  --cyan-18: rgba(230, 249, 252, 0.18);   /* dim control border */
+  --cyan-10: rgba(230, 249, 252, 0.10);   /* row separator — the faintest rule */
+  --cyan-07: rgba(230, 249, 252, 0.07);   /* nav hover wash */
+  --cyan-05: rgba(230, 249, 252, 0.05);   /* ghost hover wash */
+
+  /* the ground: photo plate + scrim + the black a control sits in */
+  --scrim: rgba(6, 11, 19, 0.42);         /* fixed full-page darkening layer */
+  --plate-fallback: #060B13;              /* flat stand-in when the photo is absent */
+  --black-18: rgba(0, 0, 0, 0.18);        /* the only "fill" in the system */
+}

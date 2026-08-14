@@ -1,0 +1,6 @@
+/* Two faces, both from Google Fonts, exactly as the source loads them.
+   JetBrains Mono is the primary voice: name, nav, section codes, meta, project
+   titles, tags, footer. Inter carries prose only (descriptions, note titles,
+   the italic tagline). No self-hosted binaries ship with this system. */
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap");

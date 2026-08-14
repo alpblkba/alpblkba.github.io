@@ -1,63 +1,36 @@
 ---
-import "../styles/global.css";
+import '../styles/site.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Rule from '../components/Rule.astro';
+import CommandPalette from '../components/CommandPalette.astro';
 
-const {
-  title = "alpblkba",
-  description = "Systems, embedded, computer architecture, and hardware-aware software.",
-} = Astro.props;
-
-const path = Astro.url.pathname.replace(/\/$/, "") || "/";
-const isCurrent = (href) => (path === href ? "page" : undefined);
+const { title, current, description = 'Alp Bolukbasi — hardware-aware systems engineer, Karlsruhe.' } = Astro.props;
 ---
-
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title ? `${title} — alpblkba.dev` : 'alpblkba.dev'}</title>
     <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" href="/favicon.svg" />
-    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon-180.png" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
   </head>
-
   <body>
-    <div class="site">
-      <header class="site-header">
-        <nav class="nav">
-          <a class="nav-brand brand" href="/">
-            <span class="brand-dot"></span>
-            <span>alpblkba</span>
-          </a>
-          <a href="/about" aria-current={isCurrent("/about")}>about</a>
-          <a href="/projects" aria-current={isCurrent("/projects")}>projects</a>
-          <a href="/notes" aria-current={isCurrent("/notes")}>notes</a>
-          <a href="/music" aria-current={isCurrent("/music")}>music</a>
-          <a href="/cv" aria-current={isCurrent("/cv")}>cv</a>
-          <a class="ext" href="https://github.com/alpblkba">github &#8599;</a>
-        </nav>
-      </header>
-
-      <main>
-        <slot />
-      </main>
-
-      <section class="poster">
-        <div class="poster-inner">
-          <p>somewhere between the debugger and the datasheet</p>
-          <a class="btn" href="mailto:hello@alpblkba.dev">hello@alpblkba.dev</a>
+    <div class="shell">
+      <img class="plate" src="/images/backdrop.jpg" alt="" aria-hidden="true" />
+      <div class="plate-scrim"></div>
+      <div class="col">
+        <SiteHeader current={current} />
+        <Rule weight="divider" inset />
+        <div class="section-pad">
+          <slot />
         </div>
-      </section>
-
-      <footer class="site-footer">
-        <div class="site-footer-inner">
-          <span>alpblkba.dev &#8212; built with Astro, deployed with GitHub Pages</span>
-          <span class="footer-links">
-            <a href="https://github.com/alpblkba">github</a>
-            <a href="https://www.linkedin.com/in/alpblkba">linkedin</a>
-            <a href="mailto:hello@alpblkba.dev">email</a>
-          </span>
-        </div>
-      </footer>
+        <SiteFooter />
+      </div>
     </div>
+    <CommandPalette />
   </body>
 </html>

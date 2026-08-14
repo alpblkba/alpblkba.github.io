@@ -1,0 +1,38 @@
+/* Semantic roles. Components reference ONLY these.
+   One hue family, four steps of emphasis. There are no status colours, no
+   per-section hues and no brand accent beyond the cyan itself — the source
+   carries meaning with weight, alpha and monospace brackets instead. */
+:root {
+  /* ground */
+  --bg-plate: var(--plate-fallback);        /* behind the photo, and its fallback */
+  --bg-scrim: var(--scrim);                 /* fixed layer over the photo */
+  --fill-control: var(--black-18);          /* nav links, ghost buttons at rest */
+  --fill-control-hover: var(--cyan-07);
+  --fill-ghost-hover: var(--cyan-05);
+
+  /* copy */
+  --text-primary: var(--cyan-95);           /* name, project name, body prose */
+  --text-secondary: var(--cyan-82);         /* years, dates, location, footer */
+  --text-eyebrow: var(--cyan-70);           /* section codes, tag labels */
+  --text-hover: var(--cyan-98);             /* the only hover colour */
+  --text-ghost-hover: var(--cyan-92);
+
+  /* frames */
+  --border-control: var(--cyan-30);         /* nav link at rest */
+  --border-control-hover: var(--cyan-55);
+  --border-control-dim: var(--cyan-18);     /* ghost button at rest */
+  --border-control-dim-hover: var(--cyan-42);
+  --border-tag: var(--cyan-70);             /* tags carry the full eyebrow alpha */
+
+  /* rules — four weights, each with one job */
+  --rule-strong: var(--cyan-50);            /* under a section header */
+  --rule-footer: var(--cyan-28);
+  --rule-divider: var(--cyan-22);           /* header ↔ sections */
+  --rule-row: var(--cyan-10);               /* between two project rows */
+
+  /* signal */
+  --dot-live: var(--cyan-70);               /* the 6px location dot */
+
+  --selection-bg: rgba(230, 249, 252, 0.22);
+  --scrollbar-thumb: var(--cyan-20);
+}

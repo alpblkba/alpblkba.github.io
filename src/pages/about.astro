@@ -1,66 +1,30 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-
-const interests = [
-  "RISC-V",
-  "memory systems",
-  "FPGA prototyping",
-  "accelerators",
-  "hw/sw co-design",
-  "hardware security",
-];
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import MetaRow from '../components/MetaRow.astro';
+import Tag from '../components/Tag.astro';
+import site from '../data/site.js';
 ---
+<BaseLayout title="about" current="about">
+  <Section code="01" title="About">
+    <div class="prose">{site.about.map(p => <p>{p}</p>)}</div>
+  </Section>
 
-<BaseLayout title="about | alpblkba">
-  <div class="shell">
-    <div class="page-head">
-      <p class="sec-num">about</p>
-      <h1 class="page-title">about</h1>
+  <Section code="02" title="Now">
+    <div class="stack--tight">
+      {site.facts.map(x => <MetaRow label={x.label} value={x.text} />)}
     </div>
+  </Section>
 
-    <div class="about-grid">
-      <div class="prose">
-        <p>
-          I come from systems and operations: networks, security, DevOps, and
-          infrastructure-flavored engineering. That background made me interested in real systems,
-          failure modes, performance bottlenecks, and the beautiful moment where abstractions stop
-          being polite.
-        </p>
-        <p>
-          Over time, the rabbit hole pulled me closer to the machine: low-level behavior, memory,
-          hardware-aware software, embedded systems, and computer architecture.
-        </p>
-        <p>
-          These days, I am mostly interested in the boundary between software and hardware:
-          RISC-V, memory systems, FPGA-based prototyping, accelerators, hardware/software co-design,
-          and hardware security.
-        </p>
-        <p>
-          I am currently an M.Sc. computer science student at Karlsruhe Institute of Technology
-          (KIT), working as a student assistant at the Chair of Embedded Systems on HLS
-          implementations and hardware accelerators for embedded processors.
-        </p>
-      </div>
-
-      <aside class="about-side">
-        <div class="grayscale">
-          <img src="/images/portrait.png" alt="Alp O. Bolukbasi" width="1024" height="1024" style="aspect-ratio:1/1;object-fit:cover;width:100%" />
+  <Section code="03" title="Interests">
+    <div class="tags">{site.interests.map(t => <Tag label={t} />)}</div>
+    <div class="stack--tight" style="margin-top: var(--space-7)">
+      {site.direction.map((d, i) => (
+        <div class="meta-row">
+          <span class="meta-key">[{String(i + 1).padStart(2, '0')}]</span>
+          <span class="meta-val">{d}</span>
         </div>
-        <div>
-          <p class="side-label">interests</p>
-          <div class="tag-row">
-            {interests.map((t) => <span class="tag tag-outline">{t}</span>)}
-          </div>
-        </div>
-        <div>
-          <p class="side-label">elsewhere</p>
-          <div class="link-col">
-            <a href="mailto:hello@alpblkba.dev">hello@alpblkba.dev</a>
-            <a href="https://github.com/alpblkba">github.com/alpblkba</a>
-            <a href="https://www.linkedin.com/in/alpblkba">linkedin.com/in/alpblkba</a>
-          </div>
-        </div>
-      </aside>
+      ))}
     </div>
-  </div>
+  </Section>
 </BaseLayout>

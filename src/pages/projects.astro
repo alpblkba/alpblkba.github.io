@@ -1,87 +1,21 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-
-const groups = [
-  {
-    num: "01",
-    title: "hardware / fpga / architecture",
-    items: [
-      {
-        kicker: "verilog · pynq",
-        name: "rv32i-mla",
-        body: "RV32I CPU and accelerator experiments on PYNQ, written in Verilog. Focused on simple processor design, memory-mapped interfaces, and hardware/software integration.",
-        href: "https://github.com/alpblkba/rv32i-mla",
-      },
-      {
-        kicker: "verilog · puf",
-        name: "hardware-security",
-        body: "FPGA-based hardware security tasks, PUF experiments, and low-level security concepts, mostly written in Verilog.",
-        href: "https://github.com/alpblkba/hardware-security",
-      },
-      {
-        kicker: "synthesis · bring-up",
-        name: "fpga-programming",
-        body: "FPGA programming experiments and digital design practice, focused on Verilog, synthesis flow, board bring-up, and hardware debugging.",
-        href: "https://github.com/alpblkba/fpga-programming",
-      },
-    ],
-  },
-  {
-    num: "02",
-    title: "software / systems utilities",
-    items: [
-      {
-        kicker: "stm32 · c/c++",
-        name: "iot-lab",
-        body: "Embedded systems lab work with STM32, C/C++, UART/GPIO bring-up, device-level debugging, and practical board interaction.",
-        href: "https://github.com/alpblkba/iot-lab",
-      },
-      {
-        kicker: "c/c++ · cross-platform",
-        name: "promon",
-        body: "Tiny low-level process monitor targeting Windows, Linux, and macOS, written in C/C++ with a focus on system-level process inspection.",
-        href: "https://github.com/alpblkba/promon",
-      },
-      {
-        kicker: "c++17 · qt",
-        name: "alppad",
-        body: "A simple, minimalistic text editor application built with C++17 and the Qt framework.",
-        href: "https://github.com/alpblkba/alppad",
-      },
-    ],
-  },
-];
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import ProjectRow from '../components/ProjectRow.astro';
+import Rule from '../components/Rule.astro';
+import site from '../data/site.js';
 ---
-
-<BaseLayout title="projects | alpblkba">
-  <div class="shell">
-    <div class="page-head page-head-split">
-      <h1 class="page-title">projects</h1>
-      <p>
-        A small collection of hardware-aware systems work: FPGA prototypes, computer architecture
-        experiments, embedded labs, and low-level software utilities.
-      </p>
-    </div>
-
-    {groups.map((g) => (
-      <section style="padding:40px 0 8px">
-        <div class="group-head">
-          <span class="group-num">{g.num}</span>
-          <h2>{g.title}</h2>
-        </div>
-        <div class="grid3">
-          {g.items.map((p) => (
-            <article class="card wcard">
-              <p class="card-kicker">{p.kicker}</p>
-              <h3 class="card-title">{p.name}</h3>
-              <p class="card-body">{p.body}</p>
-              <a class="small-link" href={p.href}>repository &#8599;</a>
-            </article>
-          ))}
-        </div>
-      </section>
-    ))}
-
-    <div style="height:64px"></div>
-  </div>
+<BaseLayout title="projects" current="projects">
+  {site.projectGroups.map(g => (
+    <Section code={g.num} title={g.title}>
+      <div class="rows">
+        {g.items.map((p, i) => (
+          <>
+            {i > 0 && <Rule weight="row" />}
+            <ProjectRow kicker={p.kicker} name={p.name} tags={p.tags} body={p.body} href={p.href} />
+          </>
+        ))}
+      </div>
+    </Section>
+  ))}
 </BaseLayout>

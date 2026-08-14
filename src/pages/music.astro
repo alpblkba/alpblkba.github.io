@@ -1,17 +1,16 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import site from '../data/site.js';
 ---
+<BaseLayout title="music" current="music">
+  <Section code="01" title="Sound">
+    <div class="prose">{site.music.map(p => <p>{p}</p>)}</div>
+  </Section>
 
-<BaseLayout title="music | alpblkba">
-  <div class="shell">
-    <div class="page-head">
-      <h1 class="page-title">music</h1>
-    </div>
-    <div class="prose" style="padding:44px 0 80px;font-size:18px">
-      <p>
-        A small corner for my original music, and creative experiments. I just don't know when to upload.
-      </p>
-      <p>Different medium, same instinct: structure, timing, texture, constraints.</p>
-    </div>
-  </div>
+  <!-- Keep this section empty until there is something to link. Do not add
+       placeholder tracks, embeds or cover art. -->
+  <Section code="02" title="Releases">
+    <p class="row-body" style="color: var(--text-secondary)">Nothing published yet.</p>
+  </Section>
 </BaseLayout>

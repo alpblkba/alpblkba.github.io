@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# claude code local settings
+.claude/settings.local.json
+
+# authored background source (11MB PNG) — the generated webp ships instead
+public/images/background.png

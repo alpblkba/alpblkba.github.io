@@ -1,0 +1,10 @@
+---
+const { label, value, href, mono = false, wide = false } = Astro.props;
+const valClass = mono ? 'meta-val meta-val--mono' : 'meta-val';
+---
+<div class={wide ? 'meta-row meta-row--wide' : 'meta-row'}>
+  <span class="meta-key">{label}</span>
+  {href
+    ? <a class={valClass} href={href}>{value}</a>
+    : <span class={valClass}>{value}</span>}
+</div>

@@ -1,0 +1,26 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Section from '../components/Section.astro';
+import TextLink from '../components/TextLink.astro';
+
+/* One note article. Front-matter contract:
+   title, date (DD-MM-YYYY), tag, source (optional repo URL) */
+const { frontmatter } = Astro.props;
+const fm = frontmatter ?? Astro.props;
+---
+<BaseLayout title={fm.title} current="notes">
+  <Section code="01" title="Note">
+    <div class="note-head">
+      <div class="note-meta">
+        <time class="note-date">{fm.date}</time>
+        {fm.tag && <span class="tag">{fm.tag}</span>}
+        {fm.source && <TextLink label="source" href={fm.source} end />}
+      </div>
+      <h1>{fm.title}</h1>
+    </div>
+
+    <div class="prose"><slot /></div>
+
+    <div style="margin-top: var(--space-9)"><a class="ghost" href="/notes">back to notes</a></div>
+  </Section>
+</BaseLayout>

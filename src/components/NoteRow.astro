@@ -1,0 +1,10 @@
+---
+import TextLink from './TextLink.astro';
+const { date, title, href, tag, linkLabel = 'read' } = Astro.props;
+---
+<div class="note-row">
+  <time class="note-date">{date}</time>
+  <span class="note-title">{title}</span>
+  {tag && <span class="note-tag">{tag}</span>}
+  {href && <TextLink label={linkLabel} href={href} external={false} />}
+</div>

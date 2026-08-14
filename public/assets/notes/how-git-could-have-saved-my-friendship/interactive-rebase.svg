@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" role="img" aria-labelledby="svg-title svg-desc">
+  <title id="svg-title">Interactive rebase</title>
+  <desc id="svg-desc">Three columns show commit history before interactive rebase, the todo list with pick, reword, edit, squash, fixup, and drop, and a clean history after replay.</desc>
+  <metadata>How Git Could Have Saved My Friendship — figure 06</metadata>
+
+    <style>
+    /* Figure stylesheet. These SVGs are loaded as standalone images, so nothing here
+       can come from the page — the whole visual contract lives in this block.
+       Order matters: sizes first, colour modifiers last. */
+    #canvas { fill: #070C0B; }
+    text {
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system,
+        "Helvetica Neue", Arial, sans-serif;
+      fill: #A8E8DC;
+    }
+    .mono {
+      font-family: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo,
+        "DejaVu Sans Mono", Consolas, monospace;
+    }
+    .eyebrow  { font-size: 13px; font-weight: 500; letter-spacing: 2.6px; fill: #3E8C80; }
+    .title    { font-size: 30px; font-weight: 700; letter-spacing: -0.2px; fill: #EAFFFA; }
+    .subtitle { font-size: 15px; fill: #7ACEC3; }
+    .section  { font-size: 17px; font-weight: 700; fill: #D6FFF8; }
+    .label    { font-size: 15px; font-weight: 500; fill: #C8F7EE; }
+    .body     { font-size: 15px; fill: #A8E8DC; }
+    .small    { font-size: 13px; fill: #7ACEC3; }
+    .tiny     { font-size: 11px; letter-spacing: 0.6px; fill: #6FBFB4; }
+    .hash     { font-size: 13px; letter-spacing: 0.5px; }
+
+    /* strokes */
+    .rule      { stroke: #17332F; stroke-width: 1.5; }
+    .line      { fill: none; stroke: #2E5A54; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .line-dark { fill: none; stroke: #47857C; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .line-blue { fill: none; stroke: #00F5D4; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .dash      { stroke-dasharray: 7 6; }
+
+    /* solids */
+    .dot          { fill: #12211F; stroke: #47857C; stroke-width: 2; }
+    .dot-blue     { fill: #06312B; stroke: #00F5D4; stroke-width: 2.5; }
+    .object       { fill: #101B19; stroke: #2E5A54; stroke-width: 1.5; }
+    .object-blue  { fill: rgba(0, 245, 212, 0.1); stroke: #00F5D4; stroke-width: 1.5; }
+    .object-dark  { fill: #0A1211; stroke: #3E6B65; stroke-width: 1.5; }
+    .panel        { fill: #0A100F; stroke: #1C3A35; stroke-width: 1.5; }
+    .command-chip { fill: rgba(0, 245, 212, 0.09); stroke: #1E5B52; stroke-width: 1.5; }
+    .blue-fill    { fill: #00F5D4; stroke: none; }
+    .soft-fill    { fill: #101B19; stroke: #1C3A35; stroke-width: 1.5; }
+
+    /* colour modifiers — always last */
+    .muted      { fill: #4E7C76; }
+    .blue-text  { fill: #00F5D4; }
+    .white-text { fill: #04120F; }
+    .dot.muted  { fill: #0C1413; stroke: #2A4B46; }
+    .line.muted { fill: none; stroke: #2A4B46; }
+  </style><defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#00F5D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#4E7C76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+    
+  </defs>
+  <rect id="canvas" width="1400" height="900" fill="#070C0B"></rect>
+
+  <g id="figure-header">
+    <text class="eyebrow" x="64" y="48">GIT SYSTEM / 06</text>
+    <text class="title" x="64" y="88">Interactive rebase</text>
+    <text class="subtitle" x="64" y="116">An instruction sheet turns a noisy sequence of commits into a deliberate, reviewable history.</text>
+    <line class="rule" x1="64" y1="144" x2="1336" y2="144"></line>
+  </g>
+
+  <g id="interactive-rebase-workflow">
+    
+    <g id="before-history">
+      <rect class="panel" x="64" y="192" width="376" height="616" rx="8"></rect>
+      <text class="eyebrow" x="88" y="232">BEFORE</text>
+      <text class="small" x="416" y="232" text-anchor="end">7 commits</text>
+      <line class="rule" x1="88" y1="256" x2="416" y2="256"></line>
+      <path class="line" d="M112 296 L112 680"></path>
+
+      <g id="before-commit-1">
+        <circle class="dot" cx="112" cy="296" r="8"></circle>
+        <rect class="object" x="136" y="272" width="280" height="48" rx="8"></rect>
+        <text class="mono hash" x="152" y="301">a1c4</text>
+        <text class="body" x="208" y="301">build: auth shell</text>
+      </g>
+      <g id="before-commit-2">
+        <circle class="dot" cx="112" cy="360" r="8"></circle>
+        <rect class="object" x="136" y="336" width="280" height="48" rx="8"></rect>
+        <text class="mono hash" x="152" y="365">b7e2</text>
+        <text class="body" x="208" y="365">feat: login form</text>
+      </g>
+      <g id="before-commit-3">
+        <circle class="dot" cx="112" cy="424" r="8"></circle>
+        <rect class="object" x="136" y="400" width="280" height="48" rx="8"></rect>
+        <text class="mono hash" x="152" y="429">c91f</text>
+        <text class="body" x="208" y="429">WIP validation</text>
+      </g>
+      <g id="before-commit-4">
+        <circle class="dot" cx="112" cy="488" r="8"></circle>
+        <rect class="object" x="136" y="464" width="280" height="48" rx="8"></rect>
+        <text class="mono hash" x="152" y="493">d21a</text>
+        <text class="body" x="208" y="493">show errors</text>
+      </g>
+      <g id="before-commit-5">
+        <circle class="dot" cx="112" cy="552" r="8"></circle>
+        <rect class="object" x="136" y="528" width="280" height="48" rx="8"></rect>
+        <text class="mono hash" x="152" y="557">e33f</text>
+        <text class="body" x="208" y="557">fix typo</text>
+      </g>
+      <g id="before-commit-6">
+        <circle class="dot" cx="112" cy="616" r="8"></circle>
+        <rect class="object" x="136" y="592" width="280" height="48" rx="8"></rect>
+        <text class="mono hash" x="152" y="621">f48d</text>
+        <text class="body" x="208" y="621">debug logging</text>
+      </g>
+      <g id="before-commit-7">
+        <circle class="dot" cx="112" cy="680" r="8"></circle>
+        <rect class="object" x="136" y="656" width="280" height="48" rx="8"></rect>
+        <text class="mono hash" x="152" y="685">g50c</text>
+        <text class="body" x="208" y="685">auth tests</text>
+      </g>
+      <text class="tiny" x="88" y="768">OLDEST → NEWEST</text>
+    </g>
+
+    
+    <g id="rebase-todo-list">
+      <rect class="panel" x="512" y="192" width="376" height="616" rx="8"></rect>
+      <text class="eyebrow" x="536" y="232">TODO LIST</text>
+      <text class="mono small" x="864" y="232" text-anchor="end">rebase --interactive</text>
+      <line class="rule" x1="536" y1="256" x2="864" y2="256"></line>
+
+      <g id="todo-pick" transform="translate(0 0)">
+        <text class="mono tiny" x="536" y="301">01</text>
+        <rect class="command-chip" x="568" y="276" width="80" height="32" rx="8"></rect>
+        <text class="mono tiny blue-text" x="608" y="297" text-anchor="middle">pick</text>
+        <text class="mono hash" x="664" y="297">a1c4</text>
+        <text class="small" x="720" y="297">build: auth shell</text>
+      </g>
+      <g id="todo-reword">
+        <text class="mono tiny" x="536" y="357">02</text>
+        <rect class="command-chip" x="568" y="332" width="80" height="32" rx="8"></rect>
+        <text class="mono tiny blue-text" x="608" y="353" text-anchor="middle">reword</text>
+        <text class="mono hash" x="664" y="353">b7e2</text>
+        <text class="small" x="720" y="353">feat: login form</text>
+      </g>
+      <g id="todo-edit">
+        <text class="mono tiny" x="536" y="413">03</text>
+        <rect class="command-chip" x="568" y="388" width="80" height="32" rx="8"></rect>
+        <text class="mono tiny blue-text" x="608" y="409" text-anchor="middle">edit</text>
+        <text class="mono hash" x="664" y="409">c91f</text>
+        <text class="small" x="720" y="409">WIP validation</text>
+      </g>
+      <g id="todo-squash">
+        <text class="mono tiny" x="536" y="469">04</text>
+        <rect class="command-chip" x="568" y="444" width="80" height="32" rx="8"></rect>
+        <text class="mono tiny blue-text" x="608" y="465" text-anchor="middle">squash</text>
+        <text class="mono hash" x="664" y="465">d21a</text>
+        <text class="small" x="720" y="465">show errors</text>
+      </g>
+      <g id="todo-fixup">
+        <text class="mono tiny" x="536" y="525">05</text>
+        <rect class="command-chip" x="568" y="500" width="80" height="32" rx="8"></rect>
+        <text class="mono tiny blue-text" x="608" y="521" text-anchor="middle">fixup</text>
+        <text class="mono hash" x="664" y="521">e33f</text>
+        <text class="small" x="720" y="521">fix typo</text>
+      </g>
+      <g id="todo-drop">
+        <text class="mono tiny" x="536" y="581">06</text>
+        <rect class="command-chip" x="568" y="556" width="80" height="32" rx="8"></rect>
+        <text class="mono tiny blue-text" x="608" y="577" text-anchor="middle">drop</text>
+        <text class="mono hash muted" x="664" y="577">f48d</text>
+        <text class="small muted" x="720" y="577">debug logging</text>
+        <line class="line" x1="716" y1="572" x2="848" y2="572"></line>
+      </g>
+      <g id="todo-pick-final">
+        <text class="mono tiny" x="536" y="637">07</text>
+        <rect class="command-chip" x="568" y="612" width="80" height="32" rx="8"></rect>
+        <text class="mono tiny blue-text" x="608" y="633" text-anchor="middle">pick</text>
+        <text class="mono hash" x="664" y="633">g50c</text>
+        <text class="small" x="720" y="633">auth tests</text>
+      </g>
+
+      <line class="rule" x1="536" y1="680" x2="864" y2="680"></line>
+      <text class="tiny" x="536" y="716">COMMAND SEMANTICS</text>
+      <text class="small" x="536" y="744">keep · rename · pause · combine · absorb · remove</text>
+      <text class="tiny" x="536" y="768">TOP LINE REPLAYS FIRST</text>
+    </g>
+
+    
+    <g id="after-history">
+      <rect class="panel" x="960" y="192" width="376" height="616" rx="8"></rect>
+      <text class="eyebrow" x="984" y="232">AFTER</text>
+      <text class="small" x="1312" y="232" text-anchor="end">4 commits</text>
+      <line class="rule" x1="984" y1="256" x2="1312" y2="256"></line>
+      <path class="line-blue" d="M1012 320 L1012 656"></path>
+
+      <g id="after-commit-auth-shell">
+        <circle class="dot-blue" cx="1012" cy="320" r="9"></circle>
+        <rect class="object-blue" x="1040" y="288" width="272" height="64" rx="8"></rect>
+        <text class="mono hash blue-text" x="1056" y="317">a1c4</text>
+        <text class="body" x="1112" y="317">build: auth shell</text>
+        <text class="tiny" x="1056" y="338">PICKED</text>
+      </g>
+      <g id="after-commit-login-form">
+        <circle class="dot-blue" cx="1012" cy="432" r="9"></circle>
+        <rect class="object-blue" x="1040" y="400" width="272" height="64" rx="8"></rect>
+        <text class="mono hash blue-text" x="1056" y="429">f3a1</text>
+        <text class="body" x="1112" y="429">feat: add login form</text>
+        <text class="tiny" x="1056" y="450">REWORDED · NEW ID</text>
+      </g>
+      <g id="after-commit-validation">
+        <circle class="dot-blue" cx="1012" cy="544" r="9"></circle>
+        <rect class="object-blue" x="1040" y="504" width="272" height="80" rx="8"></rect>
+        <text class="mono hash blue-text" x="1056" y="533">d8bc</text>
+        <text class="body" x="1112" y="533">feat: validate credentials</text>
+        <text class="tiny" x="1056" y="558">EDIT + SQUASH + FIXUP</text>
+        <text class="tiny blue-text" x="1296" y="558" text-anchor="end">3 → 1</text>
+      </g>
+      <g id="after-commit-tests">
+        <circle class="dot-blue" cx="1012" cy="656" r="9"></circle>
+        <rect class="object-blue" x="1040" y="624" width="272" height="64" rx="8"></rect>
+        <text class="mono hash blue-text" x="1056" y="653">92fe</text>
+        <text class="body" x="1112" y="653">test: cover login states</text>
+        <text class="tiny" x="1056" y="674">PICKED · NEW ID</text>
+      </g>
+      <text class="tiny blue-text" x="984" y="768">CLEAN, REVIEWABLE HISTORY</text>
+    </g>
+
+    <g id="rebase-transitions">
+      <path class="line-blue" d="M448 472 L504 472" marker-end="url(#arrow-blue)"></path>
+      <text class="tiny blue-text" x="476" y="452" text-anchor="middle">instruct</text>
+      <path class="line-blue" d="M896 472 L952 472" marker-end="url(#arrow-blue)"></path>
+      <text class="tiny blue-text" x="924" y="452" text-anchor="middle">replay</text>
+    </g>
+
+    <g id="rebase-lesson">
+      <text class="body" x="700" y="856" text-anchor="middle">Interactive rebase changes commit identity—not merely commit labels.</text>
+    </g>
+  </g>
+</svg>
