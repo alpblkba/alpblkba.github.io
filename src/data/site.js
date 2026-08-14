@@ -23,9 +23,9 @@ const site = {
   ],
 
   facts: [
-    { label: 'now',    text: 'Student Research Assistant, KIT Chair for Embedded Systems' },
+    { label: 'now',    text: 'Student Assistant, KIT Chair for Embedded Systems' },
     { label: 'study',  text: 'M.Sc. Computer Science, KIT — since Oct 2025' },
-    { label: 'before', text: '5+ years in Linux systems, networks and DevOps' },
+    { label: 'before', text: '5+ years in Linux systems, infra and software development' },
     { label: 'focus',  text: 'RISC-V, FPGA/HLS, accelerators, hardware security' }
   ],
 
@@ -90,7 +90,7 @@ const site = {
     lead: 'M.Sc. Computer Science student at Karlsruhe Institute of Technology (KIT), focused on hardware-aware systems software, embedded systems, FPGA/HLS workflows, low-level debugging, and reliable infrastructure.',
     profile: 'Systems-oriented engineer with 5+ years of professional experience in Linux-based systems, network automation, DevOps, distributed telecom infrastructure, and production debugging. Current technical direction: computer architecture, embedded systems, FPGA/RTL, RISC-V, hardware security, accelerators, and hardware/software co-design.',
     experience: [
-      { role: 'Student Research Assistant', org: 'KIT Chair for Embedded Systems', when: 'Apr 2026 – Present', where: 'Karlsruhe, Germany',
+      { role: 'Student Assistant (HiWi)', org: 'KIT Chair for Embedded Systems (CES)', when: 'May 2026 – Present', where: 'Karlsruhe, Germany',
         bullets: [
           'Contributing to a customized embedded processor lab rewrite focused on HLS-based accelerator development.',
           'Designed and updated FPGA/HLS lab infrastructure, Vitis/Vivado workflows, hardware/software interfaces, and student-facing documentation.',
