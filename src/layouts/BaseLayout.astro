@@ -3,6 +3,7 @@ import '../styles/site.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import Rule from '../components/Rule.astro';
+import CommandPalette from '../components/CommandPalette.astro';
 
 const { title, current, description = 'Alp Bolukbasi — hardware-aware systems engineer, Karlsruhe.' } = Astro.props;
 ---
@@ -30,5 +31,6 @@ const { title, current, description = 'Alp Bolukbasi — hardware-aware systems 
         <SiteFooter />
       </div>
     </div>
+    <CommandPalette />
   </body>
 </html>
