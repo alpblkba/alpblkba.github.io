@@ -32,7 +32,7 @@ const assetBase = "/assets/notes/sram-weak-puf-readout";
     variation into a reproducible digital fingerprint.
   </p>
 
-  <h2>what is a weak PUF?</h2>
+  <h2>what a weak PUF is</h2>
 
   <p>
     A weak PUF usually exposes only one, or a very small number of,
@@ -49,7 +49,7 @@ const assetBase = "/assets/notes/sram-weak-puf-readout";
     fingerprint?
   </p>
 
-  <h2>why SRAM?</h2>
+  <h2>why SRAM</h2>
 
   <p>
     SRAM cells are built from cross-coupled inverters. Ideally, an uninitialized
@@ -108,7 +108,7 @@ const assetBase = "/assets/notes/sram-weak-puf-readout";
 
   <p>
     The task was to collect SRAM startup data from the FPGA and send the
-    readout to the host machine. The security idea is elegant (and conservative), but the
+    readout to the host machine. The security idea is simple and conservative, but the
     practical part quickly became a systems problem: state transitions,
     counters, UART handshakes, and validation.
   </p>
@@ -151,10 +151,9 @@ const assetBase = "/assets/notes/sram-weak-puf-readout";
   </p>
 
   <p>
-    That became the main theme of the task for me. I was not only writing a
-    PUF module. I was building a tiny data acquisition path: FPGA memory,
-    read address generation, byte selection, UART transmission, host-side
-    capture, and finally Python analysis.
+    That became the main theme of the task for me: a tiny data acquisition
+    path spanning FPGA memory, read address generation, byte selection,
+    UART transmission, host-side capture, and finally Python analysis.
   </p>
 
   <h2>readout pipeline</h2>
@@ -284,7 +283,7 @@ const assetBase = "/assets/notes/sram-weak-puf-readout";
   <figure>
     <img src={assetBase + "/puf_uart_handshake.jpg"} alt="UART handshake logic for the PUF readout" />
     <figcaption>
-      The important part was not only waiting for ready-high, but also confirming
+      The important part was waiting for ready-high, then confirming
       that the transmitter actually entered the busy phase.
     </figcaption>
   </figure>
@@ -435,11 +434,10 @@ i_r[0] = 1  -&gt;  rdata[15:8]</code></pre>
   <h2>what I learned</h2>
 
   <p>
-    The main lesson was that hardware security work is not only about
-    cryptographic or security properties. At least in this task, a large part
-    of the work was closer to bring-up and measurement engineering: digital
-    design, UART communication, host-side capture, verification, and lots of
-    small debugging loops.
+    The main lesson was that hardware security work, at least in this task,
+    leaned more on bring-up and measurement engineering than on cryptographic
+    or security properties: digital design, UART communication, host-side
+    capture, verification, and lots of small debugging loops.
   </p>
 
   <p>

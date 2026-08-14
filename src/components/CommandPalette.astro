@@ -73,7 +73,7 @@ import { nav } from '../data/site.js';
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); scrim.hidden ? open() : close(); return; }
       if (e.key === 'Escape') { close(); return; }
       const tag = ((e.target as HTMLElement).tagName || '').toLowerCase();
-      if (scrim.hidden && !e.metaKey && !e.ctrlKey && tag !== 'input' && tag !== 'textarea' && /^[1-6]$/.test(e.key)) {
+      if (scrim.hidden && !e.metaKey && !e.ctrlKey && tag !== 'input' && tag !== 'textarea' && /^[1-7]$/.test(e.key)) {
         const el = items[Number(e.key) - 1];
         if (el) location.href = el.href;
       }

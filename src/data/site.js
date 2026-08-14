@@ -12,7 +12,8 @@ const site = {
 
   nav: [
     { label: 'projects' }, { label: 'notes' }, { label: 'music' }, { label: 'cv' },
-    { label: 'about' }, { label: 'github', href: 'https://github.com/alpblkba', external: true }
+    { label: 'about' }, { label: 'github', href: 'https://github.com/alpblkba', external: true },
+    { label: 'rss', href: '/rss.xml' }
   ],
 
   contact: [
