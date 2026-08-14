@@ -1,5 +1,7 @@
-import { defineConfig } from "astro/config";
+import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: "https://alpblkba.dev",
+  site: 'https://alpblkba.dev',
+  build: { format: 'directory' },
+  devToolbar: { enabled: false }
 });
