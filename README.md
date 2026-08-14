@@ -1,7 +1,7 @@
-# v0.3 — alpblkba.dev on the Cyber-Velvet design system
+# v0.3 — alpblkba.dev
 
 Drop-in replacement sources for `alpblkba.github.io`, rebuilt on the
-**alpblkba.dev — Cyber-Velvet & Buckeye Burl** design system. All content is
+**alpblkba.dev** design system. All content is
 the author's own; the design system supplies only the visual language.
 
 ## What is here
