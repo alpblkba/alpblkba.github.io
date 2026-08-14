@@ -1,16 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import GlassPanel from '../components/GlassPanel.astro';
-import Tag from '../components/Tag.astro';
-import { music } from '../data/site.js';
+import Section from '../components/Section.astro';
+import site from '../data/site.js';
 ---
+<BaseLayout title="music" current="music">
+  <Section code="01" title="Sound">
+    <div class="prose">{site.music.map(p => <p>{p}</p>)}</div>
+  </Section>
 
-<BaseLayout title="music — alpblkba.dev" section="music" layout="music" foot="alpblkba.dev — different medium, same instinct">
-  <GlassPanel class="area-hero" title="~/music" accent="var(--ws-music)" focused large>
-    <h2>Different medium</h2>
-    <div class="prose-col">
-      {music.map((p) => <p>{p}</p>)}
-    </div>
-    <div class="tagrow"><Tag tone="music">demo</Tag></div>
-  </GlassPanel>
+  <!-- Keep this section empty until there is something to link. Do not add
+       placeholder tracks, embeds or cover art. -->
+  <Section code="02" title="Releases">
+    <p class="row-body" style="color: var(--text-secondary)">Nothing published yet.</p>
+  </Section>
 </BaseLayout>

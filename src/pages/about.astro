@@ -1,31 +1,30 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import GlassPanel from '../components/GlassPanel.astro';
+import Section from '../components/Section.astro';
+import MetaRow from '../components/MetaRow.astro';
 import Tag from '../components/Tag.astro';
-import MetaList from '../components/MetaList.astro';
-import { about, interests, contact } from '../data/site.js';
+import site from '../data/site.js';
 ---
+<BaseLayout title="about" current="about">
+  <Section code="01" title="About">
+    <div class="prose">{site.about.map(p => <p>{p}</p>)}</div>
+  </Section>
 
-<BaseLayout title="about — alpblkba.dev" section="about" layout="about" foot="alpblkba.dev — closer to the machine">
-  <GlassPanel class="area-hero" title="~/about" accent="var(--ws-about)" focused large>
-    <h2>Closer to the machine</h2>
-    <div class="prose-col">
-      {about.map((p) => <p>{p}</p>)}
+  <Section code="02" title="Now">
+    <div class="stack--tight">
+      {site.facts.map(x => <MetaRow label={x.label} value={x.text} />)}
     </div>
-  </GlassPanel>
+  </Section>
 
-  <GlassPanel class="area-id" title="~/interests" accent="var(--ws-about)">
-    <div class="stack">
-      <div class="portrait">
-        <img src="/images/portrait.png" alt="Alp Bolukbasi" width="1024" height="1024" />
-      </div>
-      <div class="tagrow">
-        {interests.map((t) => <Tag tone="hardware">{t.toLowerCase()}</Tag>)}
-      </div>
+  <Section code="03" title="Interests">
+    <div class="tags">{site.interests.map(t => <Tag label={t} />)}</div>
+    <div class="stack--tight" style="margin-top: var(--space-7)">
+      {site.direction.map((d, i) => (
+        <div class="meta-row">
+          <span class="meta-key">[{String(i + 1).padStart(2, '0')}]</span>
+          <span class="meta-val">{d}</span>
+        </div>
+      ))}
     </div>
-  </GlassPanel>
-
-  <GlassPanel class="area-facts" title="~/elsewhere" accent="var(--ws-about)">
-    <MetaList items={contact} />
-  </GlassPanel>
+  </Section>
 </BaseLayout>

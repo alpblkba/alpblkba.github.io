@@ -1,24 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import GlassPanel from '../components/GlassPanel.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { projectGroups } from '../data/site.js';
+import Section from '../components/Section.astro';
+import ProjectRow from '../components/ProjectRow.astro';
+import Rule from '../components/Rule.astro';
+import site from '../data/site.js';
 ---
-
-<BaseLayout title="projects — alpblkba.dev" section="projects" layout="projects" foot="alpblkba.dev — fpga prototypes, architecture experiments, low-level utilities">
-  {projectGroups.map((g, i) => (
-    <GlassPanel
-      class={i === 0 ? 'area-hero' : 'area-work'}
-      title={`~/projects/${g.slug}`}
-      meta={`${g.num} — ${g.title}`}
-      accent="var(--ws-projects)"
-      focused={i === 0}
-    >
-      <div class="cards3">
-        {g.items.map((p) => (
-          <ProjectCard name={p.name} kicker={p.kicker} body={p.body} href={p.href} tags={p.tags} />
+<BaseLayout title="projects" current="projects">
+  {site.projectGroups.map(g => (
+    <Section code={g.num} title={g.title}>
+      <div class="rows">
+        {g.items.map((p, i) => (
+          <>
+            {i > 0 && <Rule weight="row" />}
+            <ProjectRow kicker={p.kicker} name={p.name} tags={p.tags} body={p.body} href={p.href} />
+          </>
         ))}
       </div>
-    </GlassPanel>
+    </Section>
   ))}
 </BaseLayout>

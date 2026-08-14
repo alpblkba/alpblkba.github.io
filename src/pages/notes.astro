@@ -1,19 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import GlassPanel from '../components/GlassPanel.astro';
+import Section from '../components/Section.astro';
 import NoteRow from '../components/NoteRow.astro';
-import { notes } from '../data/site.js';
+import site from '../data/site.js';
 ---
-
-<BaseLayout title="notes — alpblkba.dev" section="notes" layout="notes" foot="alpblkba.dev — engineering notes, lab logs, small writeups">
-  <GlassPanel
-    class="area-hero"
-    title="~/notes"
-    meta="engineering notes, lab logs, paper notes, and small technical writeups"
-    accent="var(--ws-notes)"
-    focused
-    flush
-  >
-    {notes.map((n) => <NoteRow date={n.date} title={n.title} href={n.href} tag={n.tag} />)}
-  </GlassPanel>
+<BaseLayout title="notes" current="notes">
+  <Section code="01" title="Notes">
+    <div class="stack">
+      {site.notes.map(n => (
+        <NoteRow date={n.date} title={n.title} tag={n.tag} href={`/notes/${n.slug}`} />
+      ))}
+    </div>
+  </Section>
 </BaseLayout>
