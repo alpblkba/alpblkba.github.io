@@ -17,14 +17,15 @@ const site = {
   ],
 
   contact: [
-    { k: 'email',    v: 'hello@alpblkba.dev',       href: 'mailto:hello@alpblkba.dev' },
-    { k: 'github',   v: 'github.com/alpblkba',      href: 'https://github.com/alpblkba' },
-    { k: 'linkedin', v: 'linkedin.com/in/alpblkba', href: 'https://www.linkedin.com/in/alpblkba' },
+    { k: 'email',    v: 'hello@alpblkba.dev',              href: 'mailto:hello@alpblkba.dev' },
+    { k: 'PGP/GPG',  v: '0x5805EA560CCCAF6C',              href: '/pgp.txt' },
+    { k: 'github',   v: 'github.com/alpblkba',             href: 'https://github.com/alpblkba' },
+    { k: 'linkedin', v: 'linkedin.com/in/alpblkba',        href: 'https://www.linkedin.com/in/alpblkba' },
     { k: 'location', v: 'Karlsruhe, Germany' }
   ],
 
   facts: [
-    { label: 'now',    text: 'Student Assistant, KIT Chair for Embedded Systems' },
+    { label: 'now',    text: 'Student assistant, KIT Chair for Embedded Systems (CES)' },
     { label: 'study',  text: 'M.Sc. Computer Science, KIT — since Oct 2025' },
     { label: 'before', text: '5+ years in Linux systems, infra and software development' },
     { label: 'focus',  text: 'RISC-V, FPGA/HLS, accelerators, hardware security' }
@@ -39,7 +40,7 @@ const site = {
 
   about: [
     'I come from systems and operations: networks, security, DevOps, and infrastructure-flavored engineering. That background made me interested in real systems, failure modes, performance bottlenecks, and the beautiful moment where abstractions stop being polite.',
-    'Over time, the rabbit hole pulled me closer to the machine: low-level behavior, memory, hardware-aware software, embedded systems, and computer architecture.',
+    'Over time, the rabbit hole pulled me closer to the machine: low-level behavior, memory, hardware-aware software, embedded systems, and computer architecture. I decided to go back to school as a masters student.',
     'These days, I am mostly interested in the boundary between software and hardware: RISC-V, memory systems, FPGA-based prototyping, accelerators, hardware/software co-design, and hardware security.',
     'I am currently an M.Sc. computer science student at Karlsruhe Institute of Technology (KIT), working as a student assistant at the Chair of Embedded Systems on HLS implementations and hardware accelerators for embedded processors.'
   ],
@@ -50,24 +51,25 @@ const site = {
   ],
 
   notes: [
-    { title: 'How Git Could Have Saved My Friendship',               date: '20-07-2026', slug: 'how-git-could-have-saved-my-friendship', tag: 'git' },
-    { title: 'Correlation Power Analysis on AES with an FPGA Sensor', date: '15-07-2026', slug: 'aes-cpa-on-fpga',                       tag: 'aes' },
-    { title: 'AES-128 on an iCE40 FPGA',                             date: '08-07-2026', slug: 'aes-on-hardware',                       tag: 'aes' },
-    { title: 'SRAM Weak PUF Readout on iCE40',                       date: '07-06-2026', slug: 'sram-weak-puf-readout',                 tag: 'puf' }
+    { title: 'Fault injection and differential fault analysis (DFA) on AES',              date: '29-07-2026', slug: 'aes-dfa-on-fpga'                       , tag: 'aes' },
+    { title: 'How Git Could Have Saved My Friendship',                                    date: '20-07-2026', slug: 'how-git-could-have-saved-my-friendship', tag: 'git' },
+    { title: 'Correlation Power Analysis on AES with an FPGA Sensor',                     date: '15-07-2026', slug: 'aes-cpa-on-fpga',                       tag: 'aes' },
+    { title: 'AES-128 on an iCE40 FPGA',                                                  date: '08-07-2026', slug: 'aes-on-hardware',                       tag: 'aes' },
+    { title: 'SRAM Weak PUF Readout on iCE40',                                            date: '07-06-2026', slug: 'sram-weak-puf-readout',                 tag: 'puf' }
   ],
 
   projectGroups: [
     {
-      num: '01', title: 'hardware / fpga / architecture',
+      num: '01', title: 'computer architecture / hardware / embedded',
       items: [
-        { kicker: 'verilog · pynq', name: 'rv32i-mla', tags: ['verilog', 'riscv'],
-          body: 'RV32I CPU and accelerator experiments on PYNQ, written in Verilog. Focused on simple processor design, memory-mapped interfaces, and hardware/software integration.',
+        { kicker: 'verilog, accelerator' , name: 'rv32i-mla', tags: ['verilog', 'riscv', 'ISA', 'hardware-accelerator'],
+          body: 'RV32I based 3 cycle pipelined CPU and accelerator experiments on PYNQ-Z2, written in Verilog. Focused on simple processor design, memory-mapped interfaces, and hardware/software integration.',
           href: 'https://github.com/alpblkba/rv32i-mla' },
-        { kicker: 'verilog · puf', name: 'hardware-security', tags: ['verilog', 'puf'],
-          body: 'FPGA-based hardware security tasks, PUF experiments, and low-level security concepts, mostly written in Verilog.',
+        { kicker: 'verilog · hardare-security', name: 'hardware-security', tags: ['verilog', 'PUF', 'hardware-security'],
+          body: 'FPGA-based hardware security experiments, Weak PUF readout from SRAM, AES-128 bit implementation, CPA and DFA on AES, mostly written in Verilog.',
           href: 'https://github.com/alpblkba/hardware-security' },
         { kicker: 'synthesis · bring-up', name: 'fpga-programming', tags: ['verilog', 'hardware'],
-          body: 'FPGA programming experiments and digital design practice, focused on Verilog, synthesis flow, board bring-up, and hardware debugging.',
+          body: 'KIT FPGA Programming Praktikum (lab) WS25/26 exercises, all solved on Verilog, synthesis flow, board bring-up, and hardware debugging.',
           href: 'https://github.com/alpblkba/fpga-programming' }
       ]
     },
@@ -78,11 +80,14 @@ const site = {
           body: 'Embedded systems lab work with STM32, C/C++, UART/GPIO bring-up, device-level debugging, and practical board interaction.',
           href: 'https://github.com/alpblkba/iot-lab' },
         { kicker: 'c/c++ · cross-platform', name: 'promon', tags: ['c++'],
-          body: 'Tiny low-level process monitor targeting Windows, Linux, and macOS, written in C/C++ with a focus on system-level process inspection.',
+          body: 'Tiny low-level process monitor targeting Windows, Linux, and macOS, written in C/C++ with a focus on system-level process inspection. Not finished yet.',
           href: 'https://github.com/alpblkba/promon' },
-        { kicker: 'c++17 · qt', name: 'alppad', tags: ['c++', 'qt'],
+        { kicker: 'c++17 · Qt', name: 'alppad', tags: ['c++', 'qt'],
           body: 'A simple, minimalistic text editor application built with C++17 and the Qt framework.',
-          href: 'https://github.com/alpblkba/alppad' }
+          href: 'https://github.com/alpblkba/alppad' },
+        { kicker: 'rust · ratatui', name: 'alpnest', tags: ['rust', 'TUI', 'ratatui'],
+          body: 'My personal/productivity nest, local first terminal cockpit, supports many operations, handling routine tasks, local LLM based operations. Project is ongoing.',
+          href: 'https://github.com/alpblkba/alpnest' }
       ]
     }
   ],
@@ -93,20 +98,21 @@ const site = {
     experience: [
       { role: 'Student Assistant (HiWi)', org: 'KIT Chair for Embedded Systems (CES)', when: 'May 2026 – Present', where: 'Karlsruhe, Germany',
         bullets: [
-          'Contributing to a customized embedded processor lab rewrite focused on HLS-based accelerator development.',
+          'Contributing to the Customized Embedded Processors Lab, rewrite focused on HLS-based accelerator development.',
           'Designed and updated FPGA/HLS lab infrastructure, Vitis/Vivado workflows, hardware/software interfaces, and student-facing documentation.',
           'Worked with Verilog, C, Vitis HLS, Vivado, embedded processors, and reproducible lab bring-up flows.'
         ] },
       { role: 'IP Integration Engineer', org: 'Nokia', when: 'Dec 2023 – Sep 2025', where: 'Istanbul, Turkey',
         bullets: [
-          'Built Python/Go automation for configuration, validation, and integration workflows on carrier-grade routing platforms.',
+          'Built Python network/systems automation for configuration, validation, and integration workflows on carrier-grade routing platforms.',
           'Supported large-scale network migrations across Nokia 7705, IXR 7250, and SR 7750 platforms in EMEA/APAC deployments.',
           'Debugged Linux, Kubernetes, TCP/IP, BGP, OSPF, IS-IS, MPLS, automation, and distributed deployment issues.'
         ] },
       { role: 'Integration Engineer', org: 'Ericsson', when: 'Oct 2022 – Dec 2023', where: 'Istanbul, Turkey',
         bullets: [
           'Developed Python, Ansible, and shell tooling for telecom node integration, deployment, validation, and recovery workflows.',
-          'Troubleshot low-level connectivity, configuration, packet-flow, and Linux/networking issues in distributed deployment environments.'
+          'Troubleshot low-level connectivity, configuration, packet-flow, and Linux/networking issues in distributed deployment environments.',
+          'Hands-on Linux sessions and demonstrations delivered for the fellow graduates in the MMEA region (my manager encouraged and motivated me to do so)'
         ] },
       { role: 'DevOps Engineer Intern', org: 'Huawei', when: 'Jun 2022 – Sep 2022', where: 'Istanbul, Turkey',
         bullets: ['Developed Go, Bash, and Ansible automation for network performance validation, provisioning workflows, CI/CD pipelines, and Linux infrastructure checks.'] },
@@ -119,7 +125,7 @@ const site = {
       { role: 'M.Sc. Computer Science', org: 'Karlsruhe Institute of Technology (KIT)', when: 'Oct 2025 – Present', where: 'Karlsruhe, Germany',
         bullets: [
           'Focus: computer architecture, embedded systems, low-level systems, hardware/software co-design, security, and reliability.',
-          'Selected coursework and labs: Embedded Systems I/II, FPGA Programming Lab, Hardware-Efficient AI, Low Power Design, Practical Introduction to Hardware Security, Internet of Everything, IoT Lab.'
+          'Selected relevant coursework: Embedded Systems I/II, FPGA Programming Lab, Hardware-Efficient AI, Low Power Design, Practical Introduction to Hardware Security, Internet of Everything, IoT Lab.'
         ] },
       { role: 'B.Sc. Computer Science', org: 'Ozyegin University', when: '2017 – 2022', where: 'Istanbul, Turkey',
         bullets: ['Graduation project: B-Auth, a blockchain-based authentication and authorization protocol for SDN controllers.'] }
