@@ -1,0 +1,15 @@
+{# One template for every non-404 status. The joke lives in
+   content/errors/<code>.md; this file only supplies the shell. #}
+{% extends "base.html" %}
+{% block title %}{{ page.title }} — alpblkba.dev{% endblock title %}
+{% block body_class %} class="page-wide"{% endblock body_class %}
+{% block content %}
+<main class="err err-panel--mid">
+  <h1 class="err-code err-code--huge">{{ page.extra.code }}</h1>
+  <h2 class="err-head">{{ page.extra.heading }}</h2>
+  {{ page.content | safe }}
+  <p class="err-cta"><a class="ghost" href="/">{{ page.extra.cta }}</a></p>
+  {% set err_code = page.extra.code %}{% set err_home = false %}
+  {% include "partials/errors/incident.html" %}
+</main>
+{% endblock content %}

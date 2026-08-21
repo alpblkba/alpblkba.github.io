@@ -1,0 +1,35 @@
+{# variant 0 — also the no-JS fallback, so it stays first in the DOM #}
+<section class="err-variant err-panel--mid" data-err-variant="sigsegv">
+  <h1 class="err-code err-code--huge">404</h1>
+  <h2 class="err-head">segmentation fault</h2>
+  <pre class="err-art">the requested page attempted to
+access an invalid memory address.
+
+possible causes:
+  • you typed something wrong
+  • I deleted it
+  • zola got confused
+  • the universe is poorly implemented</pre>
+  <hr class="rule rule--row" />
+  <pre class="err-art">RAX: 0x0000000000000000
+RBX: 0xDEADBEEF
+RCX: 0xCAFEBABE
+RDX: 0x40404040
+
+#0  page_not_found()
+#1  panic()
+#2  panic_again()
+#3  blame_zola()
+#4  blame_user()</pre>
+  <hr class="rule rule--row" />
+  <pre class="err-art err-xref">previous error:
+    WORKS ON MY MACHINE
+
+current error:
+    SIGSEGV
+
+next error:
+    PAGE BUS ERROR</pre>
+  <pre class="err-art">kernel panic: page not found</pre>
+  <p class="err-cta"><a class="ghost" href="/">[ return to userspace ]</a></p>
+</section>

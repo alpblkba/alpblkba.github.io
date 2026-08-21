@@ -1,0 +1,14 @@
+{# music.astro #}
+{% extends "base.html" %}
+{% block title %}music — alpblkba.dev{% endblock title %}
+{% block content %}
+{% <ui.section code="01" title="Sound"> %}
+    <div class="prose">{% for p in config.extra.music %}<p>{{ p }}</p>{% endfor %}</div>
+{% </ui.section> %}
+
+{# Keep this section empty until there is something to link. Do not add
+   placeholder tracks, embeds or cover art. #}
+{% <ui.section code="02" title="Releases"> %}
+    <p class="row-body" style="color: var(--text-secondary)">Nothing published yet.</p>
+{% </ui.section> %}
+{% endblock content %}

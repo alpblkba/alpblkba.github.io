@@ -1,5 +1,0 @@
----
-const { weight = 'row', inset = false } = Astro.props;
-const cls = ['rule', `rule--${weight}`, inset ? 'rule--inset' : null].filter(Boolean).join(' ');
----
-<hr class={cls} />

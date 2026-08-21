@@ -1,0 +1,209 @@
+/* The site layer: every class the .astro components use.
+   Values come from the design-system tokens only — no new numbers, no new
+   colours. Hover/focus states live here as CSS, not as JS state. */
+@import url("./ds/styles.css");
+
+/* ── shell ───────────────────────────────────────────────────────── */
+.shell { min-height: 100vh; position: relative; display: flex; justify-content: center; align-items: flex-start; padding: var(--pad-shell); }
+.plate { position: fixed; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; pointer-events: none; background: var(--bg-plate); }
+.plate-scrim { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--bg-scrim); }
+.col { width: 100%; max-width: var(--measure); display: flex; flex-direction: column; }
+
+/* every glyph over the plate carries the shadow */
+.shell :where(h1, h2, h3, p, span, a, li, time, figcaption, pre, code) { text-shadow: var(--text-shadow-plate); }
+
+/* ── rules ───────────────────────────────────────────────────────── */
+.rule { height: var(--rule-height); border: 0; margin: 0; }
+.rule--strong  { background: var(--rule-strong); box-shadow: var(--glow-rule); }
+.rule--divider { background: var(--rule-divider); }
+.rule--footer  { background: var(--rule-footer); }
+.rule--row     { background: var(--rule-row); }
+.rule--inset   { margin: var(--pad-rule); }
+
+/* ── header ──────────────────────────────────────────────────────── */
+.head-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: var(--space-4); margin-bottom: var(--space-5); }
+.wordmark { font-family: var(--font-display); font-size: var(--text-display); font-weight: var(--weight-bold); color: var(--text-primary); }
+.dot-row { display: flex; align-items: center; gap: var(--space-2); }
+.dot { width: 6px; height: 6px; border-radius: var(--radius-dot); background: var(--dot-live); flex-shrink: 0; box-shadow: var(--glow-dot); }
+.dot-label { font-family: var(--font-meta); font-size: var(--text-2xs); color: var(--text-secondary); }
+.hero-line { font-family: var(--font-meta); font-size: var(--text-sm); color: var(--text-primary); margin: 0 0 var(--space-1); line-height: var(--leading-tight); }
+.hero-tagline { font-family: var(--font-body); font-size: var(--text-xs); font-style: italic; color: var(--text-secondary); margin: 0 0 var(--space-10); opacity: 0.88; }
+
+/* ── nav ─────────────────────────────────────────────────────────── */
+.nav { display: flex; gap: var(--gap-nav); flex-wrap: wrap; }
+.navlink { font-family: var(--font-meta); font-size: var(--text-xs); color: var(--text-secondary); border: var(--border-nav); border-radius: var(--radius-control); padding: var(--pad-control); background: var(--fill-control); letter-spacing: var(--tracking-nav); display: inline-block; text-decoration: none; transition: var(--transition-control); }
+.navlink:hover, .navlink:focus-visible, .navlink[aria-current="page"] { color: var(--text-hover); border-color: var(--border-control-hover); background: var(--fill-control-hover); }
+
+.ghost { font-family: var(--font-meta); font-size: var(--text-2xs); color: var(--text-secondary); border: var(--border-dim); border-radius: var(--radius-control); padding: var(--pad-control-lg); background: var(--fill-control); letter-spacing: var(--tracking-tag); display: inline-block; text-decoration: none; transition: var(--transition-control); }
+.ghost:hover, .ghost:focus-visible { color: var(--text-ghost-hover); border-color: var(--border-control-dim-hover); background: var(--fill-ghost-hover); }
+
+.link { font-family: var(--font-meta); font-size: var(--text-2xs); color: var(--text-secondary); text-decoration: none; flex-shrink: 0; transition: var(--transition-text); }
+.link:hover, .link:focus-visible { color: var(--text-hover); }
+.link--end { margin-left: auto; }
+
+/* ── sections ────────────────────────────────────────────────────── */
+.section { margin-bottom: var(--gap-section); }
+.section:last-child { margin-bottom: 40px; }
+.section-head { margin-bottom: var(--space-6); }
+.eyebrow { font-family: var(--font-meta); font-size: var(--text-2xs); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--text-eyebrow); margin: 0 0 var(--space-5); }
+.section-body { margin-top: var(--space-8); }
+.rows { display: flex; flex-direction: column; gap: var(--gap-row); }
+.stack { display: flex; flex-direction: column; gap: var(--space-7); }
+.stack--tight { display: flex; flex-direction: column; gap: var(--space-2); }
+
+/* ── project row ─────────────────────────────────────────────────── */
+.row { display: flex; flex-direction: column; gap: var(--space-2); }
+.row-head { display: flex; align-items: center; gap: var(--space-5); flex-wrap: wrap; row-gap: var(--space-2); }
+.row-kicker { font-family: var(--font-meta); font-size: var(--text-2xs); color: var(--text-secondary); flex-shrink: 0; }
+.row-name { font-family: var(--font-meta); font-size: var(--text-md); font-weight: var(--weight-bold); color: var(--text-primary); }
+.row-body { font-family: var(--font-body); font-size: var(--text-sm); color: var(--text-primary); margin: 0; line-height: var(--leading-body); text-wrap: pretty; }
+
+.tags { display: flex; gap: var(--gap-tags); flex-wrap: wrap; }
+.tag { font-family: var(--font-meta); font-size: var(--text-3xs); color: var(--text-eyebrow); border: var(--border-tag-frame); border-radius: var(--radius-tag); padding: var(--pad-tag); white-space: nowrap; letter-spacing: var(--tracking-tag); }
+
+/* ── note row ────────────────────────────────────────────────────── */
+.note-row { display: flex; align-items: baseline; gap: var(--space-6); flex-wrap: wrap; }
+.note-date { font-family: var(--font-meta); font-size: var(--text-2xs); color: var(--text-secondary); flex-shrink: 0; }
+.note-title { font-family: var(--font-body); font-size: var(--text-sm); color: var(--text-primary); flex: 1; min-width: 100px; }
+.note-tag { font-family: var(--font-meta); font-size: var(--text-3xs); color: var(--text-eyebrow); flex-shrink: 0; }
+
+/* ── meta row ────────────────────────────────────────────────────── */
+.meta-row { display: flex; align-items: baseline; gap: var(--space-6); flex-wrap: wrap; }
+.meta-key { font-family: var(--font-meta); font-size: var(--text-2xs); color: var(--text-secondary); width: 88px; flex-shrink: 0; }
+.meta-row--wide .meta-key { width: 140px; }
+.meta-val { font-family: var(--font-body); font-size: var(--text-sm); color: var(--text-primary); line-height: var(--leading-body); flex: 1; min-width: 160px; }
+.meta-val--mono { font-family: var(--font-meta); }
+a.meta-val { text-decoration: none; transition: var(--transition-text); }
+a.meta-val:hover, a.meta-val:focus-visible { color: var(--text-hover); }
+
+/* ── timeline entry ──────────────────────────────────────────────── */
+.tl { display: flex; flex-direction: column; gap: var(--space-2); }
+.tl-head { display: flex; align-items: baseline; gap: var(--space-5); flex-wrap: wrap; row-gap: var(--space-2); }
+.tl-role { font-family: var(--font-meta); font-size: var(--text-sm); font-weight: var(--weight-bold); color: var(--text-primary); }
+.tl-org { font-family: var(--font-meta); font-size: var(--text-2xs); color: var(--text-eyebrow); }
+.tl-when { font-family: var(--font-meta); font-size: var(--text-2xs); color: var(--text-secondary); margin-left: auto; flex-shrink: 0; }
+.tl-bullets { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--space-1); }
+.tl-bullets li { font-family: var(--font-body); font-size: var(--text-sm); color: var(--text-primary); line-height: var(--leading-body); display: flex; gap: var(--space-4); }
+.tl-bullets li::before { content: "—"; font-family: var(--font-meta); color: var(--text-secondary); flex-shrink: 0; }
+
+/* ── note prose ──────────────────────────────────────────────────── */
+.prose { font-family: var(--font-body); font-size: var(--text-sm); color: var(--text-primary); line-height: var(--leading-body); }
+.prose > *:first-child { margin-top: 0; }
+.prose > * + * { margin-top: var(--space-6); }
+.prose p { margin-bottom: 0; text-wrap: pretty; }
+.prose h2 { font-family: var(--font-meta); font-size: var(--text-md); font-weight: var(--weight-bold); color: var(--text-primary); margin: var(--space-10) 0 0; }
+.prose h3 { font-family: var(--font-meta); font-size: var(--text-sm); font-weight: var(--weight-bold); color: var(--text-primary); margin: var(--space-8) 0 0; }
+.prose a { color: var(--text-secondary); text-decoration: none; border-bottom: 1px solid var(--rule-divider); }
+.prose a:hover { color: var(--text-hover); border-bottom-color: var(--border-control-hover); }
+.prose ul, .prose ol { margin: 0; padding-left: var(--space-8); display: flex; flex-direction: column; gap: var(--space-1); }
+.prose code { font-family: var(--font-meta); font-size: var(--text-xs); color: var(--text-eyebrow); }
+.prose pre { font-family: var(--font-meta); font-size: var(--text-xs); color: var(--text-primary); background: var(--fill-control); border: var(--border-width) solid var(--rule-row); border-radius: var(--radius-control); padding: var(--space-6); margin: var(--space-8) 0; overflow-x: auto; line-height: var(--leading-tight); }
+.prose pre code { color: inherit; font-size: inherit; }
+.prose figure { margin: var(--space-8) 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.prose img { width: 100%; display: block; border-radius: var(--radius-control); border: var(--border-width) solid var(--rule-row); background: var(--fill-control); }
+.prose figcaption { font-family: var(--font-meta); font-size: var(--text-3xs); color: var(--text-secondary); letter-spacing: var(--tracking-tag); }
+.note-head { display: flex; flex-direction: column; gap: var(--space-5); margin-bottom: var(--space-9); }
+.note-head h1 { font-family: var(--font-meta); font-size: var(--text-display); font-weight: var(--weight-bold); color: var(--text-primary); margin: 0; }
+.note-meta { display: flex; align-items: baseline; gap: var(--space-6); flex-wrap: wrap; }
+
+/* a note-scoped comparison table (kept minimal — reuses prose tokens only) */
+.prose table { width: 100%; border-collapse: collapse; }
+.prose th, .prose td { text-align: left; padding: var(--space-3) var(--space-5); border-bottom: var(--border-width) solid var(--rule-row); }
+.prose th { font-family: var(--font-meta); font-size: var(--text-3xs); font-weight: var(--weight-regular); letter-spacing: var(--tracking-tag); text-transform: uppercase; color: var(--text-eyebrow); }
+.prose td { font-family: var(--font-meta); font-size: var(--text-xs); color: var(--text-primary); }
+
+/* a note-scoped two-up figure grid */
+.figure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); margin: var(--space-8) 0; }
+@media (max-width: 600px) { .figure-grid { grid-template-columns: 1fr; } }
+
+/* a note-scoped pull quote */
+.prose blockquote { margin: var(--space-8) 0; padding-left: var(--space-8); border-left: var(--border-width) solid var(--rule-strong); font-style: italic; color: var(--text-secondary); }
+.prose blockquote p { margin: 0; }
+
+/* ── footer ──────────────────────────────────────────────────────── */
+.foot { border-top: var(--border-width) solid var(--rule-footer); display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: var(--space-6) var(--space-10); }
+.foot span { font-family: var(--font-meta); font-size: var(--text-3xs); color: var(--text-secondary); letter-spacing: var(--tracking-footer); }
+.foot-hints { display: flex; gap: var(--space-8); }
+.foot-hints > span { display: inline-flex; align-items: center; gap: var(--space-2); }
+
+.keycap { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; padding: 1px 5px; font-family: var(--font-meta); font-size: var(--text-3xs); color: var(--text-secondary); border: var(--border-dim); border-radius: var(--radius-control); }
+
+/* ── command palette ─────────────────────────────────────────────── */
+.palette-scrim { position: fixed; inset: 0; z-index: 50; display: flex; align-items: flex-start; justify-content: center; padding-top: 15vh; background: rgba(6, 11, 19, 0.75); }
+.palette-scrim[hidden] { display: none; }
+.palette { width: min(440px, 90vw); background: var(--bg-plate); border: var(--border-width) solid var(--rule-strong); border-radius: var(--radius-control); padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-6); }
+.palette-field { display: flex; align-items: center; gap: var(--space-4); border-bottom: var(--border-width) solid var(--rule-row); padding-bottom: var(--space-4); font-family: var(--font-meta); font-size: var(--text-sm); color: var(--text-secondary); }
+.palette-field input { flex: 1; background: none; border: 0; outline: none; font-family: var(--font-meta); font-size: var(--text-sm); color: var(--text-primary); }
+.palette-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--space-1); max-height: 40vh; overflow-y: auto; }
+.palette-item { display: flex; align-items: center; gap: var(--space-5); padding: var(--space-3) var(--space-4); border-radius: var(--radius-control); text-decoration: none; font-family: var(--font-meta); font-size: var(--text-sm); color: var(--text-secondary); transition: var(--transition-control); }
+.palette-item[data-on] { color: var(--text-hover); background: var(--fill-control-hover); }
+.palette-glyph { font-size: var(--text-3xs); color: var(--text-eyebrow); border: var(--border-dim); border-radius: var(--radius-control); width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.palette-keys { display: flex; gap: var(--space-6); font-family: var(--font-meta); font-size: var(--text-3xs); color: var(--text-secondary); }
+
+/* ── error pages ─────────────────────────────────────────────────── */
+/* the art is the page, not prose, so error pages are not bound to the
+   820px reading measure the rest of the site sets */
+.page-wide .shell { padding-left: clamp(16px, 3vw, 40px); padding-right: clamp(16px, 3vw, 40px); }
+.page-wide .col { max-width: none; }
+
+.err { font-family: var(--font-meta); color: var(--text-secondary); }
+.err-code { font-family: var(--font-meta); font-size: var(--text-display); font-weight: var(--weight-bold); color: var(--text-primary); margin: 0 0 var(--space-7); letter-spacing: var(--tracking-caps); }
+.err-code--huge { font-size: clamp(64px, 20vw, 148px); line-height: 1; letter-spacing: var(--tracking-tag); margin-bottom: var(--space-5); }
+.err-head { font-family: var(--font-meta); font-size: var(--text-md); font-weight: var(--weight-bold); color: var(--text-primary); letter-spacing: var(--tracking-caps); text-transform: uppercase; margin: 0 0 var(--space-8); }
+
+/* every diagnostic block is a <pre>: registers, traces, shell output and
+   key/value metadata all want the same monospace column behaviour */
+.err-art { font-family: var(--font-meta); font-size: clamp(12px, 1.15vw, 16px); color: var(--text-secondary); line-height: var(--leading-body); margin: 0; white-space: pre-wrap; overflow-x: auto; }
+.err-art + .err-art { margin-top: var(--space-8); }
+.err-art b { font-weight: var(--weight-regular); color: var(--text-primary); }
+
+/* centred as a block, left-aligned inside it — a register dump whose columns
+   do not line up is just text */
+.err-panel--mid { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.err-panel--mid .err-art { display: inline-block; text-align: left; }
+.err-panel--mid .rule { width: 100%; margin: var(--space-8) 0; }
+
+.err-cta { margin: var(--space-10) 0 0; }
+/* the exit is the one thing on the page you are meant to click, so it is
+   bigger here than the .ghost buttons elsewhere on the site */
+.err .ghost { font-size: clamp(14px, 1.2vw, 17px); padding: var(--space-5) var(--space-8); letter-spacing: var(--tracking-nav); }
+.err-sig { font-family: var(--font-meta); font-size: var(--text-2xs); color: var(--text-eyebrow); margin: var(--space-9) 0 0; letter-spacing: var(--tracking-tag); }
+
+/* the panels know about each other; the cross-reference is quieter than the
+   panel's own copy so it reads as a footnote from the incident tracker */
+.err-xref { margin-top: var(--space-9); color: var(--text-eyebrow); }
+
+/* menus get the ghost-button frame rather than a bare underline — a link
+   inside ASCII art reads as decoration until it is boxed. the author's own
+   `>` markers stay as written; the frame is what makes them read as targets */
+.err-art a,
+.err-menu a { font-family: var(--font-meta); color: var(--text-secondary); border: var(--border-dim); border-radius: var(--radius-control); background: var(--fill-control); cursor: pointer; transition: var(--transition-control); }
+.err-art a { display: inline-block; padding: 0 var(--space-3); }
+/* a citation is not a button — it keeps the prose underline instead */
+.err-art a.err-cite { border: 0; background: none; padding: 0; color: var(--text-primary); border-bottom: var(--border-width) solid var(--rule-divider); border-radius: 0; }
+.err-art a.err-cite:hover, .err-art a.err-cite:focus-visible { color: var(--text-hover); background: none; border-bottom-color: var(--border-control-hover); }
+.err-art a:hover, .err-art a:focus-visible,
+.err-menu a:hover, .err-menu a:focus-visible { color: var(--text-ghost-hover); border-color: var(--border-control-dim-hover); background: var(--fill-ghost-hover); }
+.err-menu { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); align-items: stretch; width: min(320px, 100%); }
+.err-menu a { display: flex; align-items: center; width: 100%; font-size: clamp(12px, 1.05vw, 15px); padding: var(--pad-control-lg); }
+
+.err-foot { margin-top: var(--space-16); display: flex; flex-direction: column; align-items: center; text-align: center; }
+.err-foot .err-art { display: inline-block; text-align: left; }
+.err-foot .rule { margin: 0 0 var(--space-8); }
+.err-foot .err-art { color: var(--text-eyebrow); }
+
+/* /errors/ — the index doubles as the error-handling philosophy table */
+.err-index { display: flex; flex-direction: column; gap: var(--space-2); }
+.err-index a { display: flex; gap: var(--space-6); font-family: var(--font-meta); font-size: var(--text-sm); color: var(--text-secondary); }
+.err-index a:hover, .err-index a:focus-visible { color: var(--text-hover); }
+.err-index b { font-weight: var(--weight-bold); color: var(--text-primary); width: 48px; flex-shrink: 0; }
+
+/* 404 variant switching. without JS only the first variant shows, so the page
+   is never blank and never stacks six of them; with JS all six are hidden and
+   the chosen one is marked [data-on]. Switching on an attribute rather than an
+   inline style matters: these panels lay themselves out with flex, and an
+   inline `display: block` would quietly undo their centring. */
+.err-variant + .err-variant { display: none; }
+.js .err-variant { display: none; }
+.js .err-variant[data-on] { display: block; }
+.js .err-panel--mid[data-on] { display: flex; }

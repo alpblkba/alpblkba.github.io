@@ -3,9 +3,13 @@
   "configurations": [
     {
       "name": "site",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 4321
+      "runtimeExecutable": "/opt/homebrew/bin/zola",
+      "runtimeArgs": [
+        "serve",
+        "--port",
+        "1111"
+      ],
+      "port": 1111
     }
   ]
 }

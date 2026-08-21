@@ -1,0 +1,22 @@
+{# Shared by every error page. `err_code` is the status; `err_home` adds the
+   generic exit for pages whose own CTA is a joke rather than a way out.
+   The id is fictional and regenerated per load — an incident that reproduces
+   every time is not much of an incident. #}
+<footer class="err-foot">
+  <hr class="rule rule--row" />
+  <pre class="err-art">{{ err_code }} incident #<span data-err-id>7f3a91c2</span>
+
+if this page exists, please contact
+the maintainer.
+
+if it doesn't exist, please don't.</pre>
+{% if err_home %}  <p class="err-cta"><a class="ghost" href="/">[ go home ]</a></p>
+{% endif %}  <!-- every status code gets one joke. the whole roster, and the
+       reasoning behind each one, is at /errors/ — not linked from anywhere
+       on purpose. you found it the correct way. --></footer>
+<script>
+  // fictional. nothing is logged; this is a static site.
+  for (const el of document.querySelectorAll('[data-err-id]'))
+    el.textContent = [...crypto.getRandomValues(new Uint8Array(4))]
+      .map((b) => b.toString(16).padStart(2, '0')).join('');
+</script>

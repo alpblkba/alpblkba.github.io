@@ -1,0 +1,28 @@
+<section class="err-variant err-panel--mid" data-err-variant="page-bus-error">
+  <h1 class="err-code err-code--huge">404</h1>
+  <h2 class="err-head">page bus error</h2>
+  <pre class="err-art">the cpu requested an address
+that has not been implemented.</pre>
+  <hr class="rule rule--row" />
+  <pre class="err-art">PC:    0x00000404
+CR2:   0x40404040
+CPU:   0
+CAUSE: PAGE_NOT_PRESENT
+
+instruction:
+    fetch(page)
+
+result:
+    ????????
+
+the MMU suggests:
+    go_home()</pre>
+  <hr class="rule rule--row" />
+  <pre class="err-art err-xref">SIGSEGV claims this is a software problem.
+
+this is obviously hardware.</pre>
+  <pre class="err-art">TLB miss.
+page table miss.
+common sense miss.</pre>
+  <p class="err-cta"><a class="ghost" href="/">[ flush TLB ]</a></p>
+</section>

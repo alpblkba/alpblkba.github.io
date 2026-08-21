@@ -1,0 +1,14 @@
+{# projects.astro #}
+{% extends "base.html" %}
+{% block title %}projects — alpblkba.dev{% endblock title %}
+{% block content %}
+{% for g in config.extra.project_groups %}
+{% <ui.section code={g.num} title={g.title}> %}
+    <div class="rows">
+      {% for p in g.items %}{% if not loop.first %}{{<ui.rule weight="row" />}}{% endif %}
+      {{<ui.project_row kicker={p.kicker} name={p.name} tags={p.tags} text={p.body} href={p.href} />}}
+      {% endfor %}
+    </div>
+{% </ui.section> %}
+{% endfor %}
+{% endblock content %}

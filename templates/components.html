@@ -1,0 +1,66 @@
+{# 1:1 ports of src/components/*.astro. Same props, same computed classes,
+   same emitted markup. Hover/focus states stay in site.css, as they were.
+
+   Tera 2 components are registered globally — no import needed — and they
+   see nothing but their own arguments, so anything from config is passed in
+   by the caller. `body` is the slot variable, hence ProjectRow's `body` prop
+   is spelled `text` here. #}
+
+{# Rule.astro #}
+{% component ui.rule(weight = "row", inset = false) %}<hr class="rule rule--{{ weight }}{% if inset %} rule--inset{% endif %}" />{% endcomponent ui.rule %}
+
+{# Section.astro #}
+{% component ui.section(code, title) %}<section class="section">
+  <div class="section-head">
+    <p class="eyebrow">{{ code }} // {{ title }}</p>
+    <hr class="rule rule--strong" />
+  </div>
+  <div class="section-body">{{ body }}</div>
+</section>{% endcomponent ui.section %}
+
+{# Tag.astro #}
+{% component ui.tag(label) %}<span class="tag">{{ label }}</span>{% endcomponent ui.tag %}
+
+{# TextLink.astro — the bracket and the arrow are type, not icons. #}
+{% component ui.text_link(label, href = "#", arrow = true, bracket = true, external = true, end = false) %}<a class="link{% if end %} link--end{% endif %}" href="{{ href }}"{% if external %} target="_blank" rel="noreferrer"{% endif %}>{% if bracket %}[{% endif %}{{ label }}{% if arrow %} ↗{% endif %}{% if bracket %}]{% endif %}</a>{% endcomponent ui.text_link %}
+
+{# NavLink.astro #}
+{% component ui.navlink(label, href = "#", external = false, current = false) %}<a class="navlink" href="{{ href }}"{% if current %} aria-current="page"{% endif %}{% if external %} target="_blank" rel="noreferrer"{% endif %}>{{ label }}</a>{% endcomponent ui.navlink %}
+
+{# NoteRow.astro — its TextLink is internal, so no target/rel #}
+{% component ui.note_row(date, title, href = "", tag = "", link_label = "read") %}<div class="note-row">
+  <time class="note-date">{{ date }}</time>
+  <span class="note-title">{{ title }}</span>
+  {% if tag %}<span class="note-tag">{{ tag }}</span>{% endif %}
+  {% if href %}<a class="link" href="{{ href }}">[{{ link_label }} ↗]</a>{% endif %}
+</div>{% endcomponent ui.note_row %}
+
+{# ProjectRow.astro #}
+{% component ui.project_row(kicker, name, text, tags = [], href = "", link_label = "source") %}<div class="row">
+  <div class="row-head">
+    <span class="row-kicker">[{{ kicker }}]</span>
+    <span class="row-name">{{ name }}</span>
+    <div class="tags">{% for t in tags %}<span class="tag">{{ t }}</span>{% endfor %}</div>
+    {% if href %}<a class="link link--end" href="{{ href }}" target="_blank" rel="noreferrer">[{{ link_label }} ↗]</a>{% endif %}
+  </div>
+  <p class="row-body">{{ text }}</p>
+</div>{% endcomponent ui.project_row %}
+
+{# MetaRow.astro #}
+{% component ui.meta_row(label, value, href = "", mono = false, wide = false) %}<div class="meta-row{% if wide %} meta-row--wide{% endif %}">
+  <span class="meta-key">{{ label }}</span>
+  {% if href %}<a class="meta-val{% if mono %} meta-val--mono{% endif %}" href="{{ href }}">{{ value }}</a>{% else %}<span class="meta-val{% if mono %} meta-val--mono{% endif %}">{{ value }}</span>{% endif %}
+</div>{% endcomponent ui.meta_row %}
+
+{# TimelineEntry.astro #}
+{% component ui.timeline(role, org = "", when = "", where = "", bullets = []) %}<div class="tl">
+  <div class="tl-head">
+    <span class="tl-role">{{ role }}</span>
+    {% if org %}<span class="tl-org">{{ org }}</span>{% endif %}
+    {% if when %}<span class="tl-when">{{ when }}{% if where %} · {{ where }}{% endif %}</span>{% endif %}
+  </div>
+  {% if bullets | length > 0 %}<ul class="tl-bullets">{% for b in bullets %}<li><span>{{ b }}</span></li>{% endfor %}</ul>{% endif %}
+</div>{% endcomponent ui.timeline %}
+
+{# KeyCap.astro #}
+{% component ui.keycap(text) %}<kbd class="keycap">{{ text }}</kbd>{% endcomponent ui.keycap %}
