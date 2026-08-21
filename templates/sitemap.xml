@@ -1,0 +1,14 @@
+{#- Zola's default sitemap, with one addition: pages carrying
+    extra.sitemap_exclude are left out. The error pages are meant to be found
+    by poking at URLs, not by reading a machine-readable index of them. -#}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for entry in entries %}{% if not entry.extra or not entry.extra.sitemap_exclude %}
+  <url>
+    <loc>{{ entry.permalink }}</loc>
+    {%- if entry.updated %}
+    <lastmod>{{ entry.updated }}</lastmod>
+    {%- endif %}
+  </url>
+{%- endif %}{%- endfor %}
+</urlset>

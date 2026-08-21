@@ -1,0 +1,20 @@
+{#- rss.xml.js. Same channel fields, same item fields, same order, same
+    RFC-822 pubDate. Titles come from extra.list_title, exactly as the old
+    feed read them out of site.js notes[]. -#}
+{%- set notes = get_section(path="notes/_index.md") -%}
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>{{ config.extra.identity.name }} — notes</title>
+    <link>{{ config.base_url }}/notes</link>
+    <description>{{ config.extra.identity.tagline }}</description>
+    <language>en</language>{% for n in notes.pages %}
+    <item>
+      <title>{{ n.extra.list_title }}</title>
+      <link>{{ config.base_url }}/notes/{{ n.slug }}</link>
+      <guid>{{ config.base_url }}/notes/{{ n.slug }}</guid>
+      <pubDate>{{ n.date | date(format="%a, %d %b %Y %H:%M:%S GMT", timezone="UTC") }}</pubDate>
+      <category>{{ n.extra.tag }}</category>
+    </item>{% endfor %}
+  </channel>
+</rss>

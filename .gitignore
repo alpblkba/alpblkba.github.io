@@ -1,17 +1,5 @@
 # build output
-dist/
-# generated types
-.astro/
-
-# dependencies
-node_modules/
-
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
+public/
 
 # environment variables
 .env
@@ -26,5 +14,10 @@ pnpm-debug.log*
 # claude code local settings
 .claude/settings.local.json
 
-# authored background source (11MB PNG) — the generated webp ships instead
-public/images/background.png
+# authored background source (11MB PNG) — the generated jpg ships instead
+static/images/background.png
+
+# leftovers from the astro branch, if you check it out in this working tree
+node_modules/
+dist/
+.astro/

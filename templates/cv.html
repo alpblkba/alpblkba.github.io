@@ -1,0 +1,40 @@
+{# cv.astro #}
+{% extends "base.html" %}
+{% block title %}cv — alpblkba.dev{% endblock title %}
+{% block content %}
+{% set cv = config.extra.cv %}
+{% <ui.section code="01" title="Profile"> %}
+    <div class="prose"><p>{{ cv.lead }}</p><p>{{ cv.profile }}</p></div>
+{% </ui.section> %}
+
+{% <ui.section code="02" title="Experience"> %}
+    <div class="rows">
+      {% for e in cv.experience %}{% if not loop.first %}{{<ui.rule weight="row" />}}{% endif %}
+      {{<ui.timeline role={e.role} org={e.org} when={e.when} where={e.where} bullets={e.bullets} />}}
+      {% endfor %}
+    </div>
+{% </ui.section> %}
+
+{% <ui.section code="03" title="Education"> %}
+    <div class="rows">
+      {% for e in cv.education %}{% if not loop.first %}{{<ui.rule weight="row" />}}{% endif %}
+      {{<ui.timeline role={e.role} org={e.org} when={e.when} where={e.where} bullets={e.bullets} />}}
+      {% endfor %}
+    </div>
+{% </ui.section> %}
+
+{% <ui.section code="04" title="Projects"> %}
+    <div class="rows">
+      {% for e in cv.projects %}{% if not loop.first %}{{<ui.rule weight="row" />}}{% endif %}
+      {{<ui.timeline role={e.role} bullets={e.bullets} />}}
+      {% endfor %}
+    </div>
+{% </ui.section> %}
+
+{% <ui.section code="05" title="Skills"> %}
+    <div class="stack--tight">
+      {% for s in cv.skills %}{{<ui.meta_row label={s[0]} value={s[1]} wide={true} />}}
+      {% endfor %}{{<ui.meta_row label="languages" value={cv.languages} wide={true} mono={true} />}}
+    </div>
+{% </ui.section> %}
+{% endblock content %}

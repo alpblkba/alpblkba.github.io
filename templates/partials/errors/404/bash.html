@@ -1,0 +1,29 @@
+<section class="err-variant err-panel--mid" data-err-variant="bash">
+  <h1 class="err-code err-code--huge">404</h1>
+  <h2 class="err-head">no such file or directory</h2>
+  <pre class="err-art">$ cd /requested/page
+bash: cd: /requested/page: No such file or directory
+
+$ find / -name requested-page
+find: ‘/’: Permission denied
+
+$ sudo find / -name requested-page
+[sudo] password for alp:
+
+Sorry, try again.
+
+$ sudo find / -name requested-page
+Sorry, try again.
+
+$ sudo find / -name requested-page
+sudo: 3 incorrect password attempts
+
+$ curl localhost:404
+404 Not Found
+
+$ reboot
+Permission denied.</pre>
+  <pre class="err-art">I think you should just go home.</pre>
+  {# links home. nothing here invokes sudo, or anything else. #}
+  <p class="err-cta"><a class="ghost" href="/">[ sudo go home ]</a></p>
+</section>

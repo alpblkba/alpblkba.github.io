@@ -1,0 +1,54 @@
+{# Zola always emits a 404.html and GitHub Pages serves it for any missing
+   path. Six personalities ship in the page and one is picked per load —
+   static host, so the roll happens client-side. #}
+{% extends "base.html" %}
+{% block title %}404 — alpblkba.dev{% endblock title %}
+{% block body_class %} class="page-wide"{% endblock body_class %}
+{% block head %}
+    <meta name="robots" content="noindex" />
+    <script>document.documentElement.classList.add('js');</script>
+{% endblock head %}
+{% block content %}
+<main class="err" id="err">
+  {% include "partials/errors/404/sigsegv.html" %}
+  {% include "partials/errors/404/works-on-my-machine.html" %}
+  {% include "partials/errors/404/deprecated.html" %}
+  {% include "partials/errors/404/bash.html" %}
+  {% include "partials/errors/404/feature.html" %}
+  {% include "partials/errors/404/page-bus-error.html" %}
+
+  <script>
+    // All six variants are static markup; nothing is built from the URL.
+    const variants = [...document.querySelectorAll('[data-err-variant]')];
+    const forced = new URLSearchParams(location.search).get('variant');
+    const n = Number.isInteger(+forced) && forced !== null && +forced >= 0 && +forced < variants.length
+      ? +forced
+      : Math.floor(Math.random() * variants.length);
+
+    const show = (i) => variants.forEach((el, k) => el.toggleAttribute('data-on', k === i));
+    show(n);
+
+    // The address bar should read /404, not whatever bogus path was typed.
+    // replaceState rather than a redirect: no second request, no loop, and
+    // the back button still goes where the visitor came from. Refreshing
+    // /404 lands here again anyway — it is a path that does not exist.
+    history.replaceState(null, '', '/404' + (forced === null ? '' : location.search));
+
+    // Back/forward and re-entering the same URL restore the page from bfcache
+    // with the previous variant still shown, because the script never re-runs.
+    // Roll again on restore so every arrival is a fresh one.
+    addEventListener('pageshow', (e) => {
+      if (e.persisted && forced === null) show(Math.floor(Math.random() * variants.length));
+    });
+
+    // "try again" re-rolls without a navigation, so the URL stays clean
+    document.querySelector('[data-err-reload]')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      location.reload();
+    });
+  </script>
+
+  {% set err_code = "404" %}{% set err_home = true %}
+  {% include "partials/errors/incident.html" %}
+</main>
+{% endblock content %}

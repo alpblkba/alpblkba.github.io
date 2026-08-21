@@ -1,74 +1,121 @@
-# v0.3 — alpblkba.dev
+# alpblkba.dev
 
-Drop-in replacement sources for `alpblkba.github.io`, rebuilt on the
-**alpblkba.dev** design system. All content is
-the author's own; the design system supplies only the visual language.
+Personal site. Static, hand-written, no JavaScript build step —
+[Zola](https://www.getzola.org) (a single Rust binary) plus Tera templates.
 
 ## What is here
 
-    src/styles/ds/                design-system tokens (copied, do not edit)
-    src/styles/site.css           the site layer: component classes + note prose
-    src/data/site.js              all page copy in one module
-    src/components/               15 Astro ports of the design-system components
-    src/layouts/BaseLayout.astro  burl plate, glass status bar, panel grid, ctrl+k
-    src/pages/{index,about,projects,notes,music,cv}.astro
-    src/pages/notes/*.astro       the four notes, recovered from d38c3af
-    public/images/portrait.png
-    public/assets/notes/**        38 note figures, recovered from d38c3af
-    public/favicon.svg              the brand chip
-    public/favicon-180.png
+    config.toml                   site config + every line of page copy in [extra]
+    content/                      page shells and the notes, as markdown
+    content/notes/*.md            the five notes
+    templates/base.html           the page frame: plate, scrim, header, footer, ctrl+k
+    templates/components.html     the ten UI components, as Tera 2 components
+    templates/partials/           header, footer, command palette
+    templates/partials/errors/    the six 404 personalities + the incident footer
+    templates/{index,about,projects,notes-list,music,cv,note}.html
+    templates/{404,error,errors-list}.html
+    templates/rss.xml             the feed
+    static/styles/ds/             design-system tokens (vendored, do not edit)
+    static/styles/site.css        the site layer: component classes + note prose
+    static/assets/notes/**        note figures
+    static/images/bg.jpg          the plate
+    static/favicon.svg  static/favicon-180.png  static/pgp.txt
 
-## How to integrate
+## Running it
 
-    git checkout -b v0.3
-    # copy src/ and public/ from this folder over the repo root, then:
-    npm install
-    npm run dev
+    zola serve        # http://127.0.0.1:1111, live reload
+    zola build        # writes ./public
+    zola check        # link check
 
-Nothing outside `src/` and `public/` needs to change —
-`.github/workflows/deploy.yml`, `tsconfig.json` and `.gitignore` are
-untouched. `astro.config.mjs` sets `site` to `https://alpblkba.dev`
-(the custom domain); revert to the `github.io` URL if you are not using it.
+Zola is one binary: `brew install zola`, or grab a release from
+`github.com/getzola/zola/releases`. There is no `node_modules`, no lockfile
+and nothing to `npm install`.
 
-## The notes
+## Where the content lives
 
-The four `src/pages/notes/*.astro` articles were deleted during the template
-experiments and are restored here from commit `d38c3af` — the last commit
-before the redesign. **Prose, code blocks, figures and captions are verbatim.**
-Two of them carried page-scoped `<style>` blocks written for the old light
-theme; those blocks are gone and their class names
-(`.note`, `.note-page`, `.lead`, `.essay-toc`, `.concept-grid`,
-`.command-table`, `.summary`, `.figure-grid`, …) are styled in
-`src/styles/site.css` instead. No sentence was changed.
+Everything the site *says* — identity, nav, contact rows, the about copy, the
+project groups, the whole CV — is in `[extra]` in `config.toml`. The files in
+`content/` are shells that pick a template; they carry no prose. The one
+exception is `content/notes/*.md`, where the note body is the file.
 
-Long-form pages (the notes and the CV) set `data-gloss="lifted"` on
-`<html>` and dim the burl plate to 0.4 — the design system requires both for
-documents that are read end to end.
+Notes carry this front matter:
+
+    +++
+    title = "AES-128 on an iCE40 FPGA"      # heading + <title>
+    date = 2026-07-08                       # sorts the index and the feed
+    [extra]
+    display_date = "08-07-2026"             # what the page actually prints
+    tag = "aes"
+    list_title = "AES-128 on an iCE40 FPGA" # the /notes index and feed title
+    source = "https://github.com/..."       # optional [source ↗] link
+    +++
+
+`list_title` exists because the index and the article are allowed to disagree —
+`aes-dfa-on-fpga` deliberately carries a longer title in the list than on the
+page itself.
+
+Note bodies are HTML rather than markdown syntax. That is intentional: they
+were written that way and are carried over unchanged, and `.prose` in
+`site.css` styles the bare elements.
+
+## Error pages
+
+`404.html` ships all six personalities as static markup and a ten-line script
+picks one per load. Without JavaScript the first one (SIGSEGV) stays visible —
+the CSS hides siblings, not the first child, so the page is never blank and
+never stacks six of them. Force one while working on it:
+
+    /404.html?variant=0     0 sigsegv
+    /404.html?variant=1     1 works on my machine
+    /404.html?variant=2     2 deprecated
+    /404.html?variant=3     3 bash
+    /404.html?variant=4     4 not an error, a feature
+    /404.html?variant=5     5 page bus error
+
+Whatever bogus path was requested, the address bar is rewritten to `/404` with
+`history.replaceState` — no redirect, no extra request, back button intact.
+`/404` is itself a path that does not exist, so refreshing it lands on the same
+page and rolls again.
+
+A static host only ever serves `404.html`, so the other statuses would never be
+reachable. They live at `/400/`, `/418/`, `/503/` and so on — one
+`content/errors/<code>.md` per status, each with `path = "<code>"`, all
+rendered by `templates/error.html`. Adding a status is one new markdown file;
+no template change.
+
+`/errors/` lists the whole roster. Nothing on the site links to it and
+`templates/sitemap.xml` filters out anything carrying `extra.sitemap_exclude`,
+so neither the site nor a crawler will hand it to you — the 404 incident footer
+leaves an HTML comment for whoever reads the source.
+
+Everything on these pages is fictional. Nothing is logged, no IP is recorded,
+no request is counted, and the incident IDs are `crypto.getRandomValues` run in
+the browser.
 
 ## Design-system notes
 
-- `src/styles/ds/` is a verbatim copy of the design system's token sheet.
+- `static/styles/ds/` is a verbatim copy of the design-system token sheet.
   Treat it as vendored: restyle in `site.css`, never in `ds/`.
-- The React component library was **not** shipped into the site — Astro
-  renders static HTML, so each component was ported to an `.astro` file with
-  the same props and the same computed values. Hover, focus and press states
-  moved from JS state to CSS `:hover` / `:focus-visible` rules.
-- Three pieces of behaviour need JS and ship as small inline scripts:
-  the typed hero prompt (26ms/char, click to skip, skipped entirely under
-  `prefers-reduced-motion` and below 900px), and the ctrl+k launcher with
-  `1`…`6` section jumps.
-- There is no logo. The mark is `alpblkba.dev` in the lacquered display face
-  beside one blaze→cyan chip; `public/favicon.svg` is that chip, and
-  `public/favicon-180.png` is the same chip rasterised for browsers and
-  bookmark bars that ignore SVG icons.
-- **The old favicon was seen and deliberately replaced.** `public/favicon.svg`
-  and `public/favicon.ico` on `main` are still the stock Astro logo from
-  `npm create astro` — not your identity — so neither was carried over. If you
-  would rather keep them, drop them back into `public/` and revert the three
-  `<link rel="icon">` lines in `BaseLayout.astro`.
+- Tera 2 components are hygienic — they see only their arguments, never the
+  globals — so anything from `config` is passed in explicitly by the caller.
+- One piece of behaviour needs JS and ships inline at the end of
+  `templates/partials/palette.html`: the ctrl+k launcher with `1`…`7`
+  section jumps.
+- There is no logo. `favicon.svg` is the brand chip and `favicon-180.png`
+  is the same chip rasterised for clients that ignore SVG icons.
 
 ## Fonts
 
-Bodoni Moda, IBM Plex Sans and JetBrains Mono load from Google Fonts via
-`src/styles/ds/tokens/fonts.css`. Self-host them if you would rather not hit
-a third party at runtime.
+JetBrains Mono and Inter load from Google Fonts via
+`static/styles/ds/tokens/fonts.css`. Self-host them if you would rather not
+hit a third party at runtime.
+
+## Deploy
+
+`.github/workflows/deploy.yml` pins a Zola version, verifies the release
+tarball's SHA-256, runs `zola build`, and publishes `./public` to GitHub
+Pages. Bump `ZOLA_VERSION` and `ZOLA_SHA256` together.
+
+## History
+
+The Astro version of this site is preserved on the `astro` branch.

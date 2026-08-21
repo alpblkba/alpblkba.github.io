@@ -1,0 +1,20 @@
+{# NoteLayout.astro. Front-matter contract, unchanged from the .astro version:
+   title, display_date (DD-MM-YYYY), tag, source (optional repo URL) #}
+{% extends "base.html" %}
+{% block title %}{{ page.title }} — alpblkba.dev{% endblock title %}
+{% block content %}
+{% <ui.section code="01" title="Note"> %}
+    <div class="note-head">
+      <div class="note-meta">
+        <time class="note-date">{{ page.extra.display_date }}</time>
+        {% if page.extra.tag %}<span class="tag">{{ page.extra.tag }}</span>{% endif %}
+        {% if page.extra.source %}{{<ui.text_link label="source" href={page.extra.source} end={true} />}}{% endif %}
+      </div>
+      <h1>{{ page.title }}</h1>
+    </div>
+
+    <div class="prose">{{ page.content | safe }}</div>
+
+    <div style="margin-top: var(--space-9)"><a class="ghost" href="/notes">back to notes</a></div>
+{% </ui.section> %}
+{% endblock content %}

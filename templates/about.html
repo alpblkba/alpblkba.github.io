@@ -1,0 +1,26 @@
+{# about.astro #}
+{% extends "base.html" %}
+{% block title %}about — alpblkba.dev{% endblock title %}
+{% block content %}
+{% <ui.section code="01" title="About"> %}
+    <div class="prose">{% for p in config.extra.about %}<p>{{ p }}</p>{% endfor %}</div>
+{% </ui.section> %}
+
+{% <ui.section code="02" title="Now"> %}
+    <div class="stack--tight">
+      {% for x in config.extra.facts %}{{<ui.meta_row label={x.label} value={x.text} />}}
+      {% endfor %}
+    </div>
+{% </ui.section> %}
+
+{% <ui.section code="03" title="Interests"> %}
+    <div class="tags">{% for t in config.extra.interests %}{{<ui.tag label={t} />}}{% endfor %}</div>
+    <div class="stack--tight" style="margin-top: var(--space-7)">
+      {% for d in config.extra.direction %}<div class="meta-row">
+        <span class="meta-key">[{% if loop.index < 10 %}0{% endif %}{{ loop.index }}]</span>
+        <span class="meta-val">{{ d }}</span>
+      </div>
+      {% endfor %}
+    </div>
+{% </ui.section> %}
+{% endblock content %}
