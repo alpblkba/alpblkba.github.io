@@ -78,7 +78,7 @@ source = "https://github.com/alpblkba/hardware-security/tree/main/task4-dfa"
   </p>
   <figure>
   <img
-  src=/assets/notes/aes-dfa-on-fpga/fault-groups.png
+  src=/assets/notes/aes-dfa-on-fpga/fault-groups.webp
   alt="The four DFA fault groups, each a diagonal of the ciphertext state matrix"
   loading="lazy"
   />
@@ -175,7 +175,7 @@ _POS_TO_GROUP = {pos: gi for gi, g in enumerate(GROUPS) for pos in g}</code></pr
   </p>
   <figure>
   <img
-  src=/assets/notes/aes-dfa-on-fpga/calibration-sweep.png
+  src=/assets/notes/aes-dfa-on-fpga/calibration-sweep.webp
   alt="Fault outcome composition against injection intensity, showing usable faults only in a narrow band"
   loading="lazy"
   />

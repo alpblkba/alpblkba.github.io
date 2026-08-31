@@ -454,7 +454,7 @@ git push --force-with-lease</code></pre>
   </blockquote>
   <figure>
   <img
-  src=/assets/notes/how-git-could-have-saved-my-friendship/bib.jpeg
+  src=/assets/notes/how-git-could-have-saved-my-friendship/bib.webp
   loading="lazy"
   />
   <figcaption>

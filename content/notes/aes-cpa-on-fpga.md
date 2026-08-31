@@ -81,7 +81,7 @@ source = "https://github.com/alpblkba/hardware-security/tree/main/task3-cpa"
   </p>
   <figure>
   <img
-  src=/assets/notes/aes-cpa-on-fpga/example-traces-preview.png
+  src=/assets/notes/aes-cpa-on-fpga/example-traces-preview.webp
   alt="Preview of aligned example sensor traces"
   loading="lazy"
   />
@@ -98,7 +98,7 @@ source = "https://github.com/alpblkba/hardware-security/tree/main/task3-cpa"
   </p>
   <figure>
   <img
-  src=/assets/notes/aes-cpa-on-fpga/cpa-byte0-bit1-progress.png
+  src=/assets/notes/aes-cpa-on-fpga/cpa-byte0-bit1-progress.webp
   alt="CPA progress showing the correct key hypothesis separating as more traces are used"
   loading="lazy"
   />
@@ -111,7 +111,7 @@ source = "https://github.com/alpblkba/hardware-security/tree/main/task3-cpa"
   <div class="figure-grid">
   <figure>
   <img
-  src=/assets/notes/aes-cpa-on-fpga/cpa-byte0-bit1-scores.png
+  src=/assets/notes/aes-cpa-on-fpga/cpa-byte0-bit1-scores.webp
   alt="Final CPA scores for all key hypotheses"
   loading="lazy"
   />
@@ -122,7 +122,7 @@ source = "https://github.com/alpblkba/hardware-security/tree/main/task3-cpa"
   </figure>
   <figure>
   <img
-  src=/assets/notes/aes-cpa-on-fpga/cpa-byte0-bit1-correlations.png
+  src=/assets/notes/aes-cpa-on-fpga/cpa-byte0-bit1-correlations.webp
   alt="Sample-wise correlation curves for CPA candidates"
   loading="lazy"
   />
@@ -218,7 +218,7 @@ Sample:        8
 Trace count:   100000</code></pre>
   <figure>
   <img
-  src=/assets/notes/aes-cpa-on-fpga/fpga-byte0-bit4.png
+  src=/assets/notes/aes-cpa-on-fpga/fpga-byte0-bit4.webp
   alt="CPA correlation result for FPGA byte 0 bit 4 using 100000 traces"
   loading="lazy"
   />

@@ -129,7 +129,7 @@ source = "https://github.com/alpblkba/hardware-security/tree/main/task5-voltage-
        4800         23.0                            143</code></pre>
 
   <figure>
-  <img src=/assets/notes/voltage-droop-characterization/a_droop_vs_ro.png alt="Droop depth in TDC codes against the number of enabled ring oscillators, one curve per duty cycle" />
+  <img src=/assets/notes/voltage-droop-characterization/a_droop_vs_ro.webp alt="Droop depth in TDC codes against the number of enabled ring oscillators, one curve per duty cycle" />
   <figcaption>Measured droop depth against enabled oscillator count, with duty cycle as the second axis.</figcaption>
   </figure>
 
@@ -252,7 +252,7 @@ source = "https://github.com/alpblkba/hardware-security/tree/main/task5-voltage-
   </p>
 
   <figure>
-  <img src=/assets/notes/voltage-droop-characterization/b_pfault_vs_droop.png alt="Fault probability against measured integrated droop with a fitted logistic curve" />
+  <img src=/assets/notes/voltage-droop-characterization/b_pfault_vs_droop.webp alt="Fault probability against measured integrated droop with a fitted logistic curve" />
   <figcaption>Measured fault probability against droop, with the logistic fit and its midpoint.</figcaption>
   </figure>
 
@@ -293,7 +293,7 @@ source = "https://github.com/alpblkba/hardware-security/tree/main/task5-voltage-
   </p>
 
   <figure>
-  <img src=/assets/notes/voltage-droop-characterization/c_detector_roc.png alt="Two ROC curves, attack detection at AUC 1.000 and fault detection at AUC 0.500" />
+  <img src=/assets/notes/voltage-droop-characterization/c_detector_roc.webp alt="Two ROC curves, attack detection at AUC 1.000 and fault detection at AUC 0.500" />
   <figcaption>Attack and fault detection results from threshold sweeps at several k values.</figcaption>
   </figure>
 

@@ -16,7 +16,7 @@ list_title = "SRAM Weak PUF Readout on iCE40"
   inventing an artifact.
   </p>
   <figure>
-  <img src=/assets/notes/sram-weak-puf-readout/lattice_iCE40HX8K.jpg alt="Lattice iCE40HX8K board used for the weak SRAM PUF task" />
+  <img src=/assets/notes/sram-weak-puf-readout/lattice_iCE40HX8K.webp alt="Lattice iCE40HX8K board used for the weak SRAM PUF task" />
   <figcaption>The Lattice iCE40HX8K board used for the weak SRAM PUF readout.</figcaption>
   </figure>
 
@@ -119,11 +119,11 @@ list_title = "SRAM Weak PUF Readout on iCE40"
   mistakes while debugging.
   </p>
   <figure>
-  <img src=/assets/notes/sram-weak-puf-readout/build.jpg alt="FPGA build output for the PUF task" />
+  <img src=/assets/notes/sram-weak-puf-readout/build.webp alt="FPGA build output for the PUF task" />
   <figcaption>Build output after synthesizing the PUF readout design.</figcaption>
   </figure>
   <figure>
-  <img src=/assets/notes/sram-weak-puf-readout/alp-makefile.jpg alt="Makefile workflow for the FPGA PUF task" />
+  <img src=/assets/notes/sram-weak-puf-readout/alp-makefile.webp alt="Makefile workflow for the FPGA PUF task" />
   <figcaption>The Makefile used for the build and flashing loop.</figcaption>
   </figure>
 
@@ -163,11 +163,11 @@ list_title = "SRAM Weak PUF Readout on iCE40"
   or high byte of a 16-bit word, and avoid sending the same byte twice.
   </p>
   <figure>
-  <img src=/assets/notes/sram-weak-puf-readout/registers.jpg alt="Registers used inside the PUF readout module" />
+  <img src=/assets/notes/sram-weak-puf-readout/registers.webp alt="Registers used inside the PUF readout module" />
   <figcaption>The internal registers made the readout state explicit.</figcaption>
   </figure>
   <figure>
-  <img src=/assets/notes/sram-weak-puf-readout/byte_index_to_raddr.jpg alt="Byte index to SRAM read address mapping" />
+  <img src=/assets/notes/sram-weak-puf-readout/byte_index_to_raddr.webp alt="Byte index to SRAM read address mapping" />
   <figcaption>The byte index mapped to the SRAM read address.</figcaption>
   </figure>
 
@@ -265,7 +265,7 @@ list_title = "SRAM Weak PUF Readout on iCE40"
   transmitting."
   </p>
   <figure>
-  <img src=/assets/notes/sram-weak-puf-readout/puf_uart_handshake.jpg alt="UART handshake logic for the PUF readout" />
+  <img src=/assets/notes/sram-weak-puf-readout/puf_uart_handshake.webp alt="UART handshake logic for the PUF readout" />
   <figcaption>
   The important part was waiting for ready-high, then confirming
   that the transmitter actually entered the busy phase.
@@ -380,7 +380,7 @@ list_title = "SRAM Weak PUF Readout on iCE40"
   <pre><code>i_r[0] = 0  -&gt;  rdata[7:0]
 i_r[0] = 1  -&gt;  rdata[15:8]</code></pre>
   <figure>
-  <img src=/assets/notes/sram-weak-puf-readout/byte_index_to_raddr.jpg alt="Byte index to SRAM read address mapping" />
+  <img src=/assets/notes/sram-weak-puf-readout/byte_index_to_raddr.webp alt="Byte index to SRAM read address mapping" />
   <figcaption>
   The readout is byte-oriented from the UART perspective, but word-oriented
   from the RAM perspective.
@@ -407,7 +407,7 @@ i_r[0] = 1  -&gt;  rdata[15:8]</code></pre>
   and analysed the PUF response itself.
   </p>
   <figure>
-  <img src=/assets/notes/sram-weak-puf-readout/measurements.jpg alt="Measurements collected from the weak SRAM PUF readout" />
+  <img src=/assets/notes/sram-weak-puf-readout/measurements.webp alt="Measurements collected from the weak SRAM PUF readout" />
   <figcaption>Repeatable measurements after the UART path worked.</figcaption>
   </figure>
 

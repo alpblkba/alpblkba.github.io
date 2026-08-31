@@ -28,7 +28,7 @@ list_title = "AES-128 on an iCE40 FPGA"
   since a correct design is not useful if the simulation path is broken.
   </p>
   <figure>
-  <img src=/assets/notes/aes-on-hardware/aes-state-layout.jpg alt="AES state byte layout" />
+  <img src=/assets/notes/aes-on-hardware/aes-state-layout.webp alt="AES state byte layout" />
   <figcaption>
   AES treats the 128-bit block as a 4x4 byte state. The bytes fill the
   matrix column by column, which matters a lot once the state becomes a
@@ -256,7 +256,7 @@ byte3   byte7   byte11   byte15</code></pre>
   the small iCE40 FPGA.
   </p>
   <figure>
-  <img src=/assets/notes/aes-on-hardware/subbytes-parallel-sboxes.jpg alt="Sixteen parallel AES S-boxes" />
+  <img src=/assets/notes/aes-on-hardware/subbytes-parallel-sboxes.webp alt="Sixteen parallel AES S-boxes" />
   <figcaption>
   The direct implementation pays for sixteen S-boxes so the entire state
   can be substituted in one step.
@@ -271,7 +271,7 @@ byte3   byte7   byte11   byte15</code></pre>
   three bytes.
   </p>
   <figure>
-  <img src=/assets/notes/aes-on-hardware/shiftrows-state.jpg alt="AES ShiftRows permutation" />
+  <img src=/assets/notes/aes-on-hardware/shiftrows-state.webp alt="AES ShiftRows permutation" />
   <figcaption>
   ShiftRows is a fixed byte permutation, but only after the state layout
   has been interpreted correctly.
@@ -306,7 +306,7 @@ byte3   byte7   byte11   byte15</code></pre>
   <pre><code>mul2(x) = xtime(x)
 mul3(x) = xtime(x) ^ x</code></pre>
   <figure>
-  <img src=/assets/notes/aes-on-hardware/xtime-gf-math.jpg alt="AES xtime finite-field multiplication" />
+  <img src=/assets/notes/aes-on-hardware/xtime-gf-math.webp alt="AES xtime finite-field multiplication" />
   <figcaption>
   Multiplication by two becomes a shift and a conditional reduction.
   </figcaption>
@@ -322,7 +322,7 @@ out1 = 01*b0 ^ 02*b1 ^ 03*b2 ^ 01*b3
 out2 = 01*b0 ^ 01*b1 ^ 02*b2 ^ 03*b3
 out3 = 03*b0 ^ 01*b1 ^ 01*b2 ^ 02*b3</code></pre>
   <figure>
-  <img src=/assets/notes/aes-on-hardware/mixcolumns-column-matrix.jpg alt="AES MixColumns matrix" />
+  <img src=/assets/notes/aes-on-hardware/mixcolumns-column-matrix.webp alt="AES MixColumns matrix" />
   <figcaption>
   One state column multiplied by the fixed AES MixColumns matrix.
   </figcaption>
@@ -340,7 +340,7 @@ out3 = 03*b0 ^ 01*b1 ^ 01*b2 ^ 02*b3</code></pre>
   with the current 128-bit round key.
   </p>
   <figure>
-  <img src=/assets/notes/aes-on-hardware/addroundkey-xor.jpg alt="AES AddRoundKey XOR" />
+  <img src=/assets/notes/aes-on-hardware/addroundkey-xor.webp alt="AES AddRoundKey XOR" />
   <figcaption>
   The state and round key are combined with a bitwise XOR.
   </figcaption>
@@ -387,7 +387,7 @@ nw1 = w1 ^ nw0
 nw2 = w2 ^ nw1
 nw3 = w3 ^ nw2</code></pre>
   <figure>
-  <img src=/assets/notes/aes-on-hardware/key-expansion-flow.jpg alt="AES-128 key expansion flow" />
+  <img src=/assets/notes/aes-on-hardware/key-expansion-flow.webp alt="AES-128 key expansion flow" />
   <figcaption>
   RotWord, SubWord, Rcon, and the chained XORs that produce the next
   AES-128 round key.
@@ -434,7 +434,7 @@ FPGA build/programming:
   the design.
   </p>
   <figure>
-  <img src=/assets/notes/aes-on-hardware/makefile-flow.jpg alt="Makefile flow for AES simulation and synthesis" />
+  <img src=/assets/notes/aes-on-hardware/makefile-flow.webp alt="Makefile flow for AES simulation and synthesis" />
   <figcaption>
   The Makefile ended up documenting the working combination of
   simulation, synthesis, place-and-route, timing, and board test steps.
@@ -449,7 +449,7 @@ FPGA build/programming:
   from the beginning.
   </p>
   <figure>
-  <img src=/assets/notes/aes-on-hardware/cocotb-test.jpg alt="Passing cocotb AES tests" />
+  <img src=/assets/notes/aes-on-hardware/cocotb-test.webp alt="Passing cocotb AES tests" />
   <figcaption>
   The final cocotb run covers the individual transformations, key
   expansion, AddRoundKey, and complete AES-128 encryption.
