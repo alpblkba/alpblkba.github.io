@@ -8,24 +8,24 @@ tag = "aes"
 list_title = "AES-128 on an iCE40 FPGA"
 +++
   <p>
-  The second hardware security task was to implement AES-128 on a Lattice
-  iCE40-HX8K FPGA: receive one plaintext block over UART, encrypt it in
-  hardware, and send the ciphertext back to the host.
+  For the second hardware security task, I implemented AES-128 on a Lattice
+  iCE40-HX8K FPGA. The board receives one plaintext block over UART,
+  encrypts it in hardware, and sends the ciphertext back to the host.
   </p>
 
   <p>
-  AES is one of those algorithms that feels almost too familiar from the
-  software side. You pass a key and a block to a function, and a ciphertext
-  appears. On the FPGA, that function call stops being abstract. It becomes
-  registers, lookup tables, byte permutations, finite-field arithmetic, a key
-  schedule, and a controller that must apply every step exactly once.
+  I already knew AES from the software side, where a function accepts a key
+  and a block and returns a ciphertext. The FPGA removed that abstraction.
+  The same operation became registers, lookup tables, byte permutations,
+  finite-field arithmetic, a key schedule, and a controller that had to
+  apply every step exactly once.
   </p>
 
   <p>
-  That was the interesting part of the task. The equations themselves were
-  not the surprise. The surprise was how quickly a clean standard turns into
-  questions about byte order, round ownership, toolchain behavior, and what
-  it really means to say that a block cipher has “finished.”
+  The equations were not where I spent most of the effort. I had to decide
+  how bytes were ordered, which state owned each round operation, and when
+  the block cipher had actually "finished." Toolchain behaviour also mattered,
+  since a correct design is not useful if the simulation path is broken.
   </p>
   <figure>
   <img src=/assets/notes/aes-on-hardware/aes-state-layout.jpg alt="AES state byte layout" />
@@ -36,29 +36,28 @@ list_title = "AES-128 on an iCE40 FPGA"
   </figcaption>
   </figure>
 
-  <h2>what the task does</h2>
+  <h2>What the task does</h2>
 
   <p>
-  The final design accepts a single 128-bit plaintext block through the
+  The final design accepts one 128-bit plaintext block through the
   UART interface provided by the lab framework. The AES core encrypts the
   block with a fixed 128-bit key from the NIST FIPS-197 example, and the
   wrapper sends the 128-bit ciphertext back over the same serial link.
   </p>
 
   <p>
-  I kept the UART wrapper and the cipher core separated. The wrapper is
+  I kept the UART wrapper separate from the cipher core. The wrapper is
   responsible for collecting 16 bytes, starting encryption, waiting for the
   result, and sending 16 bytes back. The AES core only sees a complete
-  plaintext block, a complete key, and a start/reset style control signal.
+  plaintext block, a complete key, and a start/reset-style control signal.
   </p>
 
   <pre><code>WAIT_FOR_PLAIN -&gt; ENCRYPT -&gt; SEND_CIPHER</code></pre>
 
   <p>
-  That separation ended up being important. It allowed the AES datapath to
-  be tested as a block-level design in cocotb before involving serial
-  timing. UART then became a transport layer around an already verified
-  cipher core.
+  I made that separation so I could test the AES datapath as a block-level
+  design in cocotb before involving serial timing. Once those tests passed,
+  UART was only a transport layer around an already verified cipher core.
   </p>
 
   <p>
@@ -89,7 +88,7 @@ top_level.v
                     +-- sbox.v
                     +-- rcon.v</code></pre>
 
-  <h2>why AES is a good FPGA exercise</h2>
+  <h2>Why AES worked as an FPGA exercise</h2>
 
   <p>
   AES is small enough to fit into a lab assignment, but it still forces
@@ -109,12 +108,12 @@ top_level.v
   </p>
 
   <p>
-  This was the useful shift in perspective for me. AES stopped being a
-  black box and became a set of hardware blocks with explicit timing,
-  resource, and byte-order contracts.
+  This implementation stopped AES from being a black box for me. Each
+  operation became a hardware block with explicit timing, resource, and
+  byte-order contracts.
   </p>
 
-  <h2>the AES round structure</h2>
+  <h2>The AES round structure</h2>
 
   <p>
   AES always encrypts 128-bit blocks. This task used AES-128, so the key is
@@ -133,16 +132,16 @@ round 10:       SubBytes
                 AddRoundKey</code></pre>
 
   <p>
-  The final round intentionally skips <code>MixColumns</code>. That is
-  easy to remember while reading the standard, but it becomes a nice source
-  of bugs once a round counter and an FSM are involved.
+  The final round intentionally skips <code>MixColumns</code>. That rule is
+  easy to remember while reading the standard, but a round counter and FSM
+  can still apply it at the wrong time.
   </p>
 
   <p>
-  In the integrated core, most of the interesting questions were not
-  “what does AES do?” but “which round key belongs to this state?”,
-  “when should the round counter advance?”, and “can this state be applied
-  twice if the FSM stays here for an extra cycle?”
+  In the integrated core, I already knew what each AES operation did. The
+  open questions were which round key belonged to the current state, when
+  the counter should advance, and whether an extra FSM cycle could apply an
+  operation twice.
   </p>
 
   <p>
@@ -166,7 +165,7 @@ round 10:
   KEY_ADD
   DONE</code></pre>
 
-  <h2>the NIST vector and the byte-order contract</h2>
+  <h2>The NIST vector and the byte-order contract</h2>
 
   <p>
   The reference test vector came from NIST FIPS-197. The plaintext, key,
@@ -202,13 +201,13 @@ ciphertext:  3925841d02dc09fbdc118597196a0b32</code></pre>
   </p>
 
   <p>
-  Byte-order bugs are annoying because the circuit still behaves cleanly.
-  It still produces 128 bits of output. They are simply the wrong 128 bits.
-  Nothing crashes. The waveform looks reasonable. The only honest judge is
-  the exact test vector.
+  Byte-order bugs are difficult to spot because the circuit still produces
+  128 bits and the waveform can look reasonable. Those 128 bits are simply
+  wrong, with no crash to point at the cause. I therefore used the exact
+  test vector as the deciding check.
   </p>
 
-  <h2>the state layout was the first real trap</h2>
+  <h2>The state layout was the first real trap</h2>
 
   <p>
   AES describes its internal state as a 4x4 byte matrix. The slightly
@@ -223,7 +222,7 @@ byte3   byte7   byte11   byte15</code></pre>
   <p>
   Inside the Verilog modules, byte <code>i</code> is selected with
   <code>state[8*i +: 8]</code>. That convention made local module code
-  simple, but it also meant that the “visual” matrix and the packed
+  simple, but it also meant that the "visual" matrix and the packed
   register were always one mental translation apart.
   </p>
 
@@ -252,9 +251,9 @@ byte3   byte7   byte11   byte15</code></pre>
   state_out[i] = sbox(state_in[i])</code></pre>
 
   <p>
-  This is the direct version. It is easy to inspect and easy to test, but
-  it spends area. On a small iCE40 FPGA, sixteen parallel S-boxes are a
-  real design decision, not a stylistic detail.
+  I chose this direct version because it was easy to inspect and test. It
+  spends area, so sixteen parallel S-boxes were a real design decision on
+  the small iCE40 FPGA.
   </p>
   <figure>
   <img src=/assets/notes/aes-on-hardware/subbytes-parallel-sboxes.jpg alt="Sixteen parallel AES S-boxes" />
@@ -280,10 +279,10 @@ byte3   byte7   byte11   byte15</code></pre>
   </figure>
 
   <p>
-  This looked like the easiest module in the task. That made it a good
-  test of whether the state representation was actually understood. There
-  is no clever arithmetic to hide behind here: either the byte mapping is
-  right, or the whole cipher is wrong.
+  This looked like the easiest module, so I used it to test whether I had
+  understood the state representation. There is no arithmetic to hide a
+  mapping mistake here. If one byte moves to the wrong position, the whole
+  cipher is wrong.
   </p>
 
   <h2>MixColumns: finite-field arithmetic shows up</h2>
@@ -330,9 +329,8 @@ out3 = 03*b0 ^ 01*b1 ^ 01*b2 ^ 02*b3</code></pre>
   </figure>
 
   <p>
-  This was where the datapath started to feel concrete. The equations are
-  compact, but every multiply-by-two and multiply-by-three turns into
-  gates and XOR paths.
+  The equations are compact, but the datapath made their cost visible.
+  Every multiply-by-two and multiply-by-three became gates and XOR paths.
   </p>
 
   <h2>AddRoundKey and the danger of simple operations</h2>
@@ -356,13 +354,12 @@ out3 = 03*b0 ^ 01*b1 ^ 01*b2 ^ 02*b3</code></pre>
   </p>
 
   <p>
-  The core therefore treats AddRoundKey as an operation with clear
-  ownership: enter the state, apply the key once, advance. This is a small
-  implementation detail, but it is exactly the kind of detail that matters
-  when an algorithm becomes sequential hardware.
+  I therefore gave AddRoundKey clear state ownership: enter the state,
+  apply the key once, then advance. Without that rule, a valid operation
+  could quietly undo itself in sequential hardware.
   </p>
 
-  <h2>the key schedule is not supporting code</h2>
+  <h2>The key schedule is part of the datapath</h2>
 
   <p>
   AES-128 expands the original 128-bit cipher key into eleven 128-bit
@@ -398,25 +395,23 @@ nw3 = w3 ^ nw2</code></pre>
   </figure>
 
   <p>
-  I initially thought of key expansion as a helper around the cipher. That
-  is not a great mental model. The key schedule is part of the datapath
-  synchronization problem. Every round transformation can be correct, but
-  an off-by-one round key still makes the final ciphertext useless.
+  I initially treated key expansion as a helper around the cipher. That
+  model failed once I integrated the controller. The key schedule is part
+  of the datapath synchronization problem, since correct round operations
+  still produce a wrong ciphertext with an off-by-one round key.
   </p>
 
   <p>
-  Once the byte order was fixed, this became one of the more satisfying
-  modules to verify. Each generated word visibly follows from the previous
-  word, and the testbench can catch mistakes without needing to run the
-  whole cipher.
+  Once I fixed the byte order, I verified this module independently. Each
+  generated word follows from the previous word, so the testbench could
+  catch schedule mistakes without running the whole cipher.
   </p>
 
-  <h2>toolchain debugging is still debugging</h2>
+  <h2>Toolchain debugging is still debugging</h2>
 
   <p>
-  A good part of the work was not in the AES equations. It was in making
-  sure the tools were actually observing the design I thought they were
-  observing.
+  Much of the work happened outside the AES equations. I first had to make
+  sure the tools were observing the design I thought they were observing.
   </p>
 
   <p>
@@ -434,9 +429,9 @@ FPGA build/programming:
   oss-cad-suite yosys, nextpnr, icetime, icepack, iceprog</code></pre>
 
   <p>
-  This is not part of AES, but it is part of hardware work. Sometimes the
-  circuit is wrong. Sometimes the circuit is fine and the path used to
-  simulate or measure it is broken.
+  This failure was in the simulation path, not the circuit. Separating the
+  two flows let me distinguish a design bug from a broken way of observing
+  the design.
   </p>
   <figure>
   <img src=/assets/notes/aes-on-hardware/makefile-flow.jpg alt="Makefile flow for AES simulation and synthesis" />
@@ -446,12 +441,12 @@ FPGA build/programming:
   </figcaption>
   </figure>
 
-  <h2>verification</h2>
+  <h2>Verification</h2>
 
   <p>
-  I verified the individual transformations before trusting the integrated
-  AES core. This made debugging much less dramatic: a wrong ciphertext did
-  not mean reopening every equation from the beginning.
+  I verified each transformation before trusting the integrated AES core.
+  This let me isolate a wrong ciphertext without reopening every equation
+  from the beginning.
   </p>
   <figure>
   <img src=/assets/notes/aes-on-hardware/cocotb-test.jpg alt="Passing cocotb AES tests" />
@@ -506,11 +501,11 @@ target clock:  12 MHz</code></pre>
   hardware.
   </p>
 
-  <h2>board-level test</h2>
+  <h2>Board-level test</h2>
 
   <p>
-  The last check was the most satisfying one: program the FPGA, send the
-  NIST plaintext over UART, and read back the ciphertext from the board.
+  For the final check, I programmed the FPGA, sent the NIST plaintext over
+  UART, and read the ciphertext back from the board.
   </p>
 
   <pre><code>Using UART device: /dev/cu.usbserial-21401
@@ -521,17 +516,17 @@ AES seems to be working correctly, congratulations!
 Finished</code></pre>
 
   <p>
-  That closes the loop. The design passes module-level simulation, full
-  encryption simulation, FPGA implementation, timing, bitstream generation,
-  and the real UART path on hardware.
+  The design passed module-level simulation, full encryption simulation,
+  FPGA implementation, timing, bitstream generation, and the real UART
+  path on hardware.
   </p>
 
-  <h2>what I learned</h2>
+  <h2>Where the implementation was fragile</h2>
 
   <p>
-  I already knew that AES contains SubBytes, ShiftRows, MixColumns,
-  AddRoundKey, and a key schedule before writing the Verilog. The main
-  lesson was seeing how much hidden structure sits behind those names.
+  I knew that AES contained SubBytes, ShiftRows, MixColumns, AddRoundKey,
+  and a key schedule before writing the Verilog. I did not yet know how
+  much state ownership and byte ordering sat behind those names.
   </p>
 
   <p>
@@ -543,8 +538,7 @@ Finished</code></pre>
   </p>
 
   <p>
-  That is why this was a good hardware security exercise. The
-  cryptographic algorithm had to survive contact with an actual datapath,
-  an FSM, a UART wrapper, a Python reference model, a real FPGA, and a
-  toolchain with opinions.
+  The final design depended on the datapath, FSM, UART wrapper, Python
+  reference model, FPGA, and toolchain agreeing on those contracts. A
+  mismatch in any one of them was enough to return the wrong ciphertext.
   </p>

@@ -8,33 +8,32 @@ tag = "git"
 list_title = "How Git Could Have Saved My Friendship"
 +++
   <p>
-  A practical guide to commits, branches, conflicts, rebasing, recovery,
-  and the uncomfortable similarities between version control
-  and human relationships.
+  I wish I had treated one friendship more like a shared Git history. This
+  note explains commits, branches, conflicts, rebasing, and recovery through
+  the mistakes that made that comparison uncomfortable.
   </p>
 
   <p>
-  Git was designed to coordinate changes in software. It records snapshots,
-  preserves ancestry, exposes conflicts, and gives us tools for recovering
-  from mistakes.
+  Git coordinates changes in software by recording snapshots, preserving
+  ancestry, exposing conflicts, and keeping recovery paths after mistakes.
   </p>
 
   <p>
-  Somewhere along the way, I began to notice that many of its most useful
-  ideas had very little to do with source code.
+  While learning those mechanisms, I kept finding names for failures that
+  had happened outside source code too.
   </p>
 
   <p>
-  This is not a relationship-advice article disguised as a Git tutorial. It
-  is a real Git tutorial, written after learning that humans are
-  considerably worse at version control than computers.
+  The technical details here are real Git behaviour. The friendship is why
+  I remember them, since people keep much worse version histories than
+  computers do.
   </p>
 
   <blockquote>
   <p>
-  <strong>The premise.</strong> Good version control does not prevent
-  change, disagreement, or mistakes. It makes them visible while they
-  are still possible to understand.
+  <strong>The premise.</strong> Good version control cannot prevent change,
+  disagreement, or mistakes. It keeps them visible while there is still
+  enough context to understand them.
   </p>
   </blockquote>
 
@@ -56,10 +55,10 @@ list_title = "How Git Could Have Saved My Friendship"
   <h2 id="history">Git is a model of history</h2>
 
   <p>
-  Before learning commands, it helps to understand what Git is actually
-  storing. Git is not merely a folder of old file versions. It is a
-  content-addressed object database whose commits form a directed acyclic
-  graph.
+  Before learning commands, it helps to understand what Git stores. A
+  repository is a content-addressed object database whose commits form a
+  directed acyclic graph. The folder of working files is one view of that
+  database.
   </p>
 
   <p>
@@ -88,9 +87,9 @@ list_title = "How Git Could Have Saved My Friendship"
 
   <blockquote>
   <p>
-  We often argue about history as though it were a document owned by one
-  person. Git treats it as a graph: shared ancestry, explicit change, and
-  paths that may eventually diverge.
+  I used to argue about history as if one person owned the document. A Git
+  graph keeps the shared ancestry, explicit changes, and eventual divergence
+  in the same record.
   </p>
   </blockquote>
 
@@ -117,9 +116,9 @@ git add path/to/file
 git commit</code></pre>
 
   <p>
-  <code>git add</code> does not merely “tell Git to track a file.” It
-  copies the chosen content into the index, preparing part of the next
-  snapshot.
+  <code>git add</code> copies the chosen content into the index and prepares
+  that exact version for the next snapshot. Tracking a file is only part of
+  what the command does.
   </p>
   <figure>
   <img
@@ -135,18 +134,17 @@ git commit</code></pre>
 
   <blockquote>
   <p>
-  Most friendships do not end because of one catastrophic commit. They
-  accumulate a working tree full of changes that were never inspected,
-  named, or shared.
+  My friendship did not end with one catastrophic commit. It accumulated a
+  working tree full of changes that we never inspected, named, or shared.
   </p>
   </blockquote>
 
   <h2 id="branches">Branches are movable references</h2>
 
   <p>
-  A Git branch is not a separate copy of the project. It is a lightweight
-  name pointing to a commit. As new commits are created, the active branch
-  reference moves forward.
+  A Git branch is a lightweight name pointing to a commit rather than a
+  separate copy of the project. As new commits are created, the active
+  branch reference moves forward.
   </p>
 
   <pre><code>git branch
@@ -182,8 +180,8 @@ git log --oneline --graph --decorate --all</code></pre>
 
   <blockquote>
   <p>
-  Divergence does not mean the shared history was false. It means the same
-  starting point no longer guarantees the same destination.
+  Divergence did not make our shared history false. It meant that the same
+  starting point no longer guaranteed the same destination.
   </p>
   </blockquote>
 
@@ -203,8 +201,8 @@ their version
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; other-branch</code></pre>
 
   <p>
-  The conflict markers are not the conflict itself. They are Git's
-  representation of competing changes that require interpretation.
+  The conflict markers represent competing changes that require
+  interpretation. They only show the location where Git had to stop.
   </p>
 
   <pre><code>git merge other-branch
@@ -228,8 +226,8 @@ git commit</code></pre>
 
   <blockquote>
   <p>
-  A conflict is not Git failing. It is Git refusing to pretend that two
-  incompatible changes are the same change.
+  Git stops at a conflict because two incompatible changes need a human
+  decision. Combining them automatically would hide the disagreement.
   </p>
   </blockquote>
 
@@ -295,15 +293,15 @@ squash d0e1f2 combine related work</code></pre>
 
   <blockquote>
   <p>
-  Editing a private draft is reflection. Rewriting a shared past is
-  something else entirely.
+  Editing a private draft is reflection, while rewriting a shared past
+  changes history that somebody else already depends on.
   </p>
   </blockquote>
 
   <h2 id="undo">Reset, restore, and revert are not synonyms</h2>
 
   <p>
-  Git has several ways to undo work because “undo” can mean several
+  Git has several ways to undo work because "undo" can mean several
   different things.
   </p>
 
@@ -336,8 +334,8 @@ git revert &lt;commit&gt;</code></pre>
 
   <blockquote>
   <p>
-  Some mistakes should remain visible, not because they define us, but
-  because they explain what happened next.
+  Some mistakes should remain visible because they explain what happened
+  next without having to define the person who made them.
   </p>
   </blockquote>
 
@@ -378,8 +376,8 @@ git branch recovered-work &lt;old-commit&gt;</code></pre>
 
   <blockquote>
   <p>
-  Recovery is possible when the evidence still exists. Memory is useful,
-  but it is not the same thing as a shared record.
+  Recovery depends on evidence that still exists. Memory helped me, but it
+  could not replace a shared record.
   </p>
   </blockquote>
 
@@ -418,22 +416,23 @@ git push --force-with-lease</code></pre>
 
   <blockquote>
   <p>
-  You can rewrite your own draft. You cannot safely rewrite a shared
-  history without first knowing what changed for the other person.
+  I can rewrite my own draft. Before changing a shared history, I need to
+  know what changed for the other person.
   </p>
   </blockquote>
 
   <h2 id="conclusion">What Git cannot save</h2>
 
   <p>
-  Git can preserve ancestry, identify divergence, expose conflicting
-  changes, and recover work that appeared to be lost. It can even help a
-  team describe exactly how a system reached its current state.
+  Git preserves ancestry, identifies divergence, exposes conflicting
+  changes, and recovers work that appeared lost. It can also show a team
+  exactly how a system reached its current state.
   </p>
 
   <p>
-  It cannot decide what a person meant. It cannot make an unspoken change
-  visible. It cannot guarantee that two branches still want to merge.
+  Git cannot decide what a person meant, make an unspoken change visible,
+  or guarantee that two branches still want to merge. Those were the parts
+  I needed, and they had never been committed anywhere.
   </p>
   <figure>
   <img
@@ -449,19 +448,16 @@ git push --force-with-lease</code></pre>
 
   <blockquote>
   <p>
-  Good version control does not prevent mistakes. It keeps the sequence
-  of decisions readable after the fact.
+  Good version control cannot prevent mistakes. It keeps the sequence of
+  decisions readable after they happen.
   </p>
   </blockquote>
-  <p>
-  ‎
-  </p>
   <figure>
   <img
   src=/assets/notes/how-git-could-have-saved-my-friendship/bib.jpeg
   loading="lazy"
   />
   <figcaption>
-  Humans don't have <code>git status</code>. That's why good communication matters.
+  Humans don't have <code>git status</code>, so good communication really do matters lol.  
   </figcaption>
   </figure>
