@@ -1,8 +1,8 @@
 # alpblkba.dev — Zola. Everything the site says lives in [extra] below, the
 # same single-source-of-truth the Astro build kept in src/data/site.js.
 base_url = "https://alpblkba.dev"
-title = "alpblkba.dev"
-description = "Alp Bolukbasi — hardware-aware systems engineer, Karlsruhe."
+title = "alpblkba"
+description = "Alp Bolukbasi, hardware-aware systems engineer, Karlsruhe."
 default_language = "en"
 
 compile_sass = false
