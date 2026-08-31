@@ -1,13 +1,10 @@
 {# /errors/ — the index doubles as the error-handling philosophy table.
    Nothing links here from the nav; the 404 page is the way in. #}
 {% extends "base.html" %}
-{% block title %}errors — alpblkba.dev{% endblock title %}
+{% block title %}errors{% endblock title %}
 {% block content %}
 {% <ui.section title="Error Handling Philosophy"> %}
-    <p>every status code gets one joke. these are reachable on purpose —
-    a static host only ever serves <code>404.html</code>, so the rest would
-    otherwise never be seen by anyone. nothing links here and the sitemap
-    leaves them out; you either typed a number or read the source.</p>
+    <p>every status code gets one joke. these are reachable on purpose since a static host only ever serves <code>404.html</code>, so the rest would otherwise never be seen by anyone. nothing links here and the sitemap leaves them out; you either typed a number or read the source.</p>
     <ul class="err-index">
       <li><a href="/404"><b>404</b> make fun of the user</a></li>
       {% for p in section.pages %}<li><a href="{{ p.path }}"><b>{{ p.extra.code }}</b> {{ p.extra.philosophy }}</a></li>
