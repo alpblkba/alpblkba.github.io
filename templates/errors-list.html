@@ -3,25 +3,21 @@
 {% extends "base.html" %}
 {% block title %}errors — alpblkba.dev{% endblock title %}
 {% block content %}
-{% <ui.section code="01" title="Error Handling Philosophy"> %}
-    <div class="prose">
-      <p>every status code gets one joke. these are reachable on purpose —
-      a static host only ever serves <code>404.html</code>, so the rest would
-      otherwise never be seen by anyone. nothing links here and the sitemap
-      leaves them out; you either typed a number or read the source.</p>
-    </div>
-    <div class="err-index" style="margin-top: var(--space-8)">
-      <a href="/404"><b>404</b> make fun of the user</a>
-      {% for p in section.pages %}<a href="{{ p.path }}"><b>{{ p.extra.code }}</b> {{ p.extra.philosophy }}</a>
+{% <ui.section title="Error Handling Philosophy"> %}
+    <p>every status code gets one joke. these are reachable on purpose —
+    a static host only ever serves <code>404.html</code>, so the rest would
+    otherwise never be seen by anyone. nothing links here and the sitemap
+    leaves them out; you either typed a number or read the source.</p>
+    <ul class="err-index">
+      <li><a href="/404"><b>404</b> make fun of the user</a></li>
+      {% for p in section.pages %}<li><a href="{{ p.path }}"><b>{{ p.extra.code }}</b> {{ p.extra.philosophy }}</a></li>
       {% endfor %}
-    </div>
+    </ul>
 {% </ui.section> %}
 
-{% <ui.section code="02" title="Changelog"> %}
-    <div class="prose">
-      <p>the previous maintainer used GitHub Pages’ default 404.</p>
-      <p>this one was compiled locally.</p>
-      <p>progress.</p>
-    </div>
+{% <ui.section title="Changelog"> %}
+    <p>the previous maintainer used GitHub Pages’ default 404.</p>
+    <p>this one was compiled locally.</p>
+    <p>progress.</p>
 {% </ui.section> %}
 {% endblock content %}

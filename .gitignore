@@ -21,3 +21,6 @@ static/images/background.png
 node_modules/
 dist/
 .astro/
+
+# authored image sources + retired chrome; kept out of the build tree
+.assets-src/

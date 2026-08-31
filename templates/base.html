@@ -1,4 +1,3 @@
-{# BaseLayout.astro #}
 <!doctype html>
 <html lang="en">
   <head>
@@ -9,21 +8,14 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon-180.png" />
     <link rel="canonical" href="{{ current_url | default(value=config.base_url) }}" />
+    <link rel="alternate" type="application/rss+xml" title="alpblkba.dev" href="/rss.xml" />
     <link rel="stylesheet" href="/styles/site.css" />
 {% block head %}{% endblock head %}  </head>
   <body{% block body_class %}{% endblock body_class %}>
-    <div class="shell">
-      <img class="plate" src="/images/bg.jpg" alt="" aria-hidden="true" />
-      <div class="plate-scrim"></div>
-      <div class="col">
-        {% include "partials/header.html" %}
-        <hr class="rule rule--divider rule--inset" />
-        <div class="section-pad">
+    {% include "partials/header.html" %}
+    <main>
 {% block content %}{% endblock content %}
-        </div>
-        {% include "partials/footer.html" %}
-      </div>
-    </div>
-    {% include "partials/palette.html" %}
+    </main>
+    {% include "partials/footer.html" %}
   </body>
 </html>

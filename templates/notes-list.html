@@ -2,10 +2,10 @@
 {% extends "base.html" %}
 {% block title %}notes — alpblkba.dev{% endblock title %}
 {% block content %}
-{% <ui.section code="01" title="Notes"> %}
-    <div class="stack">
+{% <ui.section title="Notes"> %}
+    <ul class="rows">
       {% for n in section.pages %}{{<ui.note_row date={n.extra.display_date} title={n.extra.list_title} tag={n.extra.tag} href={"/notes/" ~ n.slug} />}}
       {% endfor %}
-    </div>
+    </ul>
 {% </ui.section> %}
 {% endblock content %}

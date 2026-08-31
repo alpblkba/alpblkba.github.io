@@ -1,19 +1,13 @@
-{# SiteHeader.astro. `current` is derived from the URL instead of being passed
-   down as a prop — /notes/<slug>/ highlights `notes`, / highlights nothing,
-   which is exactly what the .astro pages did by hand. #}
+{# `current` is derived from the URL, not passed down: /notes/<slug>/ marks
+   `notes`, / marks nothing. #}
 {% set current = current_path | default(value="/") | split(pat="/") | nth(n=1) %}
-<header class="content-pad">
-  <div class="head-top">
-    <a class="wordmark" href="/">{{ config.extra.identity.name }}</a>
-    <div class="dot-row">
-      <div class="dot"></div>
-      <span class="dot-label">{{ config.extra.identity.location }}</span>
-    </div>
-  </div>
-  <p class="hero-line">{{ config.extra.identity.line }}</p>
-  <p class="hero-tagline">{{ config.extra.identity.tagline }}</p>
-  <nav class="nav">
+<header>
+  <p><a class="wordmark" href="/">{{ config.extra.identity.name }}</a></p>
+  <p class="dim">{{ config.extra.identity.line }}</p>
+  <p class="dim">{{ config.extra.identity.location }} — <i>{{ config.extra.identity.tagline }}</i></p>
+  <nav>
     {% for item in config.extra.nav %}{{<ui.navlink label={item.label} href={item.href | default(value="/" ~ item.label)} external={item.external | default(value=false)} current={current == item.label} />}}
     {% endfor %}
   </nav>
 </header>
+<hr />

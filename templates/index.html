@@ -2,27 +2,24 @@
 {% extends "base.html" %}
 {% block content %}
 {% set notes = get_section(path="notes/_index.md") %}
-{% <ui.section code="01" title="Selected Work"> %}
-    <div class="rows">
-      {% for p in config.extra.project_groups[0].items %}{% if not loop.first %}{{<ui.rule weight="row" />}}{% endif %}
-      {{<ui.project_row kicker={p.kicker} name={p.name} tags={p.tags} text={p.body} href={p.href} />}}
-      {% endfor %}
-    </div>
-    <div style="margin-top: var(--space-9)"><a class="ghost" href="/projects">all projects</a></div>
+{% <ui.section title="Selected Work"> %}
+    {% for p in config.extra.project_groups[0].items %}{{<ui.project_row kicker={p.kicker} name={p.name} tags={p.tags} text={p.body} href={p.href} />}}
+    {% endfor %}
+    <p><a href="/projects">all projects</a></p>
 {% </ui.section> %}
 
-{% <ui.section code="02" title="Notes"> %}
-    <div class="stack">
+{% <ui.section title="Notes"> %}
+    <ul class="rows">
       {% for n in notes.pages %}{% if loop.index <= 2 %}{{<ui.note_row date={n.extra.display_date} title={n.extra.list_title} tag={n.extra.tag} href={"/notes/" ~ n.slug} />}}{% endif %}
       {% endfor %}
-    </div>
-    <div style="margin-top: var(--space-7)"><a class="ghost" href="/notes">all notes</a></div>
+    </ul>
+    <p><a href="/notes">all notes</a></p>
 {% </ui.section> %}
 
-{% <ui.section code="03" title="Elsewhere"> %}
-    <div class="stack--tight">
-      {% for c in config.extra.contact %}{{<ui.meta_row label={c.k} value={c.v} href={c.href | default(value="")} mono={true} />}}
+{% <ui.section title="Elsewhere"> %}
+    <dl>
+      {% for c in config.extra.contact %}{{<ui.meta_row label={c.k} value={c.v} href={c.href | default(value="")} />}}
       {% endfor %}
-    </div>
+    </dl>
 {% </ui.section> %}
 {% endblock content %}
