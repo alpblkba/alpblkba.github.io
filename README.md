@@ -8,11 +8,13 @@ Personal site. Static, hand-written, no JavaScript build step —
     config.toml                   site config + every line of page copy in [extra]
     content/                      page shells and the notes, as markdown
     content/notes/*.md            the five notes
+    content/projects/*.md         project detail pages (cards still link to repos)
     templates/base.html           the page frame: plate, scrim, header, footer, ctrl+k
     templates/components.html     the ten UI components, as Tera 2 components
     templates/partials/           header, footer, command palette
     templates/partials/errors/    the six 404 personalities + the incident footer
     templates/{index,about,projects,notes-list,music,cv,note}.html
+    templates/project.html        project detail pages
     templates/{404,error,errors-list}.html
     templates/rss.xml             the feed
     static/styles/ds/             design-system tokens (vendored, do not edit)
@@ -36,7 +38,8 @@ and nothing to `npm install`.
 Everything the site *says* — identity, nav, contact rows, the about copy, the
 project groups, the whole CV — is in `[extra]` in `config.toml`. The files in
 `content/` are shells that pick a template; they carry no prose. The one
-exception is `content/notes/*.md`, where the note body is the file.
+exceptions are `content/notes/*.md` and `content/projects/*.md`, where the
+body is the file.
 
 Notes carry this front matter:
 

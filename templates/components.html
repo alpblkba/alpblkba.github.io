@@ -27,8 +27,8 @@
 </li>{% endcomponent ui.note_row %}
 
 {# ProjectRow.astro #}
-{% component ui.project_row(kicker, name, text, tags = [], href = "") %}<article>
-  <h3>{% if href %}<a href="{{ href }}" target="_blank" rel="noreferrer">{{ name }}</a>{% else %}{{ name }}{% endif %}</h3>
+{% component ui.project_row(kicker, name, text, tags = [], href = "", external = true) %}<article>
+  <h3>{% if href %}<a href="{{ href }}"{% if external %} target="_blank" rel="noreferrer"{% endif %}>{{ name }}</a>{% else %}{{ name }}{% endif %}</h3>
   <p class="kicker">{{ kicker }}</p>
   <p>{{ text }}</p>
   {% if tags | length > 0 %}<p class="tags">{% for t in tags %}<span class="tag">{{ t }}</span>{% endfor %}</p>{% endif %}

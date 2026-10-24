@@ -41,7 +41,7 @@ about = [
   "I come from systems and operations: networks, security, DevOps, and infrastructure-flavored engineering. That background made me interested in real systems, failure modes, performance bottlenecks, and the beautiful moment where abstractions stop being polite.",
   "Over time, the rabbit hole pulled me closer to the machine: low-level behavior, memory, hardware-aware software, embedded systems, and computer architecture. I decided to go back to school as a masters student.",
   "These days, I am mostly interested in the boundary between software and hardware: RISC-V, memory systems, FPGA-based prototyping, accelerators, hardware/software co-design, and hardware security.",
-  "I am currently an M.Sc. computer science student at Karlsruhe Institute of Technology (KIT), working as a student assistant at the Chair of Embedded Systems on HLS implementations and hardware accelerators for embedded processors.",
+  "I am currently an M.Sc. computer science student at Karlsruhe Institute of Technology (KIT). Until September 2026 I worked as a student assistant at the Chair of Embedded Systems on HLS implementations and hardware accelerators for embedded processors.",
 ]
 
 music = [
@@ -80,6 +80,13 @@ external = true
 label = "rss"
 href = "/rss.xml"
 
+# Last on purpose: site.css right-aligns the final nav entry. The platform is
+# its own application on its own subdomain, not a page of this site.
+[[extra.nav]]
+label = "opportunities"
+href = "https://opportunities.alpblkba.dev/"
+external = true
+
 [[extra.contact]]
 k = "email"
 v = "hello@alpblkba.dev"
@@ -105,8 +112,8 @@ k = "location"
 v = "Karlsruhe, Germany"
 
 [[extra.facts]]
-label = "now"
-text = "Student assistant, KIT Chair for Embedded Systems (CES)"
+label = "recent"
+text = "Student assistant, KIT Chair for Embedded Systems (CES) — May–Sep 2026"
 
 [[extra.facts]]
 label = "study"
@@ -172,6 +179,14 @@ title = "software / systems utilities"
   href = "https://github.com/alpblkba/alppad"
 
   [[extra.project_groups.items]]
+  kicker = "rust · axum · react"
+  name = "opportunity-platform"
+  tags = ["rust", "axum", "postgres", "react", "docker", "gcp"]
+  body = "Self-hosted opportunity discovery and application-tracking platform built with Rust/Axum, React, and PostgreSQL, deployed on Google Cloud with Docker Compose and Cloudflare."
+  href = "/projects/opportunity-platform/"
+  external = false
+
+  [[extra.project_groups.items]]
   kicker = "rust · ratatui"
   name = "alpnest"
   tags = ["rust", "TUI", "ratatui"]
@@ -193,10 +208,10 @@ skills = [
 [[extra.cv.experience]]
 role = "Student Assistant (HiWi)"
 org = "KIT Chair for Embedded Systems (CES)"
-when = "May 2026 – Present"
+when = "May 2026 – Sep 2026"
 where = "Karlsruhe, Germany"
 bullets = [
-  "Contributing to the Customized Embedded Processors Lab, rewrite focused on HLS-based accelerator development.",
+  "Contributed to the Customized Embedded Processors Lab, rewrite focused on HLS-based accelerator development.",
   "Designed and updated FPGA/HLS lab infrastructure, Vitis/Vivado workflows, hardware/software interfaces, and student-facing documentation.",
   "Worked with Verilog, C, Vitis HLS, Vivado, embedded processors, and reproducible lab bring-up flows.",
 ]
@@ -282,6 +297,14 @@ role = "rv32i-mla — RISC-V / ML Accelerator Playground"
 bullets = [
   "Built a compact hardware/software co-design playground around a custom RV32I-subset processor and a fixed-function 4x4 int8 matrix multiplication accelerator.",
   "Worked across Verilog RTL, FPGA integration, Python board bring-up, and C-side runtime interaction.",
+]
+
+[[extra.cv.projects]]
+role = "Opportunity Platform — Self-Hosted Opportunity Discovery System"
+bullets = [
+  "Built a containerized Rust/Axum and React/TypeScript application backed by PostgreSQL for aggregating and tracking professional, academic, and research opportunities.",
+  "Implemented source verification, explainable lexical matching and ranking, candidate facts, and application review/tracking workflows.",
+  "Deployed with Docker Compose on a Debian Google Compute Engine e2-micro instance behind Cloudflare Tunnel and Cloudflare Access, with a resource-constrained production profile and deployment verification.",
 ]
 
 [[extra.cv.projects]]

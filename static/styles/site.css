@@ -82,6 +82,8 @@ header .wordmark { font-family: var(--mono); font-weight: 700; font-size: 1.15re
 header p { margin: 0 0 .25rem; }
 header nav { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: .25rem 1rem; font-family: var(--mono); font-size: .875rem; }
 header nav a[aria-current] { color: var(--fg); }
+/* the last entry is the one that leaves the site — it sits apart from the rest */
+header nav a:last-child { margin-left: auto; }
 
 .dim { color: var(--dim); font-size: .875rem; }
 footer { margin-top: 3rem; }
@@ -136,3 +138,4 @@ article + article { margin-top: 1.75rem; }
 .js .err-variant { display: none; }
 .js .err-variant[data-on] { display: block; }
 .js .err-panel--mid[data-on] { display: flex; }
+

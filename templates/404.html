@@ -9,7 +9,7 @@
     <script>document.documentElement.classList.add('js');</script>
 {% endblock head %}
 {% block content %}
-<main class="err" id="err">
+<div class="err" id="err">
   {% include "partials/errors/404/sigsegv.html" %}
   {% include "partials/errors/404/works-on-my-machine.html" %}
   {% include "partials/errors/404/deprecated.html" %}
@@ -50,5 +50,5 @@
 
   {% set err_code = "404" %}{% set err_home = true %}
   {% include "partials/errors/incident.html" %}
-</main>
+</div>
 {% endblock content %}

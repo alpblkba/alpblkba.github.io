@@ -4,12 +4,12 @@
 {% block title %}{{ page.title }}{% endblock title %}
 {% block body_class %} class="page-wide"{% endblock body_class %}
 {% block content %}
-<main class="err err-panel--mid">
+<div class="err err-panel--mid">
   <h1 class="err-code err-code--huge">{{ page.extra.code }}</h1>
   <h2 class="err-head">{{ page.extra.heading }}</h2>
   {{ page.content | safe }}
   <p class="err-cta"><a class="ghost" href="/">{{ page.extra.cta }}</a></p>
   {% set err_code = page.extra.code %}{% set err_home = false %}
   {% include "partials/errors/incident.html" %}
-</main>
+</div>
 {% endblock content %}

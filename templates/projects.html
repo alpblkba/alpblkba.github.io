@@ -4,7 +4,7 @@
 {% block content %}
 {% for g in config.extra.project_groups %}
 {% <ui.section title={g.title}> %}
-    {% for p in g.items %}{{<ui.project_row kicker={p.kicker} name={p.name} tags={p.tags} text={p.body} href={p.href} />}}
+    {% for p in g.items %}{{<ui.project_row kicker={p.kicker} name={p.name} tags={p.tags} text={p.body} href={p.href} external={p.external | default(value=true)} />}}
     {% endfor %}
 {% </ui.section> %}
 {% endfor %}
